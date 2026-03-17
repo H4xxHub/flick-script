@@ -1,5 +1,5 @@
 --=============================================
--- H4XX HUB | FLICK AIMBOT (FULL FIX + LOGO + FOV TOGGLE)
+-- H4XX HUB | FLICK AIMBOT (DENGAN WARNA + NO EMOJI)
 -- KEY: flick26h4xx | OWNER: ptur
 --=============================================
 local Players = game:GetService("Players")
@@ -23,7 +23,7 @@ local authenticated = false
 local settings = {
     ESP = {
         Enabled = false,
-        BoxColor = Color3.fromRGB(255, 255, 255),
+        BoxColor = Color3.fromRGB(255, 100, 255),
         OutlineOnly = true,
         BoxThickness = 1.5,
         DistanceEnabled = true,
@@ -37,7 +37,7 @@ local settings = {
         FOV = 150,
         MaxDistance = 300,
         ShowFOV = false,
-        FOVColor = Color3.fromRGB(255, 255, 255),
+        FOVColor = Color3.fromRGB(255, 100, 255),
         FOVRainbow = false,
         TargetPart = "Head",
         Priority = "Closest"
@@ -266,7 +266,7 @@ glassCorner.Parent = keyFrame
 
 local glassStroke = Instance.new("UIStroke")
 glassStroke.Thickness = 2
-glassStroke.Color = Color3.fromRGB(255, 255, 255)
+glassStroke.Color = Color3.fromRGB(255, 100, 255)
 glassStroke.Transparency = 0.3
 glassStroke.Parent = keyFrame
 
@@ -276,7 +276,7 @@ logo.Size = UDim2.new(0, 80, 0, 80)
 logo.Position = UDim2.new(0.5, -40, 0, 20)
 logo.BackgroundTransparency = 1
 logo.Image = "rbxassetid://128768766773988"
-logo.ImageColor3 = Color3.fromRGB(255, 255, 255)
+logo.ImageColor3 = Color3.fromRGB(255, 100, 255)
 logo.Parent = keyFrame
 
 local logoCorner = Instance.new("UICorner")
@@ -288,7 +288,7 @@ local keyTitle = Instance.new("TextLabel")
 keyTitle.Size = UDim2.new(1, 0, 0, 30)
 keyTitle.Position = UDim2.new(0, 0, 0, 110)
 keyTitle.BackgroundTransparency = 1
-keyTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
+keyTitle.TextColor3 = Color3.fromRGB(255, 100, 255)
 keyTitle.Text = "H4XX HUB | FLICK AIMBOT"
 keyTitle.Font = Enum.Font.GothamBold
 keyTitle.TextSize = 18
@@ -327,7 +327,7 @@ inputCorner.Parent = keyInput
 local getKeyBtn = Instance.new("TextButton")
 getKeyBtn.Size = UDim2.new(0.35, 0, 0, 35)
 getKeyBtn.Position = UDim2.new(0.1, 0, 0, 220)
-getKeyBtn.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+getKeyBtn.BackgroundColor3 = Color3.fromRGB(50, 50, 150)
 getKeyBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
 getKeyBtn.Text = "GET KEY"
 getKeyBtn.Font = Enum.Font.GothamBold
@@ -342,7 +342,7 @@ getKeyCorner.Parent = getKeyBtn
 local enterBtn = Instance.new("TextButton")
 enterBtn.Size = UDim2.new(0.35, 0, 0, 35)
 enterBtn.Position = UDim2.new(0.55, 0, 0, 220)
-enterBtn.BackgroundColor3 = Color3.fromRGB(100, 100, 100)
+enterBtn.BackgroundColor3 = Color3.fromRGB(255, 100, 255)
 enterBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
 enterBtn.Text = "ENTER"
 enterBtn.Font = Enum.Font.GothamBold
@@ -357,7 +357,7 @@ enterCorner.Parent = enterBtn
 local destroyBtn = Instance.new("TextButton")
 destroyBtn.Size = UDim2.new(0, 30, 0, 30)
 destroyBtn.Position = UDim2.new(1, -40, 0, 10)
-destroyBtn.BackgroundColor3 = Color3.fromRGB(150, 50, 50)
+destroyBtn.BackgroundColor3 = Color3.fromRGB(200, 50, 50)
 destroyBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
 destroyBtn.Text = "X"
 destroyBtn.Font = Enum.Font.GothamBold
@@ -399,7 +399,7 @@ loadingCorner.Parent = loadingFrame
 
 local loadingStroke = Instance.new("UIStroke")
 loadingStroke.Thickness = 2
-loadingStroke.Color = Color3.fromRGB(255, 255, 255)
+loadingStroke.Color = Color3.fromRGB(255, 100, 255)
 loadingStroke.Transparency = 0.3
 loadingStroke.Parent = loadingFrame
 
@@ -408,7 +408,7 @@ local loadingTitle = Instance.new("TextLabel")
 loadingTitle.Size = UDim2.new(1, 0, 0, 50)
 loadingTitle.Position = UDim2.new(0, 0, 0, 30)
 loadingTitle.BackgroundTransparency = 1
-loadingTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
+loadingTitle.TextColor3 = Color3.fromRGB(255, 100, 255)
 loadingTitle.Text = "TUNGGU SEBENTAR YAA.."
 loadingTitle.Font = Enum.Font.GothamBold
 loadingTitle.TextSize = 22
@@ -422,7 +422,7 @@ spinnerContainer.BackgroundTransparency = 1
 spinnerContainer.Parent = loadingFrame
 
 local dots = {}
-local colors = {Color3.fromRGB(200, 200, 200), Color3.fromRGB(150, 150, 150), Color3.fromRGB(100, 100, 100)}
+local colors = {Color3.fromRGB(255, 100, 255), Color3.fromRGB(200, 100, 255), Color3.fromRGB(150, 100, 255)}
 
 for i = 1, 8 do
     local dot = Instance.new("Frame")
@@ -463,7 +463,7 @@ progressCorner.Parent = progressBar
 
 local progressFill = Instance.new("Frame")
 progressFill.Size = UDim2.new(0, 0, 1, 0)
-progressFill.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+progressFill.BackgroundColor3 = Color3.fromRGB(255, 100, 255)
 progressFill.BorderSizePixel = 0
 progressFill.Parent = progressBar
 
@@ -502,7 +502,7 @@ mainPanelCorner.Parent = mainPanelFrame
 
 local mainPanelStroke = Instance.new("UIStroke")
 mainPanelStroke.Thickness = 2
-mainPanelStroke.Color = Color3.fromRGB(255, 255, 255)
+mainPanelStroke.Color = Color3.fromRGB(255, 100, 255)
 mainPanelStroke.Transparency = 0.3
 mainPanelStroke.Parent = mainPanelFrame
 
@@ -511,7 +511,7 @@ local panelTitle = Instance.new("TextLabel")
 panelTitle.Size = UDim2.new(1, 0, 0, 50)
 panelTitle.Position = UDim2.new(0, 0, 0, 20)
 panelTitle.BackgroundTransparency = 1
-panelTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
+panelTitle.TextColor3 = Color3.fromRGB(255, 100, 255)
 panelTitle.Text = "H4XX HUB"
 panelTitle.Font = Enum.Font.GothamBold
 panelTitle.TextSize = 24
@@ -532,7 +532,7 @@ panelSub.Parent = mainPanelFrame
 local infoScriptBtn = Instance.new("TextButton")
 infoScriptBtn.Size = UDim2.new(0.4, 0, 0, 45)
 infoScriptBtn.Position = UDim2.new(0.1, 0, 0, 120)
-infoScriptBtn.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+infoScriptBtn.BackgroundColor3 = Color3.fromRGB(50, 50, 150)
 infoScriptBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
 infoScriptBtn.Text = "INFO SCRIPT"
 infoScriptBtn.Font = Enum.Font.GothamBold
@@ -547,7 +547,7 @@ infoScriptCorner.Parent = infoScriptBtn
 local executeBtn = Instance.new("TextButton")
 executeBtn.Size = UDim2.new(0.4, 0, 0, 45)
 executeBtn.Position = UDim2.new(0.5, 0, 0, 120)
-executeBtn.BackgroundColor3 = Color3.fromRGB(100, 100, 100)
+executeBtn.BackgroundColor3 = Color3.fromRGB(255, 100, 255)
 executeBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
 executeBtn.Text = "EXECUTE"
 executeBtn.Font = Enum.Font.GothamBold
@@ -562,7 +562,7 @@ executeCorner.Parent = executeBtn
 local panelDestroyBtn = Instance.new("TextButton")
 panelDestroyBtn.Size = UDim2.new(0, 30, 0, 30)
 panelDestroyBtn.Position = UDim2.new(1, -40, 0, 10)
-panelDestroyBtn.BackgroundColor3 = Color3.fromRGB(150, 50, 50)
+panelDestroyBtn.BackgroundColor3 = Color3.fromRGB(200, 50, 50)
 panelDestroyBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
 panelDestroyBtn.Text = "X"
 panelDestroyBtn.Font = Enum.Font.GothamBold
@@ -593,7 +593,7 @@ infoPanelCorner.Parent = infoPanelFrame
 
 local infoPanelStroke = Instance.new("UIStroke")
 infoPanelStroke.Thickness = 2
-infoPanelStroke.Color = Color3.fromRGB(255, 255, 255)
+infoPanelStroke.Color = Color3.fromRGB(255, 100, 255)
 infoPanelStroke.Transparency = 0.3
 infoPanelStroke.Parent = infoPanelFrame
 
@@ -602,7 +602,7 @@ local infoTitle = Instance.new("TextLabel")
 infoTitle.Size = UDim2.new(1, 0, 0, 40)
 infoTitle.Position = UDim2.new(0, 0, 0, 15)
 infoTitle.BackgroundTransparency = 1
-infoTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
+infoTitle.TextColor3 = Color3.fromRGB(255, 100, 255)
 infoTitle.Text = "INFORMASI SCRIPT"
 infoTitle.Font = Enum.Font.GothamBold
 infoTitle.TextSize = 20
@@ -614,7 +614,7 @@ infoContent.Size = UDim2.new(0.9, 0, 0, 160)
 infoContent.Position = UDim2.new(0.05, 0, 0, 60)
 infoContent.BackgroundColor3 = Color3.fromRGB(30, 30, 40)
 infoContent.BackgroundTransparency = 0.3
-infoContent.TextColor3 = Color3.fromRGB(200, 200, 200)
+infoContent.TextColor3 = Color3.fromRGB(200, 200, 255)
 infoContent.Text = [[
 OWNER: ptur
 DISCORD: https://discord.gg/ZxN4uDEgP
@@ -655,7 +655,7 @@ kembaliCorner.Parent = kembaliBtn
 local infoDestroyBtn = Instance.new("TextButton")
 infoDestroyBtn.Size = UDim2.new(0, 30, 0, 30)
 infoDestroyBtn.Position = UDim2.new(1, -40, 0, 10)
-infoDestroyBtn.BackgroundColor3 = Color3.fromRGB(150, 50, 50)
+infoDestroyBtn.BackgroundColor3 = Color3.fromRGB(200, 50, 50)
 infoDestroyBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
 infoDestroyBtn.Text = "X"
 infoDestroyBtn.Font = Enum.Font.GothamBold
@@ -701,7 +701,7 @@ local titleText = Instance.new("TextLabel")
 titleText.Size = UDim2.new(1, -80, 1, 0)
 titleText.Position = UDim2.new(0, 15, 0, 0)
 titleText.BackgroundTransparency = 1
-titleText.TextColor3 = Color3.fromRGB(255, 255, 255)
+titleText.TextColor3 = Color3.fromRGB(255, 100, 255)
 titleText.Text = "H4XX HUB | FLICK AIMBOT"
 titleText.Font = Enum.Font.GothamBold
 titleText.TextSize = 16
@@ -725,7 +725,7 @@ minCorner.Parent = minBtn
 local closeBtn = Instance.new("TextButton")
 closeBtn.Size = UDim2.new(0, 30, 0, 30)
 closeBtn.Position = UDim2.new(1, -35, 0, 5)
-closeBtn.BackgroundColor3 = Color3.fromRGB(150, 50, 50)
+closeBtn.BackgroundColor3 = Color3.fromRGB(200, 50, 50)
 closeBtn.TextColor3 = Color3.new(1, 1, 1)
 closeBtn.Text = "X"
 closeBtn.Font = Enum.Font.GothamBold
@@ -797,7 +797,7 @@ local espContent = Instance.new("ScrollingFrame")
 espContent.Size = UDim2.new(1, 0, 1, 0)
 espContent.BackgroundTransparency = 1
 espContent.ScrollBarThickness = 5
-espContent.ScrollBarImageColor3 = Color3.fromRGB(200, 200, 200)
+espContent.ScrollBarImageColor3 = Color3.fromRGB(255, 100, 255)
 espContent.CanvasSize = UDim2.new(0, 0, 0, 350)
 espContent.Visible = true
 espContent.Parent = contentFrame
@@ -807,7 +807,7 @@ local aimContent = Instance.new("ScrollingFrame")
 aimContent.Size = UDim2.new(1, 0, 1, 0)
 aimContent.BackgroundTransparency = 1
 aimContent.ScrollBarThickness = 5
-aimContent.ScrollBarImageColor3 = Color3.fromRGB(200, 200, 200)
+aimContent.ScrollBarImageColor3 = Color3.fromRGB(255, 100, 255)
 aimContent.CanvasSize = UDim2.new(0, 0, 0, 450)
 aimContent.Visible = false
 aimContent.Parent = contentFrame
@@ -817,7 +817,7 @@ local localContent = Instance.new("ScrollingFrame")
 localContent.Size = UDim2.new(1, 0, 1, 0)
 localContent.BackgroundTransparency = 1
 localContent.ScrollBarThickness = 5
-localContent.ScrollBarImageColor3 = Color3.fromRGB(200, 200, 200)
+localContent.ScrollBarImageColor3 = Color3.fromRGB(255, 100, 255)
 localContent.CanvasSize = UDim2.new(0, 0, 0, 300)
 localContent.Visible = false
 localContent.Parent = contentFrame
@@ -844,7 +844,7 @@ espToggleCorner.Parent = espToggle
 local espIndicator = Instance.new("Frame")
 espIndicator.Size = UDim2.new(0, 20, 0, 20)
 espIndicator.Position = UDim2.new(1, -30, 0.5, -10)
-espIndicator.BackgroundColor3 = Color3.fromRGB(100, 100, 100)
+espIndicator.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
 espIndicator.BorderSizePixel = 0
 espIndicator.Parent = espToggle
 
@@ -870,7 +870,7 @@ local thicknessValue = Instance.new("TextLabel")
 thicknessValue.Size = UDim2.new(0, 40, 0, 25)
 thicknessValue.Position = UDim2.new(0.5, 0, 0, espY)
 thicknessValue.BackgroundTransparency = 1
-thicknessValue.TextColor3 = Color3.fromRGB(200, 200, 200)
+thicknessValue.TextColor3 = Color3.fromRGB(0, 255, 100)
 thicknessValue.Text = "1.5"
 thicknessValue.Font = Enum.Font.GothamBold
 thicknessValue.TextSize = 16
@@ -924,7 +924,7 @@ distToggleCorner.Parent = distToggle
 local distIndicator = Instance.new("Frame")
 distIndicator.Size = UDim2.new(0, 20, 0, 20)
 distIndicator.Position = UDim2.new(1, -30, 0.5, -10)
-distIndicator.BackgroundColor3 = Color3.fromRGB(100, 100, 100)
+distIndicator.BackgroundColor3 = Color3.fromRGB(0, 255, 0)
 distIndicator.BorderSizePixel = 0
 distIndicator.Parent = distToggle
 
@@ -952,7 +952,7 @@ snapToggleCorner.Parent = snapToggle
 local snapIndicator = Instance.new("Frame")
 snapIndicator.Size = UDim2.new(0, 20, 0, 20)
 snapIndicator.Position = UDim2.new(1, -30, 0.5, -10)
-snapIndicator.BackgroundColor3 = Color3.fromRGB(100, 100, 100)
+snapIndicator.BackgroundColor3 = Color3.fromRGB(0, 255, 0)
 snapIndicator.BorderSizePixel = 0
 snapIndicator.Parent = snapToggle
 
@@ -1008,7 +1008,7 @@ rainbowToggleCorner.Parent = rainbowToggle
 local rainbowIndicator = Instance.new("Frame")
 rainbowIndicator.Size = UDim2.new(0, 20, 0, 20)
 rainbowIndicator.Position = UDim2.new(1, -30, 0.5, -10)
-rainbowIndicator.BackgroundColor3 = Color3.fromRGB(100, 100, 100)
+rainbowIndicator.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
 rainbowIndicator.BorderSizePixel = 0
 rainbowIndicator.Parent = rainbowToggle
 
@@ -1040,7 +1040,7 @@ aimToggleCorner.Parent = aimToggle
 local aimIndicator = Instance.new("Frame")
 aimIndicator.Size = UDim2.new(0, 20, 0, 20)
 aimIndicator.Position = UDim2.new(1, -30, 0.5, -10)
-aimIndicator.BackgroundColor3 = Color3.fromRGB(100, 100, 100)
+aimIndicator.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
 aimIndicator.BorderSizePixel = 0
 aimIndicator.Parent = aimToggle
 
@@ -1096,7 +1096,7 @@ fovToggleCorner.Parent = fovToggle
 local fovIndicator = Instance.new("Frame")
 fovIndicator.Size = UDim2.new(0, 20, 0, 20)
 fovIndicator.Position = UDim2.new(1, -30, 0.5, -10)
-fovIndicator.BackgroundColor3 = Color3.fromRGB(100, 100, 100)
+fovIndicator.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
 fovIndicator.BorderSizePixel = 0
 fovIndicator.Parent = fovToggle
 
@@ -1130,7 +1130,7 @@ local fovValue = Instance.new("TextLabel")
 fovValue.Size = UDim2.new(0, 40, 0, 25)
 fovValue.Position = UDim2.new(0.5, 0, 0, 0)
 fovValue.BackgroundTransparency = 1
-fovValue.TextColor3 = Color3.fromRGB(200, 200, 200)
+fovValue.TextColor3 = Color3.fromRGB(0, 255, 100)
 fovValue.Text = tostring(settings.Aimbot.FOV)
 fovValue.Font = Enum.Font.GothamBold
 fovValue.TextSize = 16
@@ -1174,7 +1174,7 @@ fovSlider.Parent = fovControls
 
 local fovFill = Instance.new("Frame")
 fovFill.Size = UDim2.new(settings.Aimbot.FOV/500, 0, 1, 0)
-fovFill.BackgroundColor3 = Color3.fromRGB(200, 200, 200)
+fovFill.BackgroundColor3 = Color3.fromRGB(255, 100, 255)
 fovFill.BorderSizePixel = 0
 fovFill.Parent = fovSlider
 
@@ -1191,16 +1191,18 @@ fovColorLabel.TextXAlignment = Enum.TextXAlignment.Left
 fovColorLabel.Parent = fovControls
 
 local colors = {
-    {name = "White", color = Color3.fromRGB(255, 255, 255)},
-    {name = "Gray", color = Color3.fromRGB(150, 150, 150)},
-    {name = "Dark Gray", color = Color3.fromRGB(80, 80, 80)},
-    {name = "Light Gray", color = Color3.fromRGB(200, 200, 200)}
+    {name = "Pink", color = Color3.fromRGB(255, 100, 255)},
+    {name = "Red", color = Color3.fromRGB(255, 0, 0)},
+    {name = "Blue", color = Color3.fromRGB(0, 100, 255)},
+    {name = "Green", color = Color3.fromRGB(0, 255, 0)},
+    {name = "Yellow", color = Color3.fromRGB(255, 255, 0)},
+    {name = "Cyan", color = Color3.fromRGB(0, 255, 255)}
 }
 
 for i, colorData in ipairs(colors) do
     local btn = Instance.new("TextButton")
     btn.Size = UDim2.new(0, 45, 0, 25)
-    btn.Position = UDim2.new(0.45 + ((i-1) * 0.12), 0, 0, 60)
+    btn.Position = UDim2.new(0.45 + ((i-1) * 0.09), 0, 0, 60)
     btn.BackgroundColor3 = colorData.color
     btn.Text = ""
     btn.Parent = fovControls
@@ -1215,7 +1217,7 @@ for i, colorData in ipairs(colors) do
         fovFill.BackgroundColor3 = colorData.color
         settings.Aimbot.FOVRainbow = false
         TweenService:Create(fovRainbowIndicator, TweenInfo.new(0.2), {
-            BackgroundColor3 = Color3.fromRGB(100, 100, 100)
+            BackgroundColor3 = Color3.fromRGB(255, 0, 0)
         }):Play()
     end)
 end
@@ -1238,7 +1240,7 @@ fovRainbowCorner.Parent = fovRainbowToggle
 local fovRainbowIndicator = Instance.new("Frame")
 fovRainbowIndicator.Size = UDim2.new(0, 20, 0, 20)
 fovRainbowIndicator.Position = UDim2.new(1, -30, 0.5, -10)
-fovRainbowIndicator.BackgroundColor3 = Color3.fromRGB(100, 100, 100)
+fovRainbowIndicator.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
 fovRainbowIndicator.BorderSizePixel = 0
 fovRainbowIndicator.Parent = fovRainbowToggle
 
@@ -1264,7 +1266,7 @@ local distValue = Instance.new("TextLabel")
 distValue.Size = UDim2.new(0, 40, 0, 25)
 distValue.Position = UDim2.new(0.5, 0, 0, aimY)
 distValue.BackgroundTransparency = 1
-distValue.TextColor3 = Color3.fromRGB(200, 200, 200)
+distValue.TextColor3 = Color3.fromRGB(0, 255, 100)
 distValue.Text = tostring(settings.Aimbot.MaxDistance)
 distValue.Font = Enum.Font.GothamBold
 distValue.TextSize = 16
@@ -1310,7 +1312,7 @@ distSlider.Parent = aimContent
 
 local distFill = Instance.new("Frame")
 distFill.Size = UDim2.new(settings.Aimbot.MaxDistance/1000, 0, 1, 0)
-distFill.BackgroundColor3 = Color3.fromRGB(200, 200, 200)
+distFill.BackgroundColor3 = Color3.fromRGB(255, 100, 255)
 distFill.BorderSizePixel = 0
 distFill.Parent = distSlider
 
@@ -1336,7 +1338,7 @@ local wsValue = Instance.new("TextLabel")
 wsValue.Size = UDim2.new(0, 40, 0, 25)
 wsValue.Position = UDim2.new(0.5, 0, 0, localY)
 wsValue.BackgroundTransparency = 1
-wsValue.TextColor3 = Color3.fromRGB(200, 200, 200)
+wsValue.TextColor3 = Color3.fromRGB(0, 255, 100)
 wsValue.Text = "16"
 wsValue.Font = Enum.Font.GothamBold
 wsValue.TextSize = 16
@@ -1376,7 +1378,7 @@ localY = localY + spacing
 local wsReset = Instance.new("TextButton")
 wsReset.Size = UDim2.new(0.9, 0, 0, 30)
 wsReset.Position = UDim2.new(0.05, 0, 0, localY)
-wsReset.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+wsReset.BackgroundColor3 = Color3.fromRGB(50, 50, 150)
 wsReset.TextColor3 = Color3.new(1, 1, 1)
 wsReset.Text = "RESET SPEED (16)"
 wsReset.Font = Enum.Font.GothamBold
@@ -1399,7 +1401,7 @@ wsSlider.Parent = localContent
 
 local wsFill = Instance.new("Frame")
 wsFill.Size = UDim2.new(16/500, 0, 1, 0)
-wsFill.BackgroundColor3 = Color3.fromRGB(200, 200, 200)
+wsFill.BackgroundColor3 = Color3.fromRGB(0, 255, 100)
 wsFill.BorderSizePixel = 0
 wsFill.Parent = wsSlider
 
@@ -1423,7 +1425,7 @@ infJumpToggleCorner.Parent = infJumpToggle
 local infJumpIndicator = Instance.new("Frame")
 infJumpIndicator.Size = UDim2.new(0, 20, 0, 20)
 infJumpIndicator.Position = UDim2.new(1, -30, 0.5, -10)
-infJumpIndicator.BackgroundColor3 = Color3.fromRGB(100, 100, 100)
+infJumpIndicator.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
 infJumpIndicator.BorderSizePixel = 0
 infJumpIndicator.Parent = infJumpToggle
 
@@ -1451,7 +1453,7 @@ noclipToggleCorner.Parent = noclipToggle
 local noclipIndicator = Instance.new("Frame")
 noclipIndicator.Size = UDim2.new(0, 20, 0, 20)
 noclipIndicator.Position = UDim2.new(1, -30, 0.5, -10)
-noclipIndicator.BackgroundColor3 = Color3.fromRGB(100, 100, 100)
+noclipIndicator.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
 noclipIndicator.BorderSizePixel = 0
 noclipIndicator.Parent = noclipToggle
 
@@ -1494,35 +1496,35 @@ localTab.MouseButton1Click:Connect(function() switchTab("Local") end)
 espToggle.MouseButton1Click:Connect(function()
     settings.ESP.Enabled = not settings.ESP.Enabled
     TweenService:Create(espIndicator, TweenInfo.new(0.2), {
-        BackgroundColor3 = settings.ESP.Enabled and Color3.fromRGB(150, 150, 150) or Color3.fromRGB(50, 50, 50)
+        BackgroundColor3 = settings.ESP.Enabled and Color3.fromRGB(0, 255, 0) or Color3.fromRGB(255, 0, 0)
     }):Play()
 end)
 
 distToggle.MouseButton1Click:Connect(function()
     settings.ESP.DistanceEnabled = not settings.ESP.DistanceEnabled
     TweenService:Create(distIndicator, TweenInfo.new(0.2), {
-        BackgroundColor3 = settings.ESP.DistanceEnabled and Color3.fromRGB(150, 150, 150) or Color3.fromRGB(50, 50, 50)
+        BackgroundColor3 = settings.ESP.DistanceEnabled and Color3.fromRGB(0, 255, 0) or Color3.fromRGB(255, 0, 0)
     }):Play()
 end)
 
 snapToggle.MouseButton1Click:Connect(function()
     settings.ESP.SnaplineEnabled = not settings.ESP.SnaplineEnabled
     TweenService:Create(snapIndicator, TweenInfo.new(0.2), {
-        BackgroundColor3 = settings.ESP.SnaplineEnabled and Color3.fromRGB(150, 150, 150) or Color3.fromRGB(50, 50, 50)
+        BackgroundColor3 = settings.ESP.SnaplineEnabled and Color3.fromRGB(0, 255, 0) or Color3.fromRGB(255, 0, 0)
     }):Play()
 end)
 
 rainbowToggle.MouseButton1Click:Connect(function()
     settings.ESP.RainbowEnabled = not settings.ESP.RainbowEnabled
     TweenService:Create(rainbowIndicator, TweenInfo.new(0.2), {
-        BackgroundColor3 = settings.ESP.RainbowEnabled and Color3.fromRGB(150, 150, 150) or Color3.fromRGB(50, 50, 50)
+        BackgroundColor3 = settings.ESP.RainbowEnabled and Color3.fromRGB(0, 255, 0) or Color3.fromRGB(255, 0, 0)
     }):Play()
 end)
 
 aimToggle.MouseButton1Click:Connect(function()
     settings.Aimbot.Enabled = not settings.Aimbot.Enabled
     TweenService:Create(aimIndicator, TweenInfo.new(0.2), {
-        BackgroundColor3 = settings.Aimbot.Enabled and Color3.fromRGB(150, 150, 150) or Color3.fromRGB(50, 50, 50)
+        BackgroundColor3 = settings.Aimbot.Enabled and Color3.fromRGB(0, 255, 0) or Color3.fromRGB(255, 0, 0)
     }):Play()
 end)
 
@@ -1531,21 +1533,21 @@ fovToggle.MouseButton1Click:Connect(function()
     fovCircle.Visible = settings.Aimbot.ShowFOV
     fovControls.Visible = settings.Aimbot.ShowFOV
     TweenService:Create(fovIndicator, TweenInfo.new(0.2), {
-        BackgroundColor3 = settings.Aimbot.ShowFOV and Color3.fromRGB(150, 150, 150) or Color3.fromRGB(50, 50, 50)
+        BackgroundColor3 = settings.Aimbot.ShowFOV and Color3.fromRGB(0, 255, 0) or Color3.fromRGB(255, 0, 0)
     }):Play()
 end)
 
 infJumpToggle.MouseButton1Click:Connect(function()
     toggleInfJump()
     TweenService:Create(infJumpIndicator, TweenInfo.new(0.2), {
-        BackgroundColor3 = settings.Local.InfJump and Color3.fromRGB(150, 150, 150) or Color3.fromRGB(50, 50, 50)
+        BackgroundColor3 = settings.Local.InfJump and Color3.fromRGB(0, 255, 0) or Color3.fromRGB(255, 0, 0)
     }):Play()
 end)
 
 noclipToggle.MouseButton1Click:Connect(function()
     toggleNoclip()
     TweenService:Create(noclipIndicator, TweenInfo.new(0.2), {
-        BackgroundColor3 = settings.Local.Noclip and Color3.fromRGB(150, 150, 150) or Color3.fromRGB(50, 50, 50)
+        BackgroundColor3 = settings.Local.Noclip and Color3.fromRGB(0, 255, 0) or Color3.fromRGB(255, 0, 0)
     }):Play()
 end)
 
@@ -1629,7 +1631,7 @@ end)
 fovRainbowToggle.MouseButton1Click:Connect(function()
     settings.Aimbot.FOVRainbow = not settings.Aimbot.FOVRainbow
     TweenService:Create(fovRainbowIndicator, TweenInfo.new(0.2), {
-        BackgroundColor3 = settings.Aimbot.FOVRainbow and Color3.fromRGB(150, 150, 150) or Color3.fromRGB(50, 50, 50)
+        BackgroundColor3 = settings.Aimbot.FOVRainbow and Color3.fromRGB(0, 255, 0) or Color3.fromRGB(255, 0, 0)
     }):Play()
 end)
 
@@ -1720,7 +1722,7 @@ end)
 getKeyBtn.MouseButton1Click:Connect(function()
     setclipboard("https://discord.gg/ZxN4uDEgP")
     notif.Text = "LINK DISCORD COPIED!"
-    notif.TextColor3 = Color3.fromRGB(150, 150, 150)
+    notif.TextColor3 = Color3.fromRGB(0, 255, 0)
     TweenService:Create(notif, TweenInfo.new(2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {TextTransparency = 1}):Play()
 end)
 
@@ -1771,7 +1773,7 @@ enterBtn.MouseButton1Click:Connect(function()
     if VALID_KEYS[inputKey] then
         -- Key benar
         notif.Text = "KEY BENAR! LOADING..."
-        notif.TextColor3 = Color3.fromRGB(150, 150, 150)
+        notif.TextColor3 = Color3.fromRGB(0, 255, 0)
         
         -- Hide key GUI
         keyGui.Enabled = false
@@ -1818,7 +1820,7 @@ enterBtn.MouseButton1Click:Connect(function()
     else
         -- Key salah
         notif.Text = "KEY SALAH! COBA LAGI"
-        notif.TextColor3 = Color3.fromRGB(200, 100, 100)
+        notif.TextColor3 = Color3.fromRGB(255, 0, 0)
         keyInput.Text = ""
         TweenService:Create(keyInput, TweenInfo.new(0.1), {Position = UDim2.new(0.1, 10, 0, 170)}):Play()
         task.wait(0.1)
