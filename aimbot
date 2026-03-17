@@ -19,11 +19,11 @@ local VALID_KEYS = {
 
 local authenticated = false
 
--- ================== SETTINGS (FOV SHOW FALSE = MUNCUL PAS DI-ON) ==================
+-- ================== SETTINGS ==================
 local settings = {
     ESP = {
         Enabled = false,
-        BoxColor = Color3.fromRGB(255, 100, 255),
+        BoxColor = Color3.fromRGB(255, 255, 255),
         OutlineOnly = true,
         BoxThickness = 1.5,
         DistanceEnabled = true,
@@ -36,8 +36,8 @@ local settings = {
         Enabled = false,
         FOV = 150,
         MaxDistance = 300,
-        ShowFOV = false,        -- <=== FIX: FALSE, JADI MUNCUL PAS DI-ON DOANG
-        FOVColor = Color3.fromRGB(255, 100, 255),
+        ShowFOV = false,
+        FOVColor = Color3.fromRGB(255, 255, 255),
         FOVRainbow = false,
         TargetPart = "Head",
         Priority = "Closest"
@@ -57,7 +57,7 @@ local fovCircle = Drawing.new("Circle")
 fovCircle.Thickness = 2
 fovCircle.NumSides = 100
 fovCircle.Filled = false
-fovCircle.Visible = settings.Aimbot.ShowFOV  -- NGIKUTIN SETTING (MUNCUL PAS ON)
+fovCircle.Visible = settings.Aimbot.ShowFOV
 fovCircle.Color = settings.Aimbot.FOVColor
 
 -- ================== FUNGSI CREATE ESP ==================
@@ -237,7 +237,7 @@ local function toggleNoclip()
     end
 end
 
--- ================== KEY SYSTEM GUI (DENGAN LOGO) ==================
+-- ================== KEY SYSTEM GUI ==================
 local keyGui = Instance.new("ScreenGui")
 keyGui.Name = "H4xxHub_KeySystem"
 keyGui.Parent = CoreGui
@@ -266,17 +266,17 @@ glassCorner.Parent = keyFrame
 
 local glassStroke = Instance.new("UIStroke")
 glassStroke.Thickness = 2
-glassStroke.Color = Color3.fromRGB(255, 100, 255)
+glassStroke.Color = Color3.fromRGB(255, 255, 255)
 glassStroke.Transparency = 0.3
 glassStroke.Parent = keyFrame
 
--- LOGO (FIX: PAKE RBXASSETID)
+-- LOGO
 local logo = Instance.new("ImageLabel")
 logo.Size = UDim2.new(0, 80, 0, 80)
 logo.Position = UDim2.new(0.5, -40, 0, 20)
 logo.BackgroundTransparency = 1
 logo.Image = "rbxassetid://128768766773988"
-logo.ImageColor3 = Color3.fromRGB(255, 100, 255)
+logo.ImageColor3 = Color3.fromRGB(255, 255, 255)
 logo.Parent = keyFrame
 
 local logoCorner = Instance.new("UICorner")
@@ -288,7 +288,7 @@ local keyTitle = Instance.new("TextLabel")
 keyTitle.Size = UDim2.new(1, 0, 0, 30)
 keyTitle.Position = UDim2.new(0, 0, 0, 110)
 keyTitle.BackgroundTransparency = 1
-keyTitle.TextColor3 = Color3.fromRGB(255, 100, 255)
+keyTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
 keyTitle.Text = "H4XX HUB | FLICK AIMBOT"
 keyTitle.Font = Enum.Font.GothamBold
 keyTitle.TextSize = 18
@@ -327,7 +327,7 @@ inputCorner.Parent = keyInput
 local getKeyBtn = Instance.new("TextButton")
 getKeyBtn.Size = UDim2.new(0.35, 0, 0, 35)
 getKeyBtn.Position = UDim2.new(0.1, 0, 0, 220)
-getKeyBtn.BackgroundColor3 = Color3.fromRGB(50, 50, 150)
+getKeyBtn.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
 getKeyBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
 getKeyBtn.Text = "GET KEY"
 getKeyBtn.Font = Enum.Font.GothamBold
@@ -342,7 +342,7 @@ getKeyCorner.Parent = getKeyBtn
 local enterBtn = Instance.new("TextButton")
 enterBtn.Size = UDim2.new(0.35, 0, 0, 35)
 enterBtn.Position = UDim2.new(0.55, 0, 0, 220)
-enterBtn.BackgroundColor3 = Color3.fromRGB(255, 100, 255)
+enterBtn.BackgroundColor3 = Color3.fromRGB(100, 100, 100)
 enterBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
 enterBtn.Text = "ENTER"
 enterBtn.Font = Enum.Font.GothamBold
@@ -357,7 +357,7 @@ enterCorner.Parent = enterBtn
 local destroyBtn = Instance.new("TextButton")
 destroyBtn.Size = UDim2.new(0, 30, 0, 30)
 destroyBtn.Position = UDim2.new(1, -40, 0, 10)
-destroyBtn.BackgroundColor3 = Color3.fromRGB(255, 50, 50)
+destroyBtn.BackgroundColor3 = Color3.fromRGB(150, 50, 50)
 destroyBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
 destroyBtn.Text = "X"
 destroyBtn.Font = Enum.Font.GothamBold
@@ -373,7 +373,7 @@ local notif = Instance.new("TextLabel")
 notif.Size = UDim2.new(1, 0, 0, 25)
 notif.Position = UDim2.new(0, 0, 0, 265)
 notif.BackgroundTransparency = 1
-notif.TextColor3 = Color3.fromRGB(255, 50, 50)
+notif.TextColor3 = Color3.fromRGB(255, 100, 100)
 notif.Text = ""
 notif.Font = Enum.Font.Gotham
 notif.TextSize = 12
@@ -399,7 +399,7 @@ loadingCorner.Parent = loadingFrame
 
 local loadingStroke = Instance.new("UIStroke")
 loadingStroke.Thickness = 2
-loadingStroke.Color = Color3.fromRGB(255, 100, 255)
+loadingStroke.Color = Color3.fromRGB(255, 255, 255)
 loadingStroke.Transparency = 0.3
 loadingStroke.Parent = loadingFrame
 
@@ -408,7 +408,7 @@ local loadingTitle = Instance.new("TextLabel")
 loadingTitle.Size = UDim2.new(1, 0, 0, 50)
 loadingTitle.Position = UDim2.new(0, 0, 0, 30)
 loadingTitle.BackgroundTransparency = 1
-loadingTitle.TextColor3 = Color3.fromRGB(255, 100, 255)
+loadingTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
 loadingTitle.Text = "TUNGGU SEBENTAR YAA.."
 loadingTitle.Font = Enum.Font.GothamBold
 loadingTitle.TextSize = 22
@@ -422,7 +422,7 @@ spinnerContainer.BackgroundTransparency = 1
 spinnerContainer.Parent = loadingFrame
 
 local dots = {}
-local colors = {Color3.fromRGB(255, 100, 255), Color3.fromRGB(200, 100, 255), Color3.fromRGB(255, 150, 255)}
+local colors = {Color3.fromRGB(200, 200, 200), Color3.fromRGB(150, 150, 150), Color3.fromRGB(100, 100, 100)}
 
 for i = 1, 8 do
     local dot = Instance.new("Frame")
@@ -463,7 +463,7 @@ progressCorner.Parent = progressBar
 
 local progressFill = Instance.new("Frame")
 progressFill.Size = UDim2.new(0, 0, 1, 0)
-progressFill.BackgroundColor3 = Color3.fromRGB(255, 100, 255)
+progressFill.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 progressFill.BorderSizePixel = 0
 progressFill.Parent = progressBar
 
@@ -502,7 +502,7 @@ mainPanelCorner.Parent = mainPanelFrame
 
 local mainPanelStroke = Instance.new("UIStroke")
 mainPanelStroke.Thickness = 2
-mainPanelStroke.Color = Color3.fromRGB(255, 100, 255)
+mainPanelStroke.Color = Color3.fromRGB(255, 255, 255)
 mainPanelStroke.Transparency = 0.3
 mainPanelStroke.Parent = mainPanelFrame
 
@@ -511,7 +511,7 @@ local panelTitle = Instance.new("TextLabel")
 panelTitle.Size = UDim2.new(1, 0, 0, 50)
 panelTitle.Position = UDim2.new(0, 0, 0, 20)
 panelTitle.BackgroundTransparency = 1
-panelTitle.TextColor3 = Color3.fromRGB(255, 100, 255)
+panelTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
 panelTitle.Text = "H4XX HUB"
 panelTitle.Font = Enum.Font.GothamBold
 panelTitle.TextSize = 24
@@ -532,7 +532,7 @@ panelSub.Parent = mainPanelFrame
 local infoScriptBtn = Instance.new("TextButton")
 infoScriptBtn.Size = UDim2.new(0.4, 0, 0, 45)
 infoScriptBtn.Position = UDim2.new(0.1, 0, 0, 120)
-infoScriptBtn.BackgroundColor3 = Color3.fromRGB(50, 50, 150)
+infoScriptBtn.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
 infoScriptBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
 infoScriptBtn.Text = "INFO SCRIPT"
 infoScriptBtn.Font = Enum.Font.GothamBold
@@ -547,7 +547,7 @@ infoScriptCorner.Parent = infoScriptBtn
 local executeBtn = Instance.new("TextButton")
 executeBtn.Size = UDim2.new(0.4, 0, 0, 45)
 executeBtn.Position = UDim2.new(0.5, 0, 0, 120)
-executeBtn.BackgroundColor3 = Color3.fromRGB(255, 100, 255)
+executeBtn.BackgroundColor3 = Color3.fromRGB(100, 100, 100)
 executeBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
 executeBtn.Text = "EXECUTE"
 executeBtn.Font = Enum.Font.GothamBold
@@ -562,7 +562,7 @@ executeCorner.Parent = executeBtn
 local panelDestroyBtn = Instance.new("TextButton")
 panelDestroyBtn.Size = UDim2.new(0, 30, 0, 30)
 panelDestroyBtn.Position = UDim2.new(1, -40, 0, 10)
-panelDestroyBtn.BackgroundColor3 = Color3.fromRGB(255, 50, 50)
+panelDestroyBtn.BackgroundColor3 = Color3.fromRGB(150, 50, 50)
 panelDestroyBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
 panelDestroyBtn.Text = "X"
 panelDestroyBtn.Font = Enum.Font.GothamBold
@@ -593,7 +593,7 @@ infoPanelCorner.Parent = infoPanelFrame
 
 local infoPanelStroke = Instance.new("UIStroke")
 infoPanelStroke.Thickness = 2
-infoPanelStroke.Color = Color3.fromRGB(255, 100, 255)
+infoPanelStroke.Color = Color3.fromRGB(255, 255, 255)
 infoPanelStroke.Transparency = 0.3
 infoPanelStroke.Parent = infoPanelFrame
 
@@ -602,29 +602,29 @@ local infoTitle = Instance.new("TextLabel")
 infoTitle.Size = UDim2.new(1, 0, 0, 40)
 infoTitle.Position = UDim2.new(0, 0, 0, 15)
 infoTitle.BackgroundTransparency = 1
-infoTitle.TextColor3 = Color3.fromRGB(255, 100, 255)
+infoTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
 infoTitle.Text = "INFORMASI SCRIPT"
 infoTitle.Font = Enum.Font.GothamBold
 infoTitle.TextSize = 20
 infoTitle.Parent = infoPanelFrame
 
--- Info Content (KEY UDAH DIHAPUS, OWNER ptur)
+-- Info Content
 local infoContent = Instance.new("TextLabel")
 infoContent.Size = UDim2.new(0.9, 0, 0, 160)
 infoContent.Position = UDim2.new(0.05, 0, 0, 60)
 infoContent.BackgroundColor3 = Color3.fromRGB(30, 30, 40)
 infoContent.BackgroundTransparency = 0.3
-infoContent.TextColor3 = Color3.fromRGB(200, 200, 255)
+infoContent.TextColor3 = Color3.fromRGB(200, 200, 200)
 infoContent.Text = [[
-📌 OWNER: ptur
-📌 DISCORD: https://discord.gg/ZxN4uDEgP
-📌 VERSION: 2.0.0
+OWNER: ptur
+DISCORD: https://discord.gg/ZxN4uDEgP
+VERSION: 2.0.0
 
-🔹 ESP OUTLINE + RAINBOW
-🔹 AIMLOCK FOV (WARNA + RAINBOW)
-🔹 WALKSPEED 500
-🔹 INFINITE JUMP
-🔹 NOCLIP
+ESP OUTLINE + RAINBOW
+AIMLOCK FOV (WARNA + RAINBOW)
+WALKSPEED 500
+INFINITE JUMP
+NOCLIP
 ]]
 infoContent.Font = Enum.Font.Gotham
 infoContent.TextSize = 14
@@ -640,7 +640,7 @@ infoContentCorner.Parent = infoContent
 local kembaliBtn = Instance.new("TextButton")
 kembaliBtn.Size = UDim2.new(0.3, 0, 0, 40)
 kembaliBtn.Position = UDim2.new(0.35, 0, 0, 235)
-kembaliBtn.BackgroundColor3 = Color3.fromRGB(100, 100, 100)
+kembaliBtn.BackgroundColor3 = Color3.fromRGB(80, 80, 80)
 kembaliBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
 kembaliBtn.Text = "KEMBALI"
 kembaliBtn.Font = Enum.Font.GothamBold
@@ -655,7 +655,7 @@ kembaliCorner.Parent = kembaliBtn
 local infoDestroyBtn = Instance.new("TextButton")
 infoDestroyBtn.Size = UDim2.new(0, 30, 0, 30)
 infoDestroyBtn.Position = UDim2.new(1, -40, 0, 10)
-infoDestroyBtn.BackgroundColor3 = Color3.fromRGB(255, 50, 50)
+infoDestroyBtn.BackgroundColor3 = Color3.fromRGB(150, 50, 50)
 infoDestroyBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
 infoDestroyBtn.Text = "X"
 infoDestroyBtn.Font = Enum.Font.GothamBold
@@ -701,8 +701,8 @@ local titleText = Instance.new("TextLabel")
 titleText.Size = UDim2.new(1, -80, 1, 0)
 titleText.Position = UDim2.new(0, 15, 0, 0)
 titleText.BackgroundTransparency = 1
-titleText.TextColor3 = Color3.fromRGB(255, 100, 255)
-titleText.Text = "H4XX HUB | FLICK AIMBOT 🔥"
+titleText.TextColor3 = Color3.fromRGB(255, 255, 255)
+titleText.Text = "H4XX HUB | FLICK AIMBOT"
 titleText.Font = Enum.Font.GothamBold
 titleText.TextSize = 16
 titleText.TextXAlignment = Enum.TextXAlignment.Left
@@ -725,7 +725,7 @@ minCorner.Parent = minBtn
 local closeBtn = Instance.new("TextButton")
 closeBtn.Size = UDim2.new(0, 30, 0, 30)
 closeBtn.Position = UDim2.new(1, -35, 0, 5)
-closeBtn.BackgroundColor3 = Color3.fromRGB(200, 50, 50)
+closeBtn.BackgroundColor3 = Color3.fromRGB(150, 50, 50)
 closeBtn.TextColor3 = Color3.new(1, 1, 1)
 closeBtn.Text = "X"
 closeBtn.Font = Enum.Font.GothamBold
@@ -748,7 +748,7 @@ espTab.Size = UDim2.new(0.33, -4, 1, 0)
 espTab.Position = UDim2.new(0, 0, 0, 0)
 espTab.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
 espTab.TextColor3 = Color3.new(1, 1, 1)
-espTab.Text = "⚡ ESP"
+espTab.Text = "ESP"
 espTab.Font = Enum.Font.GothamBold
 espTab.TextSize = 14
 espTab.Parent = tabsFrame
@@ -762,7 +762,7 @@ aimTab.Size = UDim2.new(0.33, -4, 1, 0)
 aimTab.Position = UDim2.new(0.33, 8, 0, 0)
 aimTab.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
 aimTab.TextColor3 = Color3.new(1, 1, 1)
-aimTab.Text = "🎯 AIMBOT"
+aimTab.Text = "AIMBOT"
 aimTab.Font = Enum.Font.GothamBold
 aimTab.TextSize = 14
 aimTab.Parent = tabsFrame
@@ -776,7 +776,7 @@ localTab.Size = UDim2.new(0.33, -4, 1, 0)
 localTab.Position = UDim2.new(0.66, 16, 0, 0)
 localTab.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
 localTab.TextColor3 = Color3.new(1, 1, 1)
-localTab.Text = "👤 LOCAL"
+localTab.Text = "LOCAL"
 localTab.Font = Enum.Font.GothamBold
 localTab.TextSize = 14
 localTab.Parent = tabsFrame
@@ -797,7 +797,7 @@ local espContent = Instance.new("ScrollingFrame")
 espContent.Size = UDim2.new(1, 0, 1, 0)
 espContent.BackgroundTransparency = 1
 espContent.ScrollBarThickness = 5
-espContent.ScrollBarImageColor3 = Color3.fromRGB(255, 100, 255)
+espContent.ScrollBarImageColor3 = Color3.fromRGB(200, 200, 200)
 espContent.CanvasSize = UDim2.new(0, 0, 0, 350)
 espContent.Visible = true
 espContent.Parent = contentFrame
@@ -807,7 +807,7 @@ local aimContent = Instance.new("ScrollingFrame")
 aimContent.Size = UDim2.new(1, 0, 1, 0)
 aimContent.BackgroundTransparency = 1
 aimContent.ScrollBarThickness = 5
-aimContent.ScrollBarImageColor3 = Color3.fromRGB(255, 100, 255)
+aimContent.ScrollBarImageColor3 = Color3.fromRGB(200, 200, 200)
 aimContent.CanvasSize = UDim2.new(0, 0, 0, 450)
 aimContent.Visible = false
 aimContent.Parent = contentFrame
@@ -817,7 +817,7 @@ local localContent = Instance.new("ScrollingFrame")
 localContent.Size = UDim2.new(1, 0, 1, 0)
 localContent.BackgroundTransparency = 1
 localContent.ScrollBarThickness = 5
-localContent.ScrollBarImageColor3 = Color3.fromRGB(255, 100, 255)
+localContent.ScrollBarImageColor3 = Color3.fromRGB(200, 200, 200)
 localContent.CanvasSize = UDim2.new(0, 0, 0, 300)
 localContent.Visible = false
 localContent.Parent = contentFrame
@@ -844,7 +844,7 @@ espToggleCorner.Parent = espToggle
 local espIndicator = Instance.new("Frame")
 espIndicator.Size = UDim2.new(0, 20, 0, 20)
 espIndicator.Position = UDim2.new(1, -30, 0.5, -10)
-espIndicator.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+espIndicator.BackgroundColor3 = Color3.fromRGB(100, 100, 100)
 espIndicator.BorderSizePixel = 0
 espIndicator.Parent = espToggle
 
@@ -870,7 +870,7 @@ local thicknessValue = Instance.new("TextLabel")
 thicknessValue.Size = UDim2.new(0, 40, 0, 25)
 thicknessValue.Position = UDim2.new(0.5, 0, 0, espY)
 thicknessValue.BackgroundTransparency = 1
-thicknessValue.TextColor3 = Color3.fromRGB(0, 255, 100)
+thicknessValue.TextColor3 = Color3.fromRGB(200, 200, 200)
 thicknessValue.Text = "1.5"
 thicknessValue.Font = Enum.Font.GothamBold
 thicknessValue.TextSize = 16
@@ -924,7 +924,7 @@ distToggleCorner.Parent = distToggle
 local distIndicator = Instance.new("Frame")
 distIndicator.Size = UDim2.new(0, 20, 0, 20)
 distIndicator.Position = UDim2.new(1, -30, 0.5, -10)
-distIndicator.BackgroundColor3 = Color3.fromRGB(0, 255, 0)
+distIndicator.BackgroundColor3 = Color3.fromRGB(100, 100, 100)
 distIndicator.BorderSizePixel = 0
 distIndicator.Parent = distToggle
 
@@ -952,7 +952,7 @@ snapToggleCorner.Parent = snapToggle
 local snapIndicator = Instance.new("Frame")
 snapIndicator.Size = UDim2.new(0, 20, 0, 20)
 snapIndicator.Position = UDim2.new(1, -30, 0.5, -10)
-snapIndicator.BackgroundColor3 = Color3.fromRGB(0, 255, 0)
+snapIndicator.BackgroundColor3 = Color3.fromRGB(100, 100, 100)
 snapIndicator.BorderSizePixel = 0
 snapIndicator.Parent = snapToggle
 
@@ -1008,7 +1008,7 @@ rainbowToggleCorner.Parent = rainbowToggle
 local rainbowIndicator = Instance.new("Frame")
 rainbowIndicator.Size = UDim2.new(0, 20, 0, 20)
 rainbowIndicator.Position = UDim2.new(1, -30, 0.5, -10)
-rainbowIndicator.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+rainbowIndicator.BackgroundColor3 = Color3.fromRGB(100, 100, 100)
 rainbowIndicator.BorderSizePixel = 0
 rainbowIndicator.Parent = rainbowToggle
 
@@ -1040,7 +1040,7 @@ aimToggleCorner.Parent = aimToggle
 local aimIndicator = Instance.new("Frame")
 aimIndicator.Size = UDim2.new(0, 20, 0, 20)
 aimIndicator.Position = UDim2.new(1, -30, 0.5, -10)
-aimIndicator.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+aimIndicator.BackgroundColor3 = Color3.fromRGB(100, 100, 100)
 aimIndicator.BorderSizePixel = 0
 aimIndicator.Parent = aimToggle
 
@@ -1096,7 +1096,7 @@ fovToggleCorner.Parent = fovToggle
 local fovIndicator = Instance.new("Frame")
 fovIndicator.Size = UDim2.new(0, 20, 0, 20)
 fovIndicator.Position = UDim2.new(1, -30, 0.5, -10)
-fovIndicator.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+fovIndicator.BackgroundColor3 = Color3.fromRGB(100, 100, 100)
 fovIndicator.BorderSizePixel = 0
 fovIndicator.Parent = fovToggle
 
@@ -1130,7 +1130,7 @@ local fovValue = Instance.new("TextLabel")
 fovValue.Size = UDim2.new(0, 40, 0, 25)
 fovValue.Position = UDim2.new(0.5, 0, 0, 0)
 fovValue.BackgroundTransparency = 1
-fovValue.TextColor3 = Color3.fromRGB(0, 255, 100)
+fovValue.TextColor3 = Color3.fromRGB(200, 200, 200)
 fovValue.Text = tostring(settings.Aimbot.FOV)
 fovValue.Font = Enum.Font.GothamBold
 fovValue.TextSize = 16
@@ -1174,7 +1174,7 @@ fovSlider.Parent = fovControls
 
 local fovFill = Instance.new("Frame")
 fovFill.Size = UDim2.new(settings.Aimbot.FOV/500, 0, 1, 0)
-fovFill.BackgroundColor3 = Color3.fromRGB(255, 100, 255)
+fovFill.BackgroundColor3 = Color3.fromRGB(200, 200, 200)
 fovFill.BorderSizePixel = 0
 fovFill.Parent = fovSlider
 
@@ -1191,18 +1191,16 @@ fovColorLabel.TextXAlignment = Enum.TextXAlignment.Left
 fovColorLabel.Parent = fovControls
 
 local colors = {
-    {name = "Pink", color = Color3.fromRGB(255, 100, 255)},
-    {name = "Red", color = Color3.fromRGB(255, 0, 0)},
-    {name = "Blue", color = Color3.fromRGB(0, 100, 255)},
-    {name = "Green", color = Color3.fromRGB(0, 255, 0)},
-    {name = "Yellow", color = Color3.fromRGB(255, 255, 0)},
-    {name = "Cyan", color = Color3.fromRGB(0, 255, 255)}
+    {name = "White", color = Color3.fromRGB(255, 255, 255)},
+    {name = "Gray", color = Color3.fromRGB(150, 150, 150)},
+    {name = "Dark Gray", color = Color3.fromRGB(80, 80, 80)},
+    {name = "Light Gray", color = Color3.fromRGB(200, 200, 200)}
 }
 
 for i, colorData in ipairs(colors) do
     local btn = Instance.new("TextButton")
     btn.Size = UDim2.new(0, 45, 0, 25)
-    btn.Position = UDim2.new(0.45 + ((i-1) * 0.09), 0, 0, 60)
+    btn.Position = UDim2.new(0.45 + ((i-1) * 0.12), 0, 0, 60)
     btn.BackgroundColor3 = colorData.color
     btn.Text = ""
     btn.Parent = fovControls
@@ -1217,7 +1215,7 @@ for i, colorData in ipairs(colors) do
         fovFill.BackgroundColor3 = colorData.color
         settings.Aimbot.FOVRainbow = false
         TweenService:Create(fovRainbowIndicator, TweenInfo.new(0.2), {
-            BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+            BackgroundColor3 = Color3.fromRGB(100, 100, 100)
         }):Play()
     end)
 end
@@ -1240,7 +1238,7 @@ fovRainbowCorner.Parent = fovRainbowToggle
 local fovRainbowIndicator = Instance.new("Frame")
 fovRainbowIndicator.Size = UDim2.new(0, 20, 0, 20)
 fovRainbowIndicator.Position = UDim2.new(1, -30, 0.5, -10)
-fovRainbowIndicator.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+fovRainbowIndicator.BackgroundColor3 = Color3.fromRGB(100, 100, 100)
 fovRainbowIndicator.BorderSizePixel = 0
 fovRainbowIndicator.Parent = fovRainbowToggle
 
@@ -1266,7 +1264,7 @@ local distValue = Instance.new("TextLabel")
 distValue.Size = UDim2.new(0, 40, 0, 25)
 distValue.Position = UDim2.new(0.5, 0, 0, aimY)
 distValue.BackgroundTransparency = 1
-distValue.TextColor3 = Color3.fromRGB(0, 255, 100)
+distValue.TextColor3 = Color3.fromRGB(200, 200, 200)
 distValue.Text = tostring(settings.Aimbot.MaxDistance)
 distValue.Font = Enum.Font.GothamBold
 distValue.TextSize = 16
@@ -1312,7 +1310,7 @@ distSlider.Parent = aimContent
 
 local distFill = Instance.new("Frame")
 distFill.Size = UDim2.new(settings.Aimbot.MaxDistance/1000, 0, 1, 0)
-distFill.BackgroundColor3 = Color3.fromRGB(255, 100, 255)
+distFill.BackgroundColor3 = Color3.fromRGB(200, 200, 200)
 distFill.BorderSizePixel = 0
 distFill.Parent = distSlider
 
@@ -1338,7 +1336,7 @@ local wsValue = Instance.new("TextLabel")
 wsValue.Size = UDim2.new(0, 40, 0, 25)
 wsValue.Position = UDim2.new(0.5, 0, 0, localY)
 wsValue.BackgroundTransparency = 1
-wsValue.TextColor3 = Color3.fromRGB(0, 255, 100)
+wsValue.TextColor3 = Color3.fromRGB(200, 200, 200)
 wsValue.Text = "16"
 wsValue.Font = Enum.Font.GothamBold
 wsValue.TextSize = 16
@@ -1378,7 +1376,7 @@ localY = localY + spacing
 local wsReset = Instance.new("TextButton")
 wsReset.Size = UDim2.new(0.9, 0, 0, 30)
 wsReset.Position = UDim2.new(0.05, 0, 0, localY)
-wsReset.BackgroundColor3 = Color3.fromRGB(50, 50, 150)
+wsReset.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
 wsReset.TextColor3 = Color3.new(1, 1, 1)
 wsReset.Text = "RESET SPEED (16)"
 wsReset.Font = Enum.Font.GothamBold
@@ -1401,7 +1399,7 @@ wsSlider.Parent = localContent
 
 local wsFill = Instance.new("Frame")
 wsFill.Size = UDim2.new(16/500, 0, 1, 0)
-wsFill.BackgroundColor3 = Color3.fromRGB(0, 255, 100)
+wsFill.BackgroundColor3 = Color3.fromRGB(200, 200, 200)
 wsFill.BorderSizePixel = 0
 wsFill.Parent = wsSlider
 
@@ -1425,7 +1423,7 @@ infJumpToggleCorner.Parent = infJumpToggle
 local infJumpIndicator = Instance.new("Frame")
 infJumpIndicator.Size = UDim2.new(0, 20, 0, 20)
 infJumpIndicator.Position = UDim2.new(1, -30, 0.5, -10)
-infJumpIndicator.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+infJumpIndicator.BackgroundColor3 = Color3.fromRGB(100, 100, 100)
 infJumpIndicator.BorderSizePixel = 0
 infJumpIndicator.Parent = infJumpToggle
 
@@ -1453,7 +1451,7 @@ noclipToggleCorner.Parent = noclipToggle
 local noclipIndicator = Instance.new("Frame")
 noclipIndicator.Size = UDim2.new(0, 20, 0, 20)
 noclipIndicator.Position = UDim2.new(1, -30, 0.5, -10)
-noclipIndicator.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+noclipIndicator.BackgroundColor3 = Color3.fromRGB(100, 100, 100)
 noclipIndicator.BorderSizePixel = 0
 noclipIndicator.Parent = noclipToggle
 
@@ -1496,35 +1494,35 @@ localTab.MouseButton1Click:Connect(function() switchTab("Local") end)
 espToggle.MouseButton1Click:Connect(function()
     settings.ESP.Enabled = not settings.ESP.Enabled
     TweenService:Create(espIndicator, TweenInfo.new(0.2), {
-        BackgroundColor3 = settings.ESP.Enabled and Color3.fromRGB(0, 255, 0) or Color3.fromRGB(255, 0, 0)
+        BackgroundColor3 = settings.ESP.Enabled and Color3.fromRGB(150, 150, 150) or Color3.fromRGB(50, 50, 50)
     }):Play()
 end)
 
 distToggle.MouseButton1Click:Connect(function()
     settings.ESP.DistanceEnabled = not settings.ESP.DistanceEnabled
     TweenService:Create(distIndicator, TweenInfo.new(0.2), {
-        BackgroundColor3 = settings.ESP.DistanceEnabled and Color3.fromRGB(0, 255, 0) or Color3.fromRGB(255, 0, 0)
+        BackgroundColor3 = settings.ESP.DistanceEnabled and Color3.fromRGB(150, 150, 150) or Color3.fromRGB(50, 50, 50)
     }):Play()
 end)
 
 snapToggle.MouseButton1Click:Connect(function()
     settings.ESP.SnaplineEnabled = not settings.ESP.SnaplineEnabled
     TweenService:Create(snapIndicator, TweenInfo.new(0.2), {
-        BackgroundColor3 = settings.ESP.SnaplineEnabled and Color3.fromRGB(0, 255, 0) or Color3.fromRGB(255, 0, 0)
+        BackgroundColor3 = settings.ESP.SnaplineEnabled and Color3.fromRGB(150, 150, 150) or Color3.fromRGB(50, 50, 50)
     }):Play()
 end)
 
 rainbowToggle.MouseButton1Click:Connect(function()
     settings.ESP.RainbowEnabled = not settings.ESP.RainbowEnabled
     TweenService:Create(rainbowIndicator, TweenInfo.new(0.2), {
-        BackgroundColor3 = settings.ESP.RainbowEnabled and Color3.fromRGB(0, 255, 0) or Color3.fromRGB(255, 0, 0)
+        BackgroundColor3 = settings.ESP.RainbowEnabled and Color3.fromRGB(150, 150, 150) or Color3.fromRGB(50, 50, 50)
     }):Play()
 end)
 
 aimToggle.MouseButton1Click:Connect(function()
     settings.Aimbot.Enabled = not settings.Aimbot.Enabled
     TweenService:Create(aimIndicator, TweenInfo.new(0.2), {
-        BackgroundColor3 = settings.Aimbot.Enabled and Color3.fromRGB(0, 255, 0) or Color3.fromRGB(255, 0, 0)
+        BackgroundColor3 = settings.Aimbot.Enabled and Color3.fromRGB(150, 150, 150) or Color3.fromRGB(50, 50, 50)
     }):Play()
 end)
 
@@ -1533,21 +1531,21 @@ fovToggle.MouseButton1Click:Connect(function()
     fovCircle.Visible = settings.Aimbot.ShowFOV
     fovControls.Visible = settings.Aimbot.ShowFOV
     TweenService:Create(fovIndicator, TweenInfo.new(0.2), {
-        BackgroundColor3 = settings.Aimbot.ShowFOV and Color3.fromRGB(0, 255, 0) or Color3.fromRGB(255, 0, 0)
+        BackgroundColor3 = settings.Aimbot.ShowFOV and Color3.fromRGB(150, 150, 150) or Color3.fromRGB(50, 50, 50)
     }):Play()
 end)
 
 infJumpToggle.MouseButton1Click:Connect(function()
     toggleInfJump()
     TweenService:Create(infJumpIndicator, TweenInfo.new(0.2), {
-        BackgroundColor3 = settings.Local.InfJump and Color3.fromRGB(0, 255, 0) or Color3.fromRGB(255, 0, 0)
+        BackgroundColor3 = settings.Local.InfJump and Color3.fromRGB(150, 150, 150) or Color3.fromRGB(50, 50, 50)
     }):Play()
 end)
 
 noclipToggle.MouseButton1Click:Connect(function()
     toggleNoclip()
     TweenService:Create(noclipIndicator, TweenInfo.new(0.2), {
-        BackgroundColor3 = settings.Local.Noclip and Color3.fromRGB(0, 255, 0) or Color3.fromRGB(255, 0, 0)
+        BackgroundColor3 = settings.Local.Noclip and Color3.fromRGB(150, 150, 150) or Color3.fromRGB(50, 50, 50)
     }):Play()
 end)
 
@@ -1631,7 +1629,7 @@ end)
 fovRainbowToggle.MouseButton1Click:Connect(function()
     settings.Aimbot.FOVRainbow = not settings.Aimbot.FOVRainbow
     TweenService:Create(fovRainbowIndicator, TweenInfo.new(0.2), {
-        BackgroundColor3 = settings.Aimbot.FOVRainbow and Color3.fromRGB(0, 255, 0) or Color3.fromRGB(255, 0, 0)
+        BackgroundColor3 = settings.Aimbot.FOVRainbow and Color3.fromRGB(150, 150, 150) or Color3.fromRGB(50, 50, 50)
     }):Play()
 end)
 
@@ -1721,8 +1719,8 @@ end)
 -- ================== KEY SYSTEM FUNCTIONS ==================
 getKeyBtn.MouseButton1Click:Connect(function()
     setclipboard("https://discord.gg/ZxN4uDEgP")
-    notif.Text = "✅ LINK DISCORD COPIED!"
-    notif.TextColor3 = Color3.fromRGB(0, 255, 0)
+    notif.Text = "LINK DISCORD COPIED!"
+    notif.TextColor3 = Color3.fromRGB(150, 150, 150)
     TweenService:Create(notif, TweenInfo.new(2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {TextTransparency = 1}):Play()
 end)
 
@@ -1772,8 +1770,8 @@ enterBtn.MouseButton1Click:Connect(function()
     local inputKey = keyInput.Text
     if VALID_KEYS[inputKey] then
         -- Key benar
-        notif.Text = "✅ KEY BENAR! LOADING..."
-        notif.TextColor3 = Color3.fromRGB(0, 255, 0)
+        notif.Text = "KEY BENAR! LOADING..."
+        notif.TextColor3 = Color3.fromRGB(150, 150, 150)
         
         -- Hide key GUI
         keyGui.Enabled = false
@@ -1819,8 +1817,8 @@ enterBtn.MouseButton1Click:Connect(function()
         
     else
         -- Key salah
-        notif.Text = "❌ KEY SALAH! COBA LAGI"
-        notif.TextColor3 = Color3.fromRGB(255, 0, 0)
+        notif.Text = "KEY SALAH! COBA LAGI"
+        notif.TextColor3 = Color3.fromRGB(200, 100, 100)
         keyInput.Text = ""
         TweenService:Create(keyInput, TweenInfo.new(0.1), {Position = UDim2.new(0.1, 10, 0, 170)}):Play()
         task.wait(0.1)
@@ -1878,11 +1876,11 @@ Players.PlayerRemoving:Connect(function(plr)
     end
 end)
 
--- ================== MAIN LOOP (FOV FIX) ==================
+-- ================== MAIN LOOP ==================
 RunService.RenderStepped:Connect(function()
     if not authenticated then return end
     
-    -- UPDATE FOV CIRCLE (MUNCUL PAS ON DOANG)
+    -- UPDATE FOV CIRCLE
     if settings.Aimbot.ShowFOV then
         fovCircle.Radius = (settings.Aimbot.FOV / 2) * (camera.ViewportSize.Y / 100)
         fovCircle.Position = Vector2.new(camera.ViewportSize.X / 2, camera.ViewportSize.Y / 2)
@@ -1903,3839 +1901,7 @@ RunService.RenderStepped:Connect(function()
         updateESP(plr, drawings)
     end
     
-    -- AIMLOCK 100% NEMPEL (LANGSUNG LOOK, TANPA SMOOTHING)
-    if settings.Aimbot.Enabled then
-        local targets = findTargetsInFOV()
-        
-        if #targets > 0 then
-            local target = targets[1].player
-            local head = targets[1].head
-            
-            if target and target.Character and head then
-                camera.CFrame = CFrame.lookAt(camera.CFrame.Position, head.Position)
-            end
-        end
-    end
-end)
-
--- ================== MINIMIZE ==================
-local minimized = false
-local normalSize = mainFrame.Size
-local minimizedSize = UDim2.new(0, 400, 0, 40)
-
-minBtn.MouseButton1Click:Connect(function()
-    minimized = not minimized
-    if minimized then
-        tabsFrame.Visible = false
-        contentFrame.Visible = false
-        local tween = TweenService:Create(mainFrame, TweenInfo.new(0.3), {Size = minimizedSize})
-        tween:Play()
-        minBtn.Text = "+"
-    else
-        local tween = TweenService:Create(mainFrame, TweenInfo.new(0.3), {Size = normalSize})
-        tween:Play()
-        tween.Completed:Connect(function()
-            tabsFrame.Visible = true
-            contentFrame.Visible = true
-        end)
-        minBtn.Text = "–"
-    end
-end)
-
-closeBtn.MouseButton1Click:Connect(function()
-    gui:Destroy()
-    if fovCircle then fovCircle:Remove() end
-    for _, drawings in pairs(espDrawings) do
-        if drawings.Box then drawings.Box:Remove() end
-        if drawings.Distance then drawings.Distance:Remove() end
-        if drawings.Snapline then drawings.Snapline:Remove() end
-    end
-end)        FOV = 150,
-        MaxDistance = 300,
-        ShowFOV = false,        -- <=== FIX: FALSE, JADI MUNCUL PAS DI-ON DOANG
-        FOVColor = Color3.fromRGB(255, 100, 255),
-        FOVRainbow = false,
-        TargetPart = "Head",
-        Priority = "Closest"
-    },
-    Local = {
-        WalkSpeed = 16,
-        InfJump = false,
-        Noclip = false
-    }
-}
-
-local rainbowSpeed = 0.05
-local espDrawings = {}
-
--- ================== FOV CIRCLE ==================
-local fovCircle = Drawing.new("Circle")
-fovCircle.Thickness = 2
-fovCircle.NumSides = 100
-fovCircle.Filled = false
-fovCircle.Visible = settings.Aimbot.ShowFOV  -- NGIKUTIN SETTING (MUNCUL PAS ON)
-fovCircle.Color = settings.Aimbot.FOVColor
-
--- ================== FUNGSI CREATE ESP ==================
-local function createESP(plr)
-    if plr == player then return end
-    
-    local drawings = {
-        Box = Drawing.new("Square"),
-        Distance = Drawing.new("Text"),
-        Snapline = Drawing.new("Line")
-    }
-    
-    drawings.Box.Thickness = settings.ESP.BoxThickness
-    drawings.Box.Filled = false
-    drawings.Box.Color = settings.ESP.BoxColor
-    drawings.Box.Visible = false
-    
-    drawings.Distance.Size = 14
-    drawings.Distance.Center = true
-    drawings.Distance.Color = settings.ESP.DistanceColor
-    drawings.Distance.Visible = false
-    
-    drawings.Snapline.Thickness = 1.5
-    drawings.Snapline.Color = settings.ESP.BoxColor
-    drawings.Snapline.Visible = false
-    
-    espDrawings[plr] = drawings
-end
-
--- ================== FUNGSI UPDATE ESP ==================
-local function updateESP(plr, drawings)
-    if not settings.ESP.Enabled or not plr.Character then
-        for _, d in pairs(drawings) do d.Visible = false end
-        return
-    end
-    
-    local humanoid = plr.Character:FindFirstChildOfClass("Humanoid")
-    local head = plr.Character:FindFirstChild("Head")
-    local root = plr.Character:FindFirstChild("HumanoidRootPart")
-    
-    if not humanoid or humanoid.Health <= 0 or not head or not root then
-        for _, d in pairs(drawings) do d.Visible = false end
-        return
-    end
-    
-    local headPos, onScreen = camera:WorldToViewportPoint(head.Position)
-    local rootPos = camera:WorldToViewportPoint(root.Position)
-    
-    if not onScreen then
-        for _, d in pairs(drawings) do d.Visible = false end
-        return
-    end
-    
-    local distance = (head.Position - camera.CFrame.Position).Magnitude
-    local scale = 1000 / distance
-    local boxHeight = scale * 2.2
-    local boxWidth = scale * 1.6
-    
-    drawings.Box.Size = Vector2.new(boxWidth, boxHeight)
-    drawings.Box.Position = Vector2.new(headPos.X - boxWidth/2, headPos.Y - boxHeight/2)
-    
-    if settings.ESP.RainbowEnabled then
-        local hue = (tick() * rainbowSpeed) % 1
-        drawings.Box.Color = Color3.fromHSV(hue, 1, 1)
-        drawings.Snapline.Color = Color3.fromHSV(hue, 1, 1)
-    else
-        drawings.Box.Color = settings.ESP.BoxColor
-        drawings.Snapline.Color = settings.ESP.BoxColor
-    end
-    
-    drawings.Box.Visible = true
-    
-    if settings.ESP.DistanceEnabled then
-        drawings.Distance.Text = math.floor(distance) .. "m"
-        drawings.Distance.Position = Vector2.new(headPos.X, headPos.Y + boxHeight/2 + 15)
-        drawings.Distance.Visible = true
-    else
-        drawings.Distance.Visible = false
-    end
-    
-    if settings.ESP.SnaplineEnabled then
-        local targetY
-        if settings.ESP.SnaplinePosition == "Bottom" then
-            targetY = camera.ViewportSize.Y
-        elseif settings.ESP.SnaplinePosition == "Top" then
-            targetY = 0
-        else
-            targetY = camera.ViewportSize.Y / 2
-        end
-        
-        drawings.Snapline.From = Vector2.new(rootPos.X, rootPos.Y)
-        drawings.Snapline.To = Vector2.new(camera.ViewportSize.X/2, targetY)
-        drawings.Snapline.Visible = true
-    else
-        drawings.Snapline.Visible = false
-    end
-end
-
--- ================== FUNGSI FIND TARGETS DALAM FOV ==================
-local function findTargetsInFOV()
-    local targets = {}
-    local fov = settings.Aimbot.FOV
-    local center = Vector2.new(camera.ViewportSize.X / 2, camera.ViewportSize.Y / 2)
-    local fovRadius = (fov / 2) * (camera.ViewportSize.Y / 100)
-    
-    for _, plr in pairs(Players:GetPlayers()) do
-        if plr ~= player and plr.Character and plr.Character:FindFirstChild("Head") then
-            local head = plr.Character.Head
-            local headPos, onScreen = camera:WorldToViewportPoint(head.Position)
-            
-            if onScreen then
-                local screenPos = Vector2.new(headPos.X, headPos.Y)
-                local distFromCenter = (screenPos - center).Magnitude
-                
-                if distFromCenter <= fovRadius then
-                    local distance = (camera.CFrame.Position - head.Position).Magnitude
-                    if distance <= settings.Aimbot.MaxDistance then
-                        local direction = (head.Position - camera.CFrame.Position).Unit
-                        local ray = Ray.new(camera.CFrame.Position, direction * 500)
-                        local hit, _ = workspace:FindPartOnRay(ray, player.Character)
-                        
-                        if hit and hit:IsDescendantOf(plr.Character) then
-                            table.insert(targets, {
-                                player = plr,
-                                distance = distance,
-                                angle = distFromCenter,
-                                head = head
-                            })
-                        end
-                    end
-                end
-            end
-        end
-    end
-    
-    if settings.Aimbot.Priority == "Closest" then
-        table.sort(targets, function(a, b) return a.distance < b.distance end)
-    else
-        table.sort(targets, function(a, b) return a.angle < b.angle end)
-    end
-    
-    return targets
-end
-
--- ================== FUNGSI LOCAL PLAYER ==================
-local function updateWalkSpeed(speed)
-    if player.Character and player.Character:FindFirstChild("Humanoid") then
-        player.Character.Humanoid.WalkSpeed = speed
-        settings.Local.WalkSpeed = speed
-    end
-end
-
-local function toggleInfJump()
-    settings.Local.InfJump = not settings.Local.InfJump
-    if settings.Local.InfJump then
-        game:GetService("UserInputService").JumpRequest:Connect(function()
-            if settings.Local.InfJump and player.Character and player.Character:FindFirstChild("Humanoid") then
-                player.Character.Humanoid:ChangeState("Jumping")
-            end
-        end)
-    end
-end
-
-local function toggleNoclip()
-    settings.Local.Noclip = not settings.Local.Noclip
-    
-    if settings.Local.Noclip then
-        RunService.Stepped:Connect(function()
-            if settings.Local.Noclip and player.Character then
-                for _, part in ipairs(player.Character:GetChildren()) do
-                    if part:IsA("BasePart") then
-                        part.CanCollide = false
-                    end
-                end
-            end
-        end)
-    end
-end
-
--- ================== KEY SYSTEM GUI (DENGAN LOGO) ==================
-local keyGui = Instance.new("ScreenGui")
-keyGui.Name = "H4xxHub_KeySystem"
-keyGui.Parent = CoreGui
-keyGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-
--- Background Blur
-local blur = Instance.new("Frame")
-blur.Size = UDim2.new(1, 0, 1, 0)
-blur.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
-blur.BackgroundTransparency = 0.5
-blur.BorderSizePixel = 0
-blur.Parent = keyGui
-
--- Main Key Frame
-local keyFrame = Instance.new("Frame")
-keyFrame.Size = UDim2.new(0, 400, 0, 300)
-keyFrame.Position = UDim2.new(0.5, -200, 0.5, -150)
-keyFrame.BackgroundColor3 = Color3.fromRGB(20, 20, 30)
-keyFrame.BackgroundTransparency = 0.1
-keyFrame.BorderSizePixel = 0
-keyFrame.Parent = keyGui
-
-local glassCorner = Instance.new("UICorner")
-glassCorner.CornerRadius = UDim.new(0, 20)
-glassCorner.Parent = keyFrame
-
-local glassStroke = Instance.new("UIStroke")
-glassStroke.Thickness = 2
-glassStroke.Color = Color3.fromRGB(255, 100, 255)
-glassStroke.Transparency = 0.3
-glassStroke.Parent = keyFrame
-
--- LOGO (FIX: PAKE RBXASSETID)
-local logo = Instance.new("ImageLabel")
-logo.Size = UDim2.new(0, 80, 0, 80)
-logo.Position = UDim2.new(0.5, -40, 0, 20)
-logo.BackgroundTransparency = 1
-logo.Image = "rbxassetid://128768766773988"
-logo.ImageColor3 = Color3.fromRGB(255, 100, 255)
-logo.Parent = keyFrame
-
-local logoCorner = Instance.new("UICorner")
-logoCorner.CornerRadius = UDim.new(0, 40)
-logoCorner.Parent = logo
-
--- Title
-local keyTitle = Instance.new("TextLabel")
-keyTitle.Size = UDim2.new(1, 0, 0, 30)
-keyTitle.Position = UDim2.new(0, 0, 0, 110)
-keyTitle.BackgroundTransparency = 1
-keyTitle.TextColor3 = Color3.fromRGB(255, 100, 255)
-keyTitle.Text = "H4XX HUB | FLICK AIMBOT"
-keyTitle.Font = Enum.Font.GothamBold
-keyTitle.TextSize = 18
-keyTitle.Parent = keyFrame
-
--- Subtitle
-local keySub = Instance.new("TextLabel")
-keySub.Size = UDim2.new(1, 0, 0, 20)
-keySub.Position = UDim2.new(0, 0, 0, 140)
-keySub.BackgroundTransparency = 1
-keySub.TextColor3 = Color3.fromRGB(200, 200, 200)
-keySub.Text = "MASUKKAN KEY UNTUK AKSES"
-keySub.Font = Enum.Font.Gotham
-keySub.TextSize = 12
-keySub.Parent = keyFrame
-
--- Key Input
-local keyInput = Instance.new("TextBox")
-keyInput.Size = UDim2.new(0.8, 0, 0, 40)
-keyInput.Position = UDim2.new(0.1, 0, 0, 170)
-keyInput.BackgroundColor3 = Color3.fromRGB(30, 30, 40)
-keyInput.BackgroundTransparency = 0.3
-keyInput.PlaceholderText = "MASUKKAN KEY..."
-keyInput.PlaceholderColor3 = Color3.fromRGB(150, 150, 150)
-keyInput.TextColor3 = Color3.fromRGB(255, 255, 255)
-keyInput.Font = Enum.Font.Gotham
-keyInput.TextSize = 14
-keyInput.ClearTextOnFocus = false
-keyInput.Parent = keyFrame
-
-local inputCorner = Instance.new("UICorner")
-inputCorner.CornerRadius = UDim.new(0, 10)
-inputCorner.Parent = keyInput
-
--- Get Key Button
-local getKeyBtn = Instance.new("TextButton")
-getKeyBtn.Size = UDim2.new(0.35, 0, 0, 35)
-getKeyBtn.Position = UDim2.new(0.1, 0, 0, 220)
-getKeyBtn.BackgroundColor3 = Color3.fromRGB(50, 50, 150)
-getKeyBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
-getKeyBtn.Text = "GET KEY"
-getKeyBtn.Font = Enum.Font.GothamBold
-getKeyBtn.TextSize = 14
-getKeyBtn.Parent = keyFrame
-
-local getKeyCorner = Instance.new("UICorner")
-getKeyCorner.CornerRadius = UDim.new(0, 10)
-getKeyCorner.Parent = getKeyBtn
-
--- Enter Button
-local enterBtn = Instance.new("TextButton")
-enterBtn.Size = UDim2.new(0.35, 0, 0, 35)
-enterBtn.Position = UDim2.new(0.55, 0, 0, 220)
-enterBtn.BackgroundColor3 = Color3.fromRGB(255, 100, 255)
-enterBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
-enterBtn.Text = "ENTER"
-enterBtn.Font = Enum.Font.GothamBold
-enterBtn.TextSize = 14
-enterBtn.Parent = keyFrame
-
-local enterCorner = Instance.new("UICorner")
-enterCorner.CornerRadius = UDim.new(0, 10)
-enterCorner.Parent = enterBtn
-
--- Destroy Button
-local destroyBtn = Instance.new("TextButton")
-destroyBtn.Size = UDim2.new(0, 30, 0, 30)
-destroyBtn.Position = UDim2.new(1, -40, 0, 10)
-destroyBtn.BackgroundColor3 = Color3.fromRGB(255, 50, 50)
-destroyBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
-destroyBtn.Text = "X"
-destroyBtn.Font = Enum.Font.GothamBold
-destroyBtn.TextSize = 16
-destroyBtn.Parent = keyFrame
-
-local destroyCorner = Instance.new("UICorner")
-destroyCorner.CornerRadius = UDim.new(0, 8)
-destroyCorner.Parent = destroyBtn
-
--- Notification
-local notif = Instance.new("TextLabel")
-notif.Size = UDim2.new(1, 0, 0, 25)
-notif.Position = UDim2.new(0, 0, 0, 265)
-notif.BackgroundTransparency = 1
-notif.TextColor3 = Color3.fromRGB(255, 50, 50)
-notif.Text = ""
-notif.Font = Enum.Font.Gotham
-notif.TextSize = 12
-notif.Parent = keyFrame
-
--- ================== LOADING GUI ==================
-local loadingGui = Instance.new("ScreenGui")
-loadingGui.Name = "H4xxHub_Loading"
-loadingGui.Parent = CoreGui
-loadingGui.Enabled = false
-
-local loadingFrame = Instance.new("Frame")
-loadingFrame.Size = UDim2.new(0, 500, 0, 300)
-loadingFrame.Position = UDim2.new(0.5, -250, 0.5, -150)
-loadingFrame.BackgroundColor3 = Color3.fromRGB(20, 20, 30)
-loadingFrame.BackgroundTransparency = 0.1
-loadingFrame.BorderSizePixel = 0
-loadingFrame.Parent = loadingGui
-
-local loadingCorner = Instance.new("UICorner")
-loadingCorner.CornerRadius = UDim.new(0, 20)
-loadingCorner.Parent = loadingFrame
-
-local loadingStroke = Instance.new("UIStroke")
-loadingStroke.Thickness = 2
-loadingStroke.Color = Color3.fromRGB(255, 100, 255)
-loadingStroke.Transparency = 0.3
-loadingStroke.Parent = loadingFrame
-
--- Loading Title
-local loadingTitle = Instance.new("TextLabel")
-loadingTitle.Size = UDim2.new(1, 0, 0, 50)
-loadingTitle.Position = UDim2.new(0, 0, 0, 30)
-loadingTitle.BackgroundTransparency = 1
-loadingTitle.TextColor3 = Color3.fromRGB(255, 100, 255)
-loadingTitle.Text = "TUNGGU SEBENTAR YAA.."
-loadingTitle.Font = Enum.Font.GothamBold
-loadingTitle.TextSize = 22
-loadingTitle.Parent = loadingFrame
-
--- Spinner
-local spinnerContainer = Instance.new("Frame")
-spinnerContainer.Size = UDim2.new(0, 80, 0, 80)
-spinnerContainer.Position = UDim2.new(0.5, -40, 0, 90)
-spinnerContainer.BackgroundTransparency = 1
-spinnerContainer.Parent = loadingFrame
-
-local dots = {}
-local colors = {Color3.fromRGB(255, 100, 255), Color3.fromRGB(200, 100, 255), Color3.fromRGB(255, 150, 255)}
-
-for i = 1, 8 do
-    local dot = Instance.new("Frame")
-    dot.Size = UDim2.new(0, 10, 0, 10)
-    dot.BackgroundColor3 = colors[(i % #colors) + 1]
-    dot.BorderSizePixel = 0
-    dot.Parent = spinnerContainer
-    
-    local dotCorner = Instance.new("UICorner")
-    dotCorner.CornerRadius = UDim.new(0, 5)
-    dotCorner.Parent = dot
-    
-    dots[i] = dot
-end
-
--- Loading Text
-local loadingText = Instance.new("TextLabel")
-loadingText.Size = UDim2.new(1, 0, 0, 30)
-loadingText.Position = UDim2.new(0, 0, 0, 180)
-loadingText.BackgroundTransparency = 1
-loadingText.TextColor3 = Color3.fromRGB(200, 200, 200)
-loadingText.Text = "MEMUAT AIMBOT..."
-loadingText.Font = Enum.Font.Gotham
-loadingText.TextSize = 14
-loadingText.Parent = loadingFrame
-
--- Progress Bar
-local progressBar = Instance.new("Frame")
-progressBar.Size = UDim2.new(0.8, 0, 0, 8)
-progressBar.Position = UDim2.new(0.1, 0, 0, 220)
-progressBar.BackgroundColor3 = Color3.fromRGB(40, 40, 50)
-progressBar.BorderSizePixel = 0
-progressBar.Parent = loadingFrame
-
-local progressCorner = Instance.new("UICorner")
-progressCorner.CornerRadius = UDim.new(0, 4)
-progressCorner.Parent = progressBar
-
-local progressFill = Instance.new("Frame")
-progressFill.Size = UDim2.new(0, 0, 1, 0)
-progressFill.BackgroundColor3 = Color3.fromRGB(255, 100, 255)
-progressFill.BorderSizePixel = 0
-progressFill.Parent = progressBar
-
-local fillCorner = Instance.new("UICorner")
-fillCorner.CornerRadius = UDim.new(0, 4)
-fillCorner.Parent = progressFill
-
--- Loading Messages
-local loadingMessages = {
-    "MENGINISIALISASI AIMBOT...",
-    "MENGATUR ESP...",
-    "MENGOPTIMALKAN FOV...",
-    "MEMUAT WALKSPEED...",
-    "MENGAKTIFKAN INFINITE JUMP...",
-    "MENGKALIBRASI SISTEM...",
-    "H4XX HUB SIAP DIGUNAKAN!"
-}
-
--- ================== MAIN PANEL GUI ==================
-local mainPanelGui = Instance.new("ScreenGui")
-mainPanelGui.Name = "H4xxHub_MainPanel"
-mainPanelGui.Parent = CoreGui
-mainPanelGui.Enabled = false
-
-local mainPanelFrame = Instance.new("Frame")
-mainPanelFrame.Size = UDim2.new(0, 400, 0, 250)
-mainPanelFrame.Position = UDim2.new(0.5, -200, 0.5, -125)
-mainPanelFrame.BackgroundColor3 = Color3.fromRGB(20, 20, 30)
-mainPanelFrame.BackgroundTransparency = 0.1
-mainPanelFrame.BorderSizePixel = 0
-mainPanelFrame.Parent = mainPanelGui
-
-local mainPanelCorner = Instance.new("UICorner")
-mainPanelCorner.CornerRadius = UDim.new(0, 20)
-mainPanelCorner.Parent = mainPanelFrame
-
-local mainPanelStroke = Instance.new("UIStroke")
-mainPanelStroke.Thickness = 2
-mainPanelStroke.Color = Color3.fromRGB(255, 100, 255)
-mainPanelStroke.Transparency = 0.3
-mainPanelStroke.Parent = mainPanelFrame
-
--- Panel Title
-local panelTitle = Instance.new("TextLabel")
-panelTitle.Size = UDim2.new(1, 0, 0, 50)
-panelTitle.Position = UDim2.new(0, 0, 0, 20)
-panelTitle.BackgroundTransparency = 1
-panelTitle.TextColor3 = Color3.fromRGB(255, 100, 255)
-panelTitle.Text = "H4XX HUB"
-panelTitle.Font = Enum.Font.GothamBold
-panelTitle.TextSize = 24
-panelTitle.Parent = mainPanelFrame
-
--- Panel Subtitle
-local panelSub = Instance.new("TextLabel")
-panelSub.Size = UDim2.new(1, 0, 0, 30)
-panelSub.Position = UDim2.new(0, 0, 0, 70)
-panelSub.BackgroundTransparency = 1
-panelSub.TextColor3 = Color3.fromRGB(200, 200, 200)
-panelSub.Text = "PILIH MENU"
-panelSub.Font = Enum.Font.Gotham
-panelSub.TextSize = 14
-panelSub.Parent = mainPanelFrame
-
--- Info Script Button
-local infoScriptBtn = Instance.new("TextButton")
-infoScriptBtn.Size = UDim2.new(0.4, 0, 0, 45)
-infoScriptBtn.Position = UDim2.new(0.1, 0, 0, 120)
-infoScriptBtn.BackgroundColor3 = Color3.fromRGB(50, 50, 150)
-infoScriptBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
-infoScriptBtn.Text = "INFO SCRIPT"
-infoScriptBtn.Font = Enum.Font.GothamBold
-infoScriptBtn.TextSize = 14
-infoScriptBtn.Parent = mainPanelFrame
-
-local infoScriptCorner = Instance.new("UICorner")
-infoScriptCorner.CornerRadius = UDim.new(0, 10)
-infoScriptCorner.Parent = infoScriptBtn
-
--- Execute Button
-local executeBtn = Instance.new("TextButton")
-executeBtn.Size = UDim2.new(0.4, 0, 0, 45)
-executeBtn.Position = UDim2.new(0.5, 0, 0, 120)
-executeBtn.BackgroundColor3 = Color3.fromRGB(255, 100, 255)
-executeBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
-executeBtn.Text = "EXECUTE"
-executeBtn.Font = Enum.Font.GothamBold
-executeBtn.TextSize = 14
-executeBtn.Parent = mainPanelFrame
-
-local executeCorner = Instance.new("UICorner")
-executeCorner.CornerRadius = UDim.new(0, 10)
-executeCorner.Parent = executeBtn
-
--- Panel Destroy Button
-local panelDestroyBtn = Instance.new("TextButton")
-panelDestroyBtn.Size = UDim2.new(0, 30, 0, 30)
-panelDestroyBtn.Position = UDim2.new(1, -40, 0, 10)
-panelDestroyBtn.BackgroundColor3 = Color3.fromRGB(255, 50, 50)
-panelDestroyBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
-panelDestroyBtn.Text = "X"
-panelDestroyBtn.Font = Enum.Font.GothamBold
-panelDestroyBtn.TextSize = 16
-panelDestroyBtn.Parent = mainPanelFrame
-
-local panelDestroyCorner = Instance.new("UICorner")
-panelDestroyCorner.CornerRadius = UDim.new(0, 8)
-panelDestroyCorner.Parent = panelDestroyBtn
-
--- ================== INFO PANEL ==================
-local infoPanelGui = Instance.new("ScreenGui")
-infoPanelGui.Name = "H4xxHub_InfoPanel"
-infoPanelGui.Parent = CoreGui
-infoPanelGui.Enabled = false
-
-local infoPanelFrame = Instance.new("Frame")
-infoPanelFrame.Size = UDim2.new(0, 400, 0, 300)
-infoPanelFrame.Position = UDim2.new(0.5, -200, 0.5, -150)
-infoPanelFrame.BackgroundColor3 = Color3.fromRGB(20, 20, 30)
-infoPanelFrame.BackgroundTransparency = 0.1
-infoPanelFrame.BorderSizePixel = 0
-infoPanelFrame.Parent = infoPanelGui
-
-local infoPanelCorner = Instance.new("UICorner")
-infoPanelCorner.CornerRadius = UDim.new(0, 20)
-infoPanelCorner.Parent = infoPanelFrame
-
-local infoPanelStroke = Instance.new("UIStroke")
-infoPanelStroke.Thickness = 2
-infoPanelStroke.Color = Color3.fromRGB(255, 100, 255)
-infoPanelStroke.Transparency = 0.3
-infoPanelStroke.Parent = infoPanelFrame
-
--- Info Title
-local infoTitle = Instance.new("TextLabel")
-infoTitle.Size = UDim2.new(1, 0, 0, 40)
-infoTitle.Position = UDim2.new(0, 0, 0, 15)
-infoTitle.BackgroundTransparency = 1
-infoTitle.TextColor3 = Color3.fromRGB(255, 100, 255)
-infoTitle.Text = "INFORMASI SCRIPT"
-infoTitle.Font = Enum.Font.GothamBold
-infoTitle.TextSize = 20
-infoTitle.Parent = infoPanelFrame
-
--- Info Content (KEY UDAH DIHAPUS, OWNER ptur)
-local infoContent = Instance.new("TextLabel")
-infoContent.Size = UDim2.new(0.9, 0, 0, 160)
-infoContent.Position = UDim2.new(0.05, 0, 0, 60)
-infoContent.BackgroundColor3 = Color3.fromRGB(30, 30, 40)
-infoContent.BackgroundTransparency = 0.3
-infoContent.TextColor3 = Color3.fromRGB(200, 200, 255)
-infoContent.Text = [[
-📌 OWNER: ptur
-📌 DISCORD: https://discord.gg/ZxN4uDEgP
-📌 VERSION: 2.0.0
-
-🔹 ESP OUTLINE + RAINBOW
-🔹 AIMLOCK FOV (WARNA + RAINBOW)
-🔹 WALKSPEED 500
-🔹 INFINITE JUMP
-🔹 NOCLIP
-]]
-infoContent.Font = Enum.Font.Gotham
-infoContent.TextSize = 14
-infoContent.TextXAlignment = Enum.TextXAlignment.Left
-infoContent.TextYAlignment = Enum.TextYAlignment.Top
-infoContent.Parent = infoPanelFrame
-
-local infoContentCorner = Instance.new("UICorner")
-infoContentCorner.CornerRadius = UDim.new(0, 10)
-infoContentCorner.Parent = infoContent
-
--- Kembali Button
-local kembaliBtn = Instance.new("TextButton")
-kembaliBtn.Size = UDim2.new(0.3, 0, 0, 40)
-kembaliBtn.Position = UDim2.new(0.35, 0, 0, 235)
-kembaliBtn.BackgroundColor3 = Color3.fromRGB(100, 100, 100)
-kembaliBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
-kembaliBtn.Text = "KEMBALI"
-kembaliBtn.Font = Enum.Font.GothamBold
-kembaliBtn.TextSize = 14
-kembaliBtn.Parent = infoPanelFrame
-
-local kembaliCorner = Instance.new("UICorner")
-kembaliCorner.CornerRadius = UDim.new(0, 10)
-kembaliCorner.Parent = kembaliBtn
-
--- Info Destroy Button
-local infoDestroyBtn = Instance.new("TextButton")
-infoDestroyBtn.Size = UDim2.new(0, 30, 0, 30)
-infoDestroyBtn.Position = UDim2.new(1, -40, 0, 10)
-infoDestroyBtn.BackgroundColor3 = Color3.fromRGB(255, 50, 50)
-infoDestroyBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
-infoDestroyBtn.Text = "X"
-infoDestroyBtn.Font = Enum.Font.GothamBold
-infoDestroyBtn.TextSize = 16
-infoDestroyBtn.Parent = infoPanelFrame
-
-local infoDestroyCorner = Instance.new("UICorner")
-infoDestroyCorner.CornerRadius = UDim.new(0, 8)
-infoDestroyCorner.Parent = infoDestroyBtn
-
--- ================== H4XX HUB GUI ==================
-local gui = Instance.new("ScreenGui")
-gui.Name = "H4xxHub"
-gui.Parent = CoreGui
-gui.Enabled = false
-
--- Main Frame
-local mainFrame = Instance.new("Frame")
-mainFrame.Size = UDim2.new(0, 400, 0, 420)
-mainFrame.Position = UDim2.new(0.5, -200, 0.5, -210)
-mainFrame.BackgroundColor3 = Color3.fromRGB(15, 15, 15)
-mainFrame.BorderSizePixel = 0
-mainFrame.Active = true
-mainFrame.Draggable = true
-mainFrame.Parent = gui
-
-local mainCorner = Instance.new("UICorner")
-mainCorner.CornerRadius = UDim.new(0, 15)
-mainCorner.Parent = mainFrame
-
--- Title Bar
-local titleBar = Instance.new("Frame")
-titleBar.Size = UDim2.new(1, 0, 0, 40)
-titleBar.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
-titleBar.BorderSizePixel = 0
-titleBar.Parent = mainFrame
-
-local titleCorner = Instance.new("UICorner")
-titleCorner.CornerRadius = UDim.new(0, 15)
-titleCorner.Parent = titleBar
-
-local titleText = Instance.new("TextLabel")
-titleText.Size = UDim2.new(1, -80, 1, 0)
-titleText.Position = UDim2.new(0, 15, 0, 0)
-titleText.BackgroundTransparency = 1
-titleText.TextColor3 = Color3.fromRGB(255, 100, 255)
-titleText.Text = "H4XX HUB | FLICK AIMBOT 🔥"
-titleText.Font = Enum.Font.GothamBold
-titleText.TextSize = 16
-titleText.TextXAlignment = Enum.TextXAlignment.Left
-titleText.Parent = titleBar
-
-local minBtn = Instance.new("TextButton")
-minBtn.Size = UDim2.new(0, 30, 0, 30)
-minBtn.Position = UDim2.new(1, -70, 0, 5)
-minBtn.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
-minBtn.TextColor3 = Color3.new(1, 1, 1)
-minBtn.Text = "–"
-minBtn.Font = Enum.Font.GothamBold
-minBtn.TextSize = 20
-minBtn.Parent = titleBar
-
-local minCorner = Instance.new("UICorner")
-minCorner.CornerRadius = UDim.new(0, 8)
-minCorner.Parent = minBtn
-
-local closeBtn = Instance.new("TextButton")
-closeBtn.Size = UDim2.new(0, 30, 0, 30)
-closeBtn.Position = UDim2.new(1, -35, 0, 5)
-closeBtn.BackgroundColor3 = Color3.fromRGB(200, 50, 50)
-closeBtn.TextColor3 = Color3.new(1, 1, 1)
-closeBtn.Text = "X"
-closeBtn.Font = Enum.Font.GothamBold
-closeBtn.TextSize = 18
-closeBtn.Parent = titleBar
-
-local closeCorner = Instance.new("UICorner")
-closeCorner.CornerRadius = UDim.new(0, 8)
-closeCorner.Parent = closeBtn
-
--- Tabs
-local tabsFrame = Instance.new("Frame")
-tabsFrame.Size = UDim2.new(1, -20, 0, 45)
-tabsFrame.Position = UDim2.new(0, 10, 0, 50)
-tabsFrame.BackgroundTransparency = 1
-tabsFrame.Parent = mainFrame
-
-local espTab = Instance.new("TextButton")
-espTab.Size = UDim2.new(0.33, -4, 1, 0)
-espTab.Position = UDim2.new(0, 0, 0, 0)
-espTab.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-espTab.TextColor3 = Color3.new(1, 1, 1)
-espTab.Text = "⚡ ESP"
-espTab.Font = Enum.Font.GothamBold
-espTab.TextSize = 14
-espTab.Parent = tabsFrame
-
-local espTabCorner = Instance.new("UICorner")
-espTabCorner.CornerRadius = UDim.new(0, 8)
-espTabCorner.Parent = espTab
-
-local aimTab = Instance.new("TextButton")
-aimTab.Size = UDim2.new(0.33, -4, 1, 0)
-aimTab.Position = UDim2.new(0.33, 8, 0, 0)
-aimTab.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
-aimTab.TextColor3 = Color3.new(1, 1, 1)
-aimTab.Text = "🎯 AIMBOT"
-aimTab.Font = Enum.Font.GothamBold
-aimTab.TextSize = 14
-aimTab.Parent = tabsFrame
-
-local aimTabCorner = Instance.new("UICorner")
-aimTabCorner.CornerRadius = UDim.new(0, 8)
-aimTabCorner.Parent = aimTab
-
-local localTab = Instance.new("TextButton")
-localTab.Size = UDim2.new(0.33, -4, 1, 0)
-localTab.Position = UDim2.new(0.66, 16, 0, 0)
-localTab.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
-localTab.TextColor3 = Color3.new(1, 1, 1)
-localTab.Text = "👤 LOCAL"
-localTab.Font = Enum.Font.GothamBold
-localTab.TextSize = 14
-localTab.Parent = tabsFrame
-
-local localTabCorner = Instance.new("UICorner")
-localTabCorner.CornerRadius = UDim.new(0, 8)
-localTabCorner.Parent = localTab
-
--- Content Frame
-local contentFrame = Instance.new("Frame")
-contentFrame.Size = UDim2.new(1, -20, 1, -110)
-contentFrame.Position = UDim2.new(0, 10, 0, 100)
-contentFrame.BackgroundTransparency = 1
-contentFrame.Parent = mainFrame
-
--- ESP Content
-local espContent = Instance.new("ScrollingFrame")
-espContent.Size = UDim2.new(1, 0, 1, 0)
-espContent.BackgroundTransparency = 1
-espContent.ScrollBarThickness = 5
-espContent.ScrollBarImageColor3 = Color3.fromRGB(255, 100, 255)
-espContent.CanvasSize = UDim2.new(0, 0, 0, 350)
-espContent.Visible = true
-espContent.Parent = contentFrame
-
--- Aimbot Content
-local aimContent = Instance.new("ScrollingFrame")
-aimContent.Size = UDim2.new(1, 0, 1, 0)
-aimContent.BackgroundTransparency = 1
-aimContent.ScrollBarThickness = 5
-aimContent.ScrollBarImageColor3 = Color3.fromRGB(255, 100, 255)
-aimContent.CanvasSize = UDim2.new(0, 0, 0, 450)
-aimContent.Visible = false
-aimContent.Parent = contentFrame
-
--- Local Content
-local localContent = Instance.new("ScrollingFrame")
-localContent.Size = UDim2.new(1, 0, 1, 0)
-localContent.BackgroundTransparency = 1
-localContent.ScrollBarThickness = 5
-localContent.ScrollBarImageColor3 = Color3.fromRGB(255, 100, 255)
-localContent.CanvasSize = UDim2.new(0, 0, 0, 300)
-localContent.Visible = false
-localContent.Parent = contentFrame
-
--- ================== ESP CONTROLS ==================
-local espY = 10
-local spacing = 45
-
--- ESP Toggle
-local espToggle = Instance.new("TextButton")
-espToggle.Size = UDim2.new(0.9, 0, 0, 35)
-espToggle.Position = UDim2.new(0.05, 0, 0, espY)
-espToggle.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
-espToggle.TextColor3 = Color3.new(1, 1, 1)
-espToggle.Text = "ESP"
-espToggle.Font = Enum.Font.GothamBold
-espToggle.TextSize = 15
-espToggle.Parent = espContent
-
-local espToggleCorner = Instance.new("UICorner")
-espToggleCorner.CornerRadius = UDim.new(0, 8)
-espToggleCorner.Parent = espToggle
-
-local espIndicator = Instance.new("Frame")
-espIndicator.Size = UDim2.new(0, 20, 0, 20)
-espIndicator.Position = UDim2.new(1, -30, 0.5, -10)
-espIndicator.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
-espIndicator.BorderSizePixel = 0
-espIndicator.Parent = espToggle
-
-local espIndicatorCorner = Instance.new("UICorner")
-espIndicatorCorner.CornerRadius = UDim.new(0, 5)
-espIndicatorCorner.Parent = espIndicator
-
-espY = espY + spacing
-
--- Box Thickness
-local thicknessLabel = Instance.new("TextLabel")
-thicknessLabel.Size = UDim2.new(0.4, 0, 0, 25)
-thicknessLabel.Position = UDim2.new(0.05, 0, 0, espY)
-thicknessLabel.BackgroundTransparency = 1
-thicknessLabel.TextColor3 = Color3.new(1, 1, 1)
-thicknessLabel.Text = "Thickness:"
-thicknessLabel.Font = Enum.Font.Gotham
-thicknessLabel.TextSize = 14
-thicknessLabel.TextXAlignment = Enum.TextXAlignment.Left
-thicknessLabel.Parent = espContent
-
-local thicknessValue = Instance.new("TextLabel")
-thicknessValue.Size = UDim2.new(0, 40, 0, 25)
-thicknessValue.Position = UDim2.new(0.5, 0, 0, espY)
-thicknessValue.BackgroundTransparency = 1
-thicknessValue.TextColor3 = Color3.fromRGB(0, 255, 100)
-thicknessValue.Text = "1.5"
-thicknessValue.Font = Enum.Font.GothamBold
-thicknessValue.TextSize = 16
-thicknessValue.Parent = espContent
-
-local thicknessMinus = Instance.new("TextButton")
-thicknessMinus.Size = UDim2.new(0, 30, 0, 30)
-thicknessMinus.Position = UDim2.new(0.7, -15, 0, espY-2)
-thicknessMinus.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-thicknessMinus.TextColor3 = Color3.new(1, 1, 1)
-thicknessMinus.Text = "-"
-thicknessMinus.Font = Enum.Font.GothamBold
-thicknessMinus.TextSize = 18
-thicknessMinus.Parent = espContent
-
-local thicknessMinusCorner = Instance.new("UICorner")
-thicknessMinusCorner.CornerRadius = UDim.new(0, 6)
-thicknessMinusCorner.Parent = thicknessMinus
-
-local thicknessPlus = Instance.new("TextButton")
-thicknessPlus.Size = UDim2.new(0, 30, 0, 30)
-thicknessPlus.Position = UDim2.new(0.85, -15, 0, espY-2)
-thicknessPlus.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-thicknessPlus.TextColor3 = Color3.new(1, 1, 1)
-thicknessPlus.Text = "+"
-thicknessPlus.Font = Enum.Font.GothamBold
-thicknessPlus.TextSize = 18
-thicknessPlus.Parent = espContent
-
-local thicknessPlusCorner = Instance.new("UICorner")
-thicknessPlusCorner.CornerRadius = UDim.new(0, 6)
-thicknessPlusCorner.Parent = thicknessPlus
-
-espY = espY + spacing
-
--- Distance Toggle
-local distToggle = Instance.new("TextButton")
-distToggle.Size = UDim2.new(0.9, 0, 0, 35)
-distToggle.Position = UDim2.new(0.05, 0, 0, espY)
-distToggle.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
-distToggle.TextColor3 = Color3.new(1, 1, 1)
-distToggle.Text = "Distance"
-distToggle.Font = Enum.Font.GothamBold
-distToggle.TextSize = 15
-distToggle.Parent = espContent
-
-local distToggleCorner = Instance.new("UICorner")
-distToggleCorner.CornerRadius = UDim.new(0, 8)
-distToggleCorner.Parent = distToggle
-
-local distIndicator = Instance.new("Frame")
-distIndicator.Size = UDim2.new(0, 20, 0, 20)
-distIndicator.Position = UDim2.new(1, -30, 0.5, -10)
-distIndicator.BackgroundColor3 = Color3.fromRGB(0, 255, 0)
-distIndicator.BorderSizePixel = 0
-distIndicator.Parent = distToggle
-
-local distIndicatorCorner = Instance.new("UICorner")
-distIndicatorCorner.CornerRadius = UDim.new(0, 5)
-distIndicatorCorner.Parent = distIndicator
-
-espY = espY + spacing
-
--- Snapline Toggle
-local snapToggle = Instance.new("TextButton")
-snapToggle.Size = UDim2.new(0.9, 0, 0, 35)
-snapToggle.Position = UDim2.new(0.05, 0, 0, espY)
-snapToggle.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
-snapToggle.TextColor3 = Color3.new(1, 1, 1)
-snapToggle.Text = "Snapline"
-snapToggle.Font = Enum.Font.GothamBold
-snapToggle.TextSize = 15
-snapToggle.Parent = espContent
-
-local snapToggleCorner = Instance.new("UICorner")
-snapToggleCorner.CornerRadius = UDim.new(0, 8)
-snapToggleCorner.Parent = snapToggle
-
-local snapIndicator = Instance.new("Frame")
-snapIndicator.Size = UDim2.new(0, 20, 0, 20)
-snapIndicator.Position = UDim2.new(1, -30, 0.5, -10)
-snapIndicator.BackgroundColor3 = Color3.fromRGB(0, 255, 0)
-snapIndicator.BorderSizePixel = 0
-snapIndicator.Parent = snapToggle
-
-local snapIndicatorCorner = Instance.new("UICorner")
-snapIndicatorCorner.CornerRadius = UDim.new(0, 5)
-snapIndicatorCorner.Parent = snapIndicator
-
-espY = espY + spacing
-
--- Snapline Position
-local posLabel = Instance.new("TextLabel")
-posLabel.Size = UDim2.new(0.4, 0, 0, 25)
-posLabel.Position = UDim2.new(0.05, 0, 0, espY)
-posLabel.BackgroundTransparency = 1
-posLabel.TextColor3 = Color3.new(1, 1, 1)
-posLabel.Text = "Position:"
-posLabel.Font = Enum.Font.Gotham
-posLabel.TextSize = 14
-posLabel.TextXAlignment = Enum.TextXAlignment.Left
-posLabel.Parent = espContent
-
-local posValue = Instance.new("TextButton")
-posValue.Size = UDim2.new(0.4, 0, 0, 30)
-posValue.Position = UDim2.new(0.5, 0, 0, espY-2)
-posValue.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-posValue.TextColor3 = Color3.new(1, 1, 1)
-posValue.Text = "Center"
-posValue.Font = Enum.Font.GothamBold
-posValue.TextSize = 14
-posValue.Parent = espContent
-
-local posValueCorner = Instance.new("UICorner")
-posValueCorner.CornerRadius = UDim.new(0, 6)
-posValueCorner.Parent = posValue
-
-espY = espY + spacing
-
--- Rainbow Toggle
-local rainbowToggle = Instance.new("TextButton")
-rainbowToggle.Size = UDim2.new(0.9, 0, 0, 35)
-rainbowToggle.Position = UDim2.new(0.05, 0, 0, espY)
-rainbowToggle.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
-rainbowToggle.TextColor3 = Color3.new(1, 1, 1)
-rainbowToggle.Text = "Rainbow"
-rainbowToggle.Font = Enum.Font.GothamBold
-rainbowToggle.TextSize = 15
-rainbowToggle.Parent = espContent
-
-local rainbowToggleCorner = Instance.new("UICorner")
-rainbowToggleCorner.CornerRadius = UDim.new(0, 8)
-rainbowToggleCorner.Parent = rainbowToggle
-
-local rainbowIndicator = Instance.new("Frame")
-rainbowIndicator.Size = UDim2.new(0, 20, 0, 20)
-rainbowIndicator.Position = UDim2.new(1, -30, 0.5, -10)
-rainbowIndicator.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
-rainbowIndicator.BorderSizePixel = 0
-rainbowIndicator.Parent = rainbowToggle
-
-local rainbowIndicatorCorner = Instance.new("UICorner")
-rainbowIndicatorCorner.CornerRadius = UDim.new(0, 5)
-rainbowIndicatorCorner.Parent = rainbowIndicator
-
-espY = espY + spacing
-espContent.CanvasSize = UDim2.new(0, 0, 0, espY + 20)
-
--- ================== AIMBOT CONTROLS ==================
-local aimY = 10
-
--- Aimbot Toggle
-local aimToggle = Instance.new("TextButton")
-aimToggle.Size = UDim2.new(0.9, 0, 0, 35)
-aimToggle.Position = UDim2.new(0.05, 0, 0, aimY)
-aimToggle.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
-aimToggle.TextColor3 = Color3.new(1, 1, 1)
-aimToggle.Text = "AIMBOT"
-aimToggle.Font = Enum.Font.GothamBold
-aimToggle.TextSize = 15
-aimToggle.Parent = aimContent
-
-local aimToggleCorner = Instance.new("UICorner")
-aimToggleCorner.CornerRadius = UDim.new(0, 8)
-aimToggleCorner.Parent = aimToggle
-
-local aimIndicator = Instance.new("Frame")
-aimIndicator.Size = UDim2.new(0, 20, 0, 20)
-aimIndicator.Position = UDim2.new(1, -30, 0.5, -10)
-aimIndicator.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
-aimIndicator.BorderSizePixel = 0
-aimIndicator.Parent = aimToggle
-
-local aimIndicatorCorner = Instance.new("UICorner")
-aimIndicatorCorner.CornerRadius = UDim.new(0, 5)
-aimIndicatorCorner.Parent = aimIndicator
-
-aimY = aimY + spacing
-
--- Priority
-local priorityLabel = Instance.new("TextLabel")
-priorityLabel.Size = UDim2.new(0.4, 0, 0, 25)
-priorityLabel.Position = UDim2.new(0.05, 0, 0, aimY)
-priorityLabel.BackgroundTransparency = 1
-priorityLabel.TextColor3 = Color3.new(1, 1, 1)
-priorityLabel.Text = "Priority:"
-priorityLabel.Font = Enum.Font.Gotham
-priorityLabel.TextSize = 14
-priorityLabel.TextXAlignment = Enum.TextXAlignment.Left
-priorityLabel.Parent = aimContent
-
-local priorityValue = Instance.new("TextButton")
-priorityValue.Size = UDim2.new(0.4, 0, 0, 30)
-priorityValue.Position = UDim2.new(0.5, 0, 0, aimY-2)
-priorityValue.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-priorityValue.TextColor3 = Color3.new(1, 1, 1)
-priorityValue.Text = settings.Aimbot.Priority
-priorityValue.Font = Enum.Font.GothamBold
-priorityValue.TextSize = 14
-priorityValue.Parent = aimContent
-
-local priorityValueCorner = Instance.new("UICorner")
-priorityValueCorner.CornerRadius = UDim.new(0, 6)
-priorityValueCorner.Parent = priorityValue
-
-aimY = aimY + spacing
-
--- FOV Toggle
-local fovToggle = Instance.new("TextButton")
-fovToggle.Size = UDim2.new(0.9, 0, 0, 35)
-fovToggle.Position = UDim2.new(0.05, 0, 0, aimY)
-fovToggle.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
-fovToggle.TextColor3 = Color3.new(1, 1, 1)
-fovToggle.Text = "FOV CIRCLE"
-fovToggle.Font = Enum.Font.GothamBold
-fovToggle.TextSize = 15
-fovToggle.Parent = aimContent
-
-local fovToggleCorner = Instance.new("UICorner")
-fovToggleCorner.CornerRadius = UDim.new(0, 8)
-fovToggleCorner.Parent = fovToggle
-
-local fovIndicator = Instance.new("Frame")
-fovIndicator.Size = UDim2.new(0, 20, 0, 20)
-fovIndicator.Position = UDim2.new(1, -30, 0.5, -10)
-fovIndicator.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
-fovIndicator.BorderSizePixel = 0
-fovIndicator.Parent = fovToggle
-
-local fovIndicatorCorner = Instance.new("UICorner")
-fovIndicatorCorner.CornerRadius = UDim.new(0, 5)
-fovIndicatorCorner.Parent = fovIndicator
-
-aimY = aimY + spacing
-
--- FOV Controls Container
-local fovControls = Instance.new("Frame")
-fovControls.Size = UDim2.new(0.9, 0, 0, 140)
-fovControls.Position = UDim2.new(0.05, 0, 0, aimY)
-fovControls.BackgroundTransparency = 1
-fovControls.Visible = false
-fovControls.Parent = aimContent
-
--- FOV Size Label
-local fovSizeLabel = Instance.new("TextLabel")
-fovSizeLabel.Size = UDim2.new(0.4, 0, 0, 25)
-fovSizeLabel.Position = UDim2.new(0, 0, 0, 0)
-fovSizeLabel.BackgroundTransparency = 1
-fovSizeLabel.TextColor3 = Color3.new(1, 1, 1)
-fovSizeLabel.Text = "FOV Size:"
-fovSizeLabel.Font = Enum.Font.Gotham
-fovSizeLabel.TextSize = 14
-fovSizeLabel.TextXAlignment = Enum.TextXAlignment.Left
-fovSizeLabel.Parent = fovControls
-
-local fovValue = Instance.new("TextLabel")
-fovValue.Size = UDim2.new(0, 40, 0, 25)
-fovValue.Position = UDim2.new(0.5, 0, 0, 0)
-fovValue.BackgroundTransparency = 1
-fovValue.TextColor3 = Color3.fromRGB(0, 255, 100)
-fovValue.Text = tostring(settings.Aimbot.FOV)
-fovValue.Font = Enum.Font.GothamBold
-fovValue.TextSize = 16
-fovValue.Parent = fovControls
-
-local fovMinus = Instance.new("TextButton")
-fovMinus.Size = UDim2.new(0, 30, 0, 30)
-fovMinus.Position = UDim2.new(0.7, -15, 0, -2)
-fovMinus.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-fovMinus.TextColor3 = Color3.new(1, 1, 1)
-fovMinus.Text = "-"
-fovMinus.Font = Enum.Font.GothamBold
-fovMinus.TextSize = 18
-fovMinus.Parent = fovControls
-
-local fovMinusCorner = Instance.new("UICorner")
-fovMinusCorner.CornerRadius = UDim.new(0, 6)
-fovMinusCorner.Parent = fovMinus
-
-local fovPlus = Instance.new("TextButton")
-fovPlus.Size = UDim2.new(0, 30, 0, 30)
-fovPlus.Position = UDim2.new(0.85, -15, 0, -2)
-fovPlus.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-fovPlus.TextColor3 = Color3.new(1, 1, 1)
-fovPlus.Text = "+"
-fovPlus.Font = Enum.Font.GothamBold
-fovPlus.TextSize = 18
-fovPlus.Parent = fovControls
-
-local fovPlusCorner = Instance.new("UICorner")
-fovPlusCorner.CornerRadius = UDim.new(0, 6)
-fovPlusCorner.Parent = fovPlus
-
--- FOV Slider
-local fovSlider = Instance.new("Frame")
-fovSlider.Size = UDim2.new(0.9, 0, 0, 6)
-fovSlider.Position = UDim2.new(0.05, 0, 0, 40)
-fovSlider.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-fovSlider.BorderSizePixel = 0
-fovSlider.Parent = fovControls
-
-local fovFill = Instance.new("Frame")
-fovFill.Size = UDim2.new(settings.Aimbot.FOV/500, 0, 1, 0)
-fovFill.BackgroundColor3 = Color3.fromRGB(255, 100, 255)
-fovFill.BorderSizePixel = 0
-fovFill.Parent = fovSlider
-
--- FOV Color Picker
-local fovColorLabel = Instance.new("TextLabel")
-fovColorLabel.Size = UDim2.new(0.4, 0, 0, 25)
-fovColorLabel.Position = UDim2.new(0, 0, 0, 60)
-fovColorLabel.BackgroundTransparency = 1
-fovColorLabel.TextColor3 = Color3.new(1, 1, 1)
-fovColorLabel.Text = "FOV Color:"
-fovColorLabel.Font = Enum.Font.Gotham
-fovColorLabel.TextSize = 14
-fovColorLabel.TextXAlignment = Enum.TextXAlignment.Left
-fovColorLabel.Parent = fovControls
-
-local colors = {
-    {name = "Pink", color = Color3.fromRGB(255, 100, 255)},
-    {name = "Red", color = Color3.fromRGB(255, 0, 0)},
-    {name = "Blue", color = Color3.fromRGB(0, 100, 255)},
-    {name = "Green", color = Color3.fromRGB(0, 255, 0)},
-    {name = "Yellow", color = Color3.fromRGB(255, 255, 0)},
-    {name = "Cyan", color = Color3.fromRGB(0, 255, 255)}
-}
-
-for i, colorData in ipairs(colors) do
-    local btn = Instance.new("TextButton")
-    btn.Size = UDim2.new(0, 45, 0, 25)
-    btn.Position = UDim2.new(0.45 + ((i-1) * 0.09), 0, 0, 60)
-    btn.BackgroundColor3 = colorData.color
-    btn.Text = ""
-    btn.Parent = fovControls
-    
-    local btnCorner = Instance.new("UICorner")
-    btnCorner.CornerRadius = UDim.new(0, 4)
-    btnCorner.Parent = btn
-    
-    btn.MouseButton1Click:Connect(function()
-        settings.Aimbot.FOVColor = colorData.color
-        fovCircle.Color = colorData.color
-        fovFill.BackgroundColor3 = colorData.color
-        settings.Aimbot.FOVRainbow = false
-        TweenService:Create(fovRainbowIndicator, TweenInfo.new(0.2), {
-            BackgroundColor3 = Color3.fromRGB(255, 0, 0)
-        }):Play()
-    end)
-end
-
--- FOV Rainbow Toggle
-local fovRainbowToggle = Instance.new("TextButton")
-fovRainbowToggle.Size = UDim2.new(0.4, 0, 0, 30)
-fovRainbowToggle.Position = UDim2.new(0, 0, 0, 95)
-fovRainbowToggle.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
-fovRainbowToggle.TextColor3 = Color3.new(1, 1, 1)
-fovRainbowToggle.Text = "FOV RAINBOW"
-fovRainbowToggle.Font = Enum.Font.GothamBold
-fovRainbowToggle.TextSize = 12
-fovRainbowToggle.Parent = fovControls
-
-local fovRainbowCorner = Instance.new("UICorner")
-fovRainbowCorner.CornerRadius = UDim.new(0, 6)
-fovRainbowCorner.Parent = fovRainbowToggle
-
-local fovRainbowIndicator = Instance.new("Frame")
-fovRainbowIndicator.Size = UDim2.new(0, 20, 0, 20)
-fovRainbowIndicator.Position = UDim2.new(1, -30, 0.5, -10)
-fovRainbowIndicator.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
-fovRainbowIndicator.BorderSizePixel = 0
-fovRainbowIndicator.Parent = fovRainbowToggle
-
-local fovRainbowIndicatorCorner = Instance.new("UICorner")
-fovRainbowIndicatorCorner.CornerRadius = UDim.new(0, 5)
-fovRainbowIndicatorCorner.Parent = fovRainbowIndicator
-
-aimY = aimY + 140 + spacing
-
--- Max Distance
-local distLabel = Instance.new("TextLabel")
-distLabel.Size = UDim2.new(0.4, 0, 0, 25)
-distLabel.Position = UDim2.new(0.05, 0, 0, aimY)
-distLabel.BackgroundTransparency = 1
-distLabel.TextColor3 = Color3.new(1, 1, 1)
-distLabel.Text = "Max Dist:"
-distLabel.Font = Enum.Font.Gotham
-distLabel.TextSize = 14
-distLabel.TextXAlignment = Enum.TextXAlignment.Left
-distLabel.Parent = aimContent
-
-local distValue = Instance.new("TextLabel")
-distValue.Size = UDim2.new(0, 40, 0, 25)
-distValue.Position = UDim2.new(0.5, 0, 0, aimY)
-distValue.BackgroundTransparency = 1
-distValue.TextColor3 = Color3.fromRGB(0, 255, 100)
-distValue.Text = tostring(settings.Aimbot.MaxDistance)
-distValue.Font = Enum.Font.GothamBold
-distValue.TextSize = 16
-distValue.Parent = aimContent
-
-local distMinus = Instance.new("TextButton")
-distMinus.Size = UDim2.new(0, 30, 0, 30)
-distMinus.Position = UDim2.new(0.7, -15, 0, aimY-2)
-distMinus.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-distMinus.TextColor3 = Color3.new(1, 1, 1)
-distMinus.Text = "-"
-distMinus.Font = Enum.Font.GothamBold
-distMinus.TextSize = 18
-distMinus.Parent = aimContent
-
-local distMinusCorner = Instance.new("UICorner")
-distMinusCorner.CornerRadius = UDim.new(0, 6)
-distMinusCorner.Parent = distMinus
-
-local distPlus = Instance.new("TextButton")
-distPlus.Size = UDim2.new(0, 30, 0, 30)
-distPlus.Position = UDim2.new(0.85, -15, 0, aimY-2)
-distPlus.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-distPlus.TextColor3 = Color3.new(1, 1, 1)
-distPlus.Text = "+"
-distPlus.Font = Enum.Font.GothamBold
-distPlus.TextSize = 18
-distPlus.Parent = aimContent
-
-local distPlusCorner = Instance.new("UICorner")
-distPlusCorner.CornerRadius = UDim.new(0, 6)
-distPlusCorner.Parent = distPlus
-
-aimY = aimY + spacing
-
--- Distance Slider
-local distSlider = Instance.new("Frame")
-distSlider.Size = UDim2.new(0.9, 0, 0, 6)
-distSlider.Position = UDim2.new(0.05, 0, 0, aimY)
-distSlider.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-distSlider.BorderSizePixel = 0
-distSlider.Parent = aimContent
-
-local distFill = Instance.new("Frame")
-distFill.Size = UDim2.new(settings.Aimbot.MaxDistance/1000, 0, 1, 0)
-distFill.BackgroundColor3 = Color3.fromRGB(255, 100, 255)
-distFill.BorderSizePixel = 0
-distFill.Parent = distSlider
-
-aimY = aimY + 20
-aimContent.CanvasSize = UDim2.new(0, 0, 0, aimY + 20)
-
--- ================== LOCAL PLAYER CONTROLS ==================
-local localY = 10
-
--- WalkSpeed Label
-local wsLabel = Instance.new("TextLabel")
-wsLabel.Size = UDim2.new(0.4, 0, 0, 25)
-wsLabel.Position = UDim2.new(0.05, 0, 0, localY)
-wsLabel.BackgroundTransparency = 1
-wsLabel.TextColor3 = Color3.new(1, 1, 1)
-wsLabel.Text = "WalkSpeed:"
-wsLabel.Font = Enum.Font.Gotham
-wsLabel.TextSize = 14
-wsLabel.TextXAlignment = Enum.TextXAlignment.Left
-wsLabel.Parent = localContent
-
-local wsValue = Instance.new("TextLabel")
-wsValue.Size = UDim2.new(0, 40, 0, 25)
-wsValue.Position = UDim2.new(0.5, 0, 0, localY)
-wsValue.BackgroundTransparency = 1
-wsValue.TextColor3 = Color3.fromRGB(0, 255, 100)
-wsValue.Text = "16"
-wsValue.Font = Enum.Font.GothamBold
-wsValue.TextSize = 16
-wsValue.Parent = localContent
-
-local wsMinus = Instance.new("TextButton")
-wsMinus.Size = UDim2.new(0, 30, 0, 30)
-wsMinus.Position = UDim2.new(0.7, -15, 0, localY-2)
-wsMinus.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-wsMinus.TextColor3 = Color3.new(1, 1, 1)
-wsMinus.Text = "-"
-wsMinus.Font = Enum.Font.GothamBold
-wsMinus.TextSize = 18
-wsMinus.Parent = localContent
-
-local wsMinusCorner = Instance.new("UICorner")
-wsMinusCorner.CornerRadius = UDim.new(0, 6)
-wsMinusCorner.Parent = wsMinus
-
-local wsPlus = Instance.new("TextButton")
-wsPlus.Size = UDim2.new(0, 30, 0, 30)
-wsPlus.Position = UDim2.new(0.85, -15, 0, localY-2)
-wsPlus.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-wsPlus.TextColor3 = Color3.new(1, 1, 1)
-wsPlus.Text = "+"
-wsPlus.Font = Enum.Font.GothamBold
-wsPlus.TextSize = 18
-wsPlus.Parent = localContent
-
-local wsPlusCorner = Instance.new("UICorner")
-wsPlusCorner.CornerRadius = UDim.new(0, 6)
-wsPlusCorner.Parent = wsPlus
-
-localY = localY + spacing
-
--- WalkSpeed Reset Button
-local wsReset = Instance.new("TextButton")
-wsReset.Size = UDim2.new(0.9, 0, 0, 30)
-wsReset.Position = UDim2.new(0.05, 0, 0, localY)
-wsReset.BackgroundColor3 = Color3.fromRGB(50, 50, 150)
-wsReset.TextColor3 = Color3.new(1, 1, 1)
-wsReset.Text = "RESET SPEED (16)"
-wsReset.Font = Enum.Font.GothamBold
-wsReset.TextSize = 14
-wsReset.Parent = localContent
-
-local wsResetCorner = Instance.new("UICorner")
-wsResetCorner.CornerRadius = UDim.new(0, 8)
-wsResetCorner.Parent = wsReset
-
-localY = localY + spacing
-
--- WalkSpeed Slider
-local wsSlider = Instance.new("Frame")
-wsSlider.Size = UDim2.new(0.9, 0, 0, 6)
-wsSlider.Position = UDim2.new(0.05, 0, 0, localY)
-wsSlider.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-wsSlider.BorderSizePixel = 0
-wsSlider.Parent = localContent
-
-local wsFill = Instance.new("Frame")
-wsFill.Size = UDim2.new(16/500, 0, 1, 0)
-wsFill.BackgroundColor3 = Color3.fromRGB(0, 255, 100)
-wsFill.BorderSizePixel = 0
-wsFill.Parent = wsSlider
-
-localY = localY + spacing + 10
-
--- Inf Jump Toggle
-local infJumpToggle = Instance.new("TextButton")
-infJumpToggle.Size = UDim2.new(0.9, 0, 0, 35)
-infJumpToggle.Position = UDim2.new(0.05, 0, 0, localY)
-infJumpToggle.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
-infJumpToggle.TextColor3 = Color3.new(1, 1, 1)
-infJumpToggle.Text = "INFINITE JUMP"
-infJumpToggle.Font = Enum.Font.GothamBold
-infJumpToggle.TextSize = 15
-infJumpToggle.Parent = localContent
-
-local infJumpToggleCorner = Instance.new("UICorner")
-infJumpToggleCorner.CornerRadius = UDim.new(0, 8)
-infJumpToggleCorner.Parent = infJumpToggle
-
-local infJumpIndicator = Instance.new("Frame")
-infJumpIndicator.Size = UDim2.new(0, 20, 0, 20)
-infJumpIndicator.Position = UDim2.new(1, -30, 0.5, -10)
-infJumpIndicator.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
-infJumpIndicator.BorderSizePixel = 0
-infJumpIndicator.Parent = infJumpToggle
-
-local infJumpIndicatorCorner = Instance.new("UICorner")
-infJumpIndicatorCorner.CornerRadius = UDim.new(0, 5)
-infJumpIndicatorCorner.Parent = infJumpIndicator
-
-localY = localY + spacing
-
--- Noclip Toggle
-local noclipToggle = Instance.new("TextButton")
-noclipToggle.Size = UDim2.new(0.9, 0, 0, 35)
-noclipToggle.Position = UDim2.new(0.05, 0, 0, localY)
-noclipToggle.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
-noclipToggle.TextColor3 = Color3.new(1, 1, 1)
-noclipToggle.Text = "NOCLIP"
-noclipToggle.Font = Enum.Font.GothamBold
-noclipToggle.TextSize = 15
-noclipToggle.Parent = localContent
-
-local noclipToggleCorner = Instance.new("UICorner")
-noclipToggleCorner.CornerRadius = UDim.new(0, 8)
-noclipToggleCorner.Parent = noclipToggle
-
-local noclipIndicator = Instance.new("Frame")
-noclipIndicator.Size = UDim2.new(0, 20, 0, 20)
-noclipIndicator.Position = UDim2.new(1, -30, 0.5, -10)
-noclipIndicator.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
-noclipIndicator.BorderSizePixel = 0
-noclipIndicator.Parent = noclipToggle
-
-local noclipIndicatorCorner = Instance.new("UICorner")
-noclipIndicatorCorner.CornerRadius = UDim.new(0, 5)
-noclipIndicatorCorner.Parent = noclipIndicator
-
-localY = localY + spacing
-localContent.CanvasSize = UDim2.new(0, 0, 0, localY + 20)
-
--- ================== TAB SWITCHING ==================
-local currentTab = "ESP"
-
-local function switchTab(tab)
-    currentTab = tab
-    espContent.Visible = (tab == "ESP")
-    aimContent.Visible = (tab == "Aimbot")
-    localContent.Visible = (tab == "Local")
-    
-    if tab == "ESP" then
-        espTab.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-        aimTab.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
-        localTab.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
-    elseif tab == "Aimbot" then
-        espTab.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
-        aimTab.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-        localTab.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
-    else
-        espTab.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
-        aimTab.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
-        localTab.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-    end
-end
-
-espTab.MouseButton1Click:Connect(function() switchTab("ESP") end)
-aimTab.MouseButton1Click:Connect(function() switchTab("Aimbot") end)
-localTab.MouseButton1Click:Connect(function() switchTab("Local") end)
-
--- ================== BUTTON FUNCTIONS ==================
-espToggle.MouseButton1Click:Connect(function()
-    settings.ESP.Enabled = not settings.ESP.Enabled
-    TweenService:Create(espIndicator, TweenInfo.new(0.2), {
-        BackgroundColor3 = settings.ESP.Enabled and Color3.fromRGB(0, 255, 0) or Color3.fromRGB(255, 0, 0)
-    }):Play()
-end)
-
-distToggle.MouseButton1Click:Connect(function()
-    settings.ESP.DistanceEnabled = not settings.ESP.DistanceEnabled
-    TweenService:Create(distIndicator, TweenInfo.new(0.2), {
-        BackgroundColor3 = settings.ESP.DistanceEnabled and Color3.fromRGB(0, 255, 0) or Color3.fromRGB(255, 0, 0)
-    }):Play()
-end)
-
-snapToggle.MouseButton1Click:Connect(function()
-    settings.ESP.SnaplineEnabled = not settings.ESP.SnaplineEnabled
-    TweenService:Create(snapIndicator, TweenInfo.new(0.2), {
-        BackgroundColor3 = settings.ESP.SnaplineEnabled and Color3.fromRGB(0, 255, 0) or Color3.fromRGB(255, 0, 0)
-    }):Play()
-end)
-
-rainbowToggle.MouseButton1Click:Connect(function()
-    settings.ESP.RainbowEnabled = not settings.ESP.RainbowEnabled
-    TweenService:Create(rainbowIndicator, TweenInfo.new(0.2), {
-        BackgroundColor3 = settings.ESP.RainbowEnabled and Color3.fromRGB(0, 255, 0) or Color3.fromRGB(255, 0, 0)
-    }):Play()
-end)
-
-aimToggle.MouseButton1Click:Connect(function()
-    settings.Aimbot.Enabled = not settings.Aimbot.Enabled
-    TweenService:Create(aimIndicator, TweenInfo.new(0.2), {
-        BackgroundColor3 = settings.Aimbot.Enabled and Color3.fromRGB(0, 255, 0) or Color3.fromRGB(255, 0, 0)
-    }):Play()
-end)
-
-fovToggle.MouseButton1Click:Connect(function()
-    settings.Aimbot.ShowFOV = not settings.Aimbot.ShowFOV
-    fovCircle.Visible = settings.Aimbot.ShowFOV
-    fovControls.Visible = settings.Aimbot.ShowFOV
-    TweenService:Create(fovIndicator, TweenInfo.new(0.2), {
-        BackgroundColor3 = settings.Aimbot.ShowFOV and Color3.fromRGB(0, 255, 0) or Color3.fromRGB(255, 0, 0)
-    }):Play()
-end)
-
-infJumpToggle.MouseButton1Click:Connect(function()
-    toggleInfJump()
-    TweenService:Create(infJumpIndicator, TweenInfo.new(0.2), {
-        BackgroundColor3 = settings.Local.InfJump and Color3.fromRGB(0, 255, 0) or Color3.fromRGB(255, 0, 0)
-    }):Play()
-end)
-
-noclipToggle.MouseButton1Click:Connect(function()
-    toggleNoclip()
-    TweenService:Create(noclipIndicator, TweenInfo.new(0.2), {
-        BackgroundColor3 = settings.Local.Noclip and Color3.fromRGB(0, 255, 0) or Color3.fromRGB(255, 0, 0)
-    }):Play()
-end)
-
--- Priority Cycle
-local priorityOptions = {"Closest", "Center"}
-local priorityIndex = 1
-
-priorityValue.MouseButton1Click:Connect(function()
-    priorityIndex = priorityIndex + 1
-    if priorityIndex > #priorityOptions then priorityIndex = 1 end
-    settings.Aimbot.Priority = priorityOptions[priorityIndex]
-    priorityValue.Text = settings.Aimbot.Priority
-end)
-
--- Snapline Position Cycle
-local posOptions = {"Center", "Bottom", "Top"}
-local posIndex = 2
-
-posValue.MouseButton1Click:Connect(function()
-    posIndex = posIndex + 1
-    if posIndex > #posOptions then posIndex = 1 end
-    settings.ESP.SnaplinePosition = posOptions[posIndex]
-    posValue.Text = settings.ESP.SnaplinePosition
-end)
-
--- Box Thickness Controls
-thicknessMinus.MouseButton1Click:Connect(function()
-    settings.ESP.BoxThickness = math.max(0.5, settings.ESP.BoxThickness - 0.5)
-    thicknessValue.Text = tostring(settings.ESP.BoxThickness)
-    for _, drawings in pairs(espDrawings) do
-        drawings.Box.Thickness = settings.ESP.BoxThickness
-    end
-end)
-
-thicknessPlus.MouseButton1Click:Connect(function()
-    settings.ESP.BoxThickness = math.min(5, settings.ESP.BoxThickness + 0.5)
-    thicknessValue.Text = tostring(settings.ESP.BoxThickness)
-    for _, drawings in pairs(espDrawings) do
-        drawings.Box.Thickness = settings.ESP.BoxThickness
-    end
-end)
-
--- FOV Controls
-fovMinus.MouseButton1Click:Connect(function()
-    settings.Aimbot.FOV = math.max(20, settings.Aimbot.FOV - 5)
-    fovValue.Text = tostring(settings.Aimbot.FOV)
-    fovFill.Size = UDim2.new(settings.Aimbot.FOV/500, 0, 1, 0)
-end)
-
-fovPlus.MouseButton1Click:Connect(function()
-    settings.Aimbot.FOV = math.min(500, settings.Aimbot.FOV + 5)
-    fovValue.Text = tostring(settings.Aimbot.FOV)
-    fovFill.Size = UDim2.new(settings.Aimbot.FOV/500, 0, 1, 0)
-end)
-
--- FOV Slider Drag
-local fovDragging = false
-fovSlider.InputBegan:Connect(function(input)
-    if input.UserInputType == Enum.UserInputType.MouseButton1 then
-        fovDragging = true
-    end
-end)
-
-fovSlider.InputEnded:Connect(function(input)
-    if input.UserInputType == Enum.UserInputType.MouseButton1 then
-        fovDragging = false
-    end
-end)
-
-fovSlider.InputChanged:Connect(function(input)
-    if fovDragging and (input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch) then
-        local relX = input.Position.X - fovSlider.AbsolutePosition.X
-        local percent = math.clamp(relX / fovSlider.AbsoluteSize.X, 0, 1)
-        settings.Aimbot.FOV = math.floor(percent * 480) + 20
-        fovValue.Text = tostring(settings.Aimbot.FOV)
-        fovFill.Size = UDim2.new(settings.Aimbot.FOV/500, 0, 1, 0)
-    end
-end)
-
--- FOV Rainbow Toggle
-fovRainbowToggle.MouseButton1Click:Connect(function()
-    settings.Aimbot.FOVRainbow = not settings.Aimbot.FOVRainbow
-    TweenService:Create(fovRainbowIndicator, TweenInfo.new(0.2), {
-        BackgroundColor3 = settings.Aimbot.FOVRainbow and Color3.fromRGB(0, 255, 0) or Color3.fromRGB(255, 0, 0)
-    }):Play()
-end)
-
--- Max Distance Controls
-distMinus.MouseButton1Click:Connect(function()
-    settings.Aimbot.MaxDistance = math.max(50, settings.Aimbot.MaxDistance - 25)
-    distValue.Text = tostring(settings.Aimbot.MaxDistance)
-    distFill.Size = UDim2.new(settings.Aimbot.MaxDistance/1000, 0, 1, 0)
-end)
-
-distPlus.MouseButton1Click:Connect(function()
-    settings.Aimbot.MaxDistance = math.min(1000, settings.Aimbot.MaxDistance + 25)
-    distValue.Text = tostring(settings.Aimbot.MaxDistance)
-    distFill.Size = UDim2.new(settings.Aimbot.MaxDistance/1000, 0, 1, 0)
-end)
-
--- Distance Slider Drag
-local distDragging = false
-distSlider.InputBegan:Connect(function(input)
-    if input.UserInputType == Enum.UserInputType.MouseButton1 then
-        distDragging = true
-    end
-end)
-
-distSlider.InputEnded:Connect(function(input)
-    if input.UserInputType == Enum.UserInputType.MouseButton1 then
-        distDragging = false
-    end
-end)
-
-distSlider.InputChanged:Connect(function(input)
-    if distDragging and (input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch) then
-        local relX = input.Position.X - distSlider.AbsolutePosition.X
-        local percent = math.clamp(relX / distSlider.AbsoluteSize.X, 0, 1)
-        settings.Aimbot.MaxDistance = math.floor(percent * 950) + 50
-        distValue.Text = tostring(settings.Aimbot.MaxDistance)
-        distFill.Size = UDim2.new(settings.Aimbot.MaxDistance/1000, 0, 1, 0)
-    end
-end)
-
--- WalkSpeed Controls
-wsMinus.MouseButton1Click:Connect(function()
-    local newSpeed = math.max(1, settings.Local.WalkSpeed - 5)
-    updateWalkSpeed(newSpeed)
-    wsValue.Text = tostring(newSpeed)
-    wsFill.Size = UDim2.new(newSpeed/500, 0, 1, 0)
-end)
-
-wsPlus.MouseButton1Click:Connect(function()
-    local newSpeed = math.min(500, settings.Local.WalkSpeed + 5)
-    updateWalkSpeed(newSpeed)
-    wsValue.Text = tostring(newSpeed)
-    wsFill.Size = UDim2.new(newSpeed/500, 0, 1, 0)
-end)
-
-wsReset.MouseButton1Click:Connect(function()
-    updateWalkSpeed(16)
-    wsValue.Text = "16"
-    wsFill.Size = UDim2.new(16/500, 0, 1, 0)
-end)
-
--- WalkSpeed Slider Drag
-local wsDragging = false
-wsSlider.InputBegan:Connect(function(input)
-    if input.UserInputType == Enum.UserInputType.MouseButton1 then
-        wsDragging = true
-    end
-end)
-
-wsSlider.InputEnded:Connect(function(input)
-    if input.UserInputType == Enum.UserInputType.MouseButton1 then
-        wsDragging = false
-    end
-end)
-
-wsSlider.InputChanged:Connect(function(input)
-    if wsDragging and (input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch) then
-        local relX = input.Position.X - wsSlider.AbsolutePosition.X
-        local percent = math.clamp(relX / wsSlider.AbsoluteSize.X, 0, 1)
-        local newSpeed = math.floor(percent * 499) + 1
-        updateWalkSpeed(newSpeed)
-        wsValue.Text = tostring(newSpeed)
-        wsFill.Size = UDim2.new(newSpeed/500, 0, 1, 0)
-    end
-end)
-
--- ================== KEY SYSTEM FUNCTIONS ==================
-getKeyBtn.MouseButton1Click:Connect(function()
-    setclipboard("https://discord.gg/ZxN4uDEgP")
-    notif.Text = "✅ LINK DISCORD COPIED!"
-    notif.TextColor3 = Color3.fromRGB(0, 255, 0)
-    TweenService:Create(notif, TweenInfo.new(2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {TextTransparency = 1}):Play()
-end)
-
-destroyBtn.MouseButton1Click:Connect(function()
-    keyGui:Destroy()
-    loadingGui:Destroy()
-    mainPanelGui:Destroy()
-    infoPanelGui:Destroy()
-    gui:Destroy()
-    if fovCircle then fovCircle:Remove() end
-    for _, drawings in pairs(espDrawings) do
-        if drawings.Box then drawings.Box:Remove() end
-        if drawings.Distance then drawings.Distance:Remove() end
-        if drawings.Snapline then drawings.Snapline:Remove() end
-    end
-end)
-
-panelDestroyBtn.MouseButton1Click:Connect(function()
-    keyGui:Destroy()
-    loadingGui:Destroy()
-    mainPanelGui:Destroy()
-    infoPanelGui:Destroy()
-    gui:Destroy()
-    if fovCircle then fovCircle:Remove() end
-    for _, drawings in pairs(espDrawings) do
-        if drawings.Box then drawings.Box:Remove() end
-        if drawings.Distance then drawings.Distance:Remove() end
-        if drawings.Snapline then drawings.Snapline:Remove() end
-    end
-end)
-
-infoDestroyBtn.MouseButton1Click:Connect(function()
-    keyGui:Destroy()
-    loadingGui:Destroy()
-    mainPanelGui:Destroy()
-    infoPanelGui:Destroy()
-    gui:Destroy()
-    if fovCircle then fovCircle:Remove() end
-    for _, drawings in pairs(espDrawings) do
-        if drawings.Box then drawings.Box:Remove() end
-        if drawings.Distance then drawings.Distance:Remove() end
-        if drawings.Snapline then drawings.Snapline:Remove() end
-    end
-end)
-
-enterBtn.MouseButton1Click:Connect(function()
-    local inputKey = keyInput.Text
-    if VALID_KEYS[inputKey] then
-        -- Key benar
-        notif.Text = "✅ KEY BENAR! LOADING..."
-        notif.TextColor3 = Color3.fromRGB(0, 255, 0)
-        
-        -- Hide key GUI
-        keyGui.Enabled = false
-        
-        -- Show loading GUI
-        loadingGui.Enabled = true
-        
-        -- Animasi spinner
-        local angle = 0
-        local spinConnection
-        spinConnection = RunService.RenderStepped:Connect(function()
-            angle = angle + 0.05
-            for i, dot in ipairs(dots) do
-                local rad = angle + (i * math.pi / 4)
-                local x = 35 + math.cos(rad) * 30
-                local y = 35 + math.sin(rad) * 30
-                dot.Position = UDim2.new(0, x, 0, y)
-                
-                local alpha = 0.5 + (math.sin(rad * 3) * 0.5)
-                dot.BackgroundTransparency = 1 - alpha
-            end
-        end)
-        
-        -- Progress bar animation
-        local progress = 0
-        local msgIndex = 1
-        local loadTime = 5
-        
-        for i = 1, 50 do
-            task.wait(loadTime / 50)
-            progress = progress + 0.02
-            progressFill.Size = UDim2.new(progress, 0, 1, 0)
-            
-            if i % 8 == 0 and msgIndex <= #loadingMessages then
-                loadingText.Text = loadingMessages[msgIndex]
-                msgIndex = msgIndex + 1
-            end
-        end
-        
-        spinConnection:Disconnect()
-        loadingGui.Enabled = false
-        mainPanelGui.Enabled = true
-        
-    else
-        -- Key salah
-        notif.Text = "❌ KEY SALAH! COBA LAGI"
-        notif.TextColor3 = Color3.fromRGB(255, 0, 0)
-        keyInput.Text = ""
-        TweenService:Create(keyInput, TweenInfo.new(0.1), {Position = UDim2.new(0.1, 10, 0, 170)}):Play()
-        task.wait(0.1)
-        TweenService:Create(keyInput, TweenInfo.new(0.1), {Position = UDim2.new(0.1, -10, 0, 170)}):Play()
-        task.wait(0.1)
-        TweenService:Create(keyInput, TweenInfo.new(0.1), {Position = UDim2.new(0.1, 0, 0, 170)}):Play()
-    end
-end)
-
--- Info Script Button
-infoScriptBtn.MouseButton1Click:Connect(function()
-    mainPanelGui.Enabled = false
-    infoPanelGui.Enabled = true
-end)
-
--- Kembali Button
-kembaliBtn.MouseButton1Click:Connect(function()
-    infoPanelGui.Enabled = false
-    mainPanelGui.Enabled = true
-end)
-
--- Execute Button
-executeBtn.MouseButton1Click:Connect(function()
-    mainPanelGui.Enabled = false
-    gui.Enabled = true
-    authenticated = true
-end)
-
--- ================== INITIALIZE ESP ==================
-for _, plr in ipairs(Players:GetPlayers()) do
-    if plr ~= player then createESP(plr) end
-end
-
-Players.PlayerAdded:Connect(function(plr)
-    if plr ~= player then
-        createESP(plr)
-        plr.CharacterAdded:Connect(function()
-            if espDrawings[plr] then
-                for _, d in pairs(espDrawings[plr]) do
-                    pcall(function() d:Remove() end)
-                end
-                espDrawings[plr] = nil
-            end
-            createESP(plr)
-        end)
-    end
-end)
-
-Players.PlayerRemoving:Connect(function(plr)
-    if espDrawings[plr] then
-        for _, d in pairs(espDrawings[plr]) do
-            pcall(function() d:Remove() end)
-        end
-        espDrawings[plr] = nil
-    end
-end)
-
--- ================== MAIN LOOP (FOV FIX) ==================
-RunService.RenderStepped:Connect(function()
-    if not authenticated then return end
-    
-    -- UPDATE FOV CIRCLE (MUNCUL PAS ON DOANG)
-    if settings.Aimbot.ShowFOV then
-        fovCircle.Radius = (settings.Aimbot.FOV / 2) * (camera.ViewportSize.Y / 100)
-        fovCircle.Position = Vector2.new(camera.ViewportSize.X / 2, camera.ViewportSize.Y / 2)
-        fovCircle.Visible = true
-        
-        if settings.Aimbot.FOVRainbow then
-            local hue = (tick() * rainbowSpeed) % 1
-            fovCircle.Color = Color3.fromHSV(hue, 1, 1)
-        else
-            fovCircle.Color = settings.Aimbot.FOVColor
-        end
-    else
-        fovCircle.Visible = false
-    end
-    
-    -- UPDATE ESP
-    for plr, drawings in pairs(espDrawings) do
-        updateESP(plr, drawings)
-    end
-    
-    -- AIMLOCK 100% NEMPEL (LANGSUNG LOOK, TANPA SMOOTHING)
-    if settings.Aimbot.Enabled then
-        local targets = findTargetsInFOV()
-        
-        if #targets > 0 then
-            local target = targets[1].player
-            local head = targets[1].head
-            
-            if target and target.Character and head then
-                camera.CFrame = CFrame.lookAt(camera.CFrame.Position, head.Position)
-            end
-        end
-    end
-end)
-
--- ================== MINIMIZE ==================
-local minimized = false
-local normalSize = mainFrame.Size
-local minimizedSize = UDim2.new(0, 400, 0, 40)
-
-minBtn.MouseButton1Click:Connect(function()
-    minimized = not minimized
-    if minimized then
-        tabsFrame.Visible = false
-        contentFrame.Visible = false
-        local tween = TweenService:Create(mainFrame, TweenInfo.new(0.3), {Size = minimizedSize})
-        tween:Play()
-        minBtn.Text = "+"
-    else
-        local tween = TweenService:Create(mainFrame, TweenInfo.new(0.3), {Size = normalSize})
-        tween:Play()
-        tween.Completed:Connect(function()
-            tabsFrame.Visible = true
-            contentFrame.Visible = true
-        end)
-        minBtn.Text = "–"
-    end
-end)
-
-closeBtn.MouseButton1Click:Connect(function()
-    gui:Destroy()
-    if fovCircle then fovCircle:Remove() end
-    for _, drawings in pairs(espDrawings) do
-        if drawings.Box then drawings.Box:Remove() end
-        if drawings.Distance then drawings.Distance:Remove() end
-        if drawings.Snapline then drawings.Snapline:Remove() end
-    end
-end)        FOV = 150,
-        MaxDistance = 300,
-        ShowFOV = false,        -- <=== FIX: FALSE, JADI MUNCUL PAS DI-ON DOANG
-        FOVColor = Color3.fromRGB(255, 100, 255),
-        FOVRainbow = false,
-        TargetPart = "Head",
-        Priority = "Closest"
-    },
-    Local = {
-        WalkSpeed = 16,
-        InfJump = false,
-        Noclip = false
-    }
-}
-
-local rainbowSpeed = 0.05
-local espDrawings = {}
-
--- ================== FOV CIRCLE ==================
-local fovCircle = Drawing.new("Circle")
-fovCircle.Thickness = 2
-fovCircle.NumSides = 100
-fovCircle.Filled = false
-fovCircle.Visible = settings.Aimbot.ShowFOV  -- NGIKUTIN SETTING (MUNCUL PAS ON)
-fovCircle.Color = settings.Aimbot.FOVColor
-
--- ================== FUNGSI CREATE ESP ==================
-local function createESP(plr)
-    if plr == player then return end
-    
-    local drawings = {
-        Box = Drawing.new("Square"),
-        Distance = Drawing.new("Text"),
-        Snapline = Drawing.new("Line")
-    }
-    
-    drawings.Box.Thickness = settings.ESP.BoxThickness
-    drawings.Box.Filled = false
-    drawings.Box.Color = settings.ESP.BoxColor
-    drawings.Box.Visible = false
-    
-    drawings.Distance.Size = 14
-    drawings.Distance.Center = true
-    drawings.Distance.Color = settings.ESP.DistanceColor
-    drawings.Distance.Visible = false
-    
-    drawings.Snapline.Thickness = 1.5
-    drawings.Snapline.Color = settings.ESP.BoxColor
-    drawings.Snapline.Visible = false
-    
-    espDrawings[plr] = drawings
-end
-
--- ================== FUNGSI UPDATE ESP ==================
-local function updateESP(plr, drawings)
-    if not settings.ESP.Enabled or not plr.Character then
-        for _, d in pairs(drawings) do d.Visible = false end
-        return
-    end
-    
-    local humanoid = plr.Character:FindFirstChildOfClass("Humanoid")
-    local head = plr.Character:FindFirstChild("Head")
-    local root = plr.Character:FindFirstChild("HumanoidRootPart")
-    
-    if not humanoid or humanoid.Health <= 0 or not head or not root then
-        for _, d in pairs(drawings) do d.Visible = false end
-        return
-    end
-    
-    local headPos, onScreen = camera:WorldToViewportPoint(head.Position)
-    local rootPos = camera:WorldToViewportPoint(root.Position)
-    
-    if not onScreen then
-        for _, d in pairs(drawings) do d.Visible = false end
-        return
-    end
-    
-    local distance = (head.Position - camera.CFrame.Position).Magnitude
-    local scale = 1000 / distance
-    local boxHeight = scale * 2.2
-    local boxWidth = scale * 1.6
-    
-    drawings.Box.Size = Vector2.new(boxWidth, boxHeight)
-    drawings.Box.Position = Vector2.new(headPos.X - boxWidth/2, headPos.Y - boxHeight/2)
-    
-    if settings.ESP.RainbowEnabled then
-        local hue = (tick() * rainbowSpeed) % 1
-        drawings.Box.Color = Color3.fromHSV(hue, 1, 1)
-        drawings.Snapline.Color = Color3.fromHSV(hue, 1, 1)
-    else
-        drawings.Box.Color = settings.ESP.BoxColor
-        drawings.Snapline.Color = settings.ESP.BoxColor
-    end
-    
-    drawings.Box.Visible = true
-    
-    if settings.ESP.DistanceEnabled then
-        drawings.Distance.Text = math.floor(distance) .. "m"
-        drawings.Distance.Position = Vector2.new(headPos.X, headPos.Y + boxHeight/2 + 15)
-        drawings.Distance.Visible = true
-    else
-        drawings.Distance.Visible = false
-    end
-    
-    if settings.ESP.SnaplineEnabled then
-        local targetY
-        if settings.ESP.SnaplinePosition == "Bottom" then
-            targetY = camera.ViewportSize.Y
-        elseif settings.ESP.SnaplinePosition == "Top" then
-            targetY = 0
-        else
-            targetY = camera.ViewportSize.Y / 2
-        end
-        
-        drawings.Snapline.From = Vector2.new(rootPos.X, rootPos.Y)
-        drawings.Snapline.To = Vector2.new(camera.ViewportSize.X/2, targetY)
-        drawings.Snapline.Visible = true
-    else
-        drawings.Snapline.Visible = false
-    end
-end
-
--- ================== FUNGSI FIND TARGETS DALAM FOV ==================
-local function findTargetsInFOV()
-    local targets = {}
-    local fov = settings.Aimbot.FOV
-    local center = Vector2.new(camera.ViewportSize.X / 2, camera.ViewportSize.Y / 2)
-    local fovRadius = (fov / 2) * (camera.ViewportSize.Y / 100)
-    
-    for _, plr in pairs(Players:GetPlayers()) do
-        if plr ~= player and plr.Character and plr.Character:FindFirstChild("Head") then
-            local head = plr.Character.Head
-            local headPos, onScreen = camera:WorldToViewportPoint(head.Position)
-            
-            if onScreen then
-                local screenPos = Vector2.new(headPos.X, headPos.Y)
-                local distFromCenter = (screenPos - center).Magnitude
-                
-                if distFromCenter <= fovRadius then
-                    local distance = (camera.CFrame.Position - head.Position).Magnitude
-                    if distance <= settings.Aimbot.MaxDistance then
-                        local direction = (head.Position - camera.CFrame.Position).Unit
-                        local ray = Ray.new(camera.CFrame.Position, direction * 500)
-                        local hit, _ = workspace:FindPartOnRay(ray, player.Character)
-                        
-                        if hit and hit:IsDescendantOf(plr.Character) then
-                            table.insert(targets, {
-                                player = plr,
-                                distance = distance,
-                                angle = distFromCenter,
-                                head = head
-                            })
-                        end
-                    end
-                end
-            end
-        end
-    end
-    
-    if settings.Aimbot.Priority == "Closest" then
-        table.sort(targets, function(a, b) return a.distance < b.distance end)
-    else
-        table.sort(targets, function(a, b) return a.angle < b.angle end)
-    end
-    
-    return targets
-end
-
--- ================== FUNGSI LOCAL PLAYER ==================
-local function updateWalkSpeed(speed)
-    if player.Character and player.Character:FindFirstChild("Humanoid") then
-        player.Character.Humanoid.WalkSpeed = speed
-        settings.Local.WalkSpeed = speed
-    end
-end
-
-local function toggleInfJump()
-    settings.Local.InfJump = not settings.Local.InfJump
-    if settings.Local.InfJump then
-        game:GetService("UserInputService").JumpRequest:Connect(function()
-            if settings.Local.InfJump and player.Character and player.Character:FindFirstChild("Humanoid") then
-                player.Character.Humanoid:ChangeState("Jumping")
-            end
-        end)
-    end
-end
-
-local function toggleNoclip()
-    settings.Local.Noclip = not settings.Local.Noclip
-    
-    if settings.Local.Noclip then
-        RunService.Stepped:Connect(function()
-            if settings.Local.Noclip and player.Character then
-                for _, part in ipairs(player.Character:GetChildren()) do
-                    if part:IsA("BasePart") then
-                        part.CanCollide = false
-                    end
-                end
-            end
-        end)
-    end
-end
-
--- ================== KEY SYSTEM GUI (DENGAN LOGO) ==================
-local keyGui = Instance.new("ScreenGui")
-keyGui.Name = "H4xxHub_KeySystem"
-keyGui.Parent = CoreGui
-keyGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-
--- Background Blur
-local blur = Instance.new("Frame")
-blur.Size = UDim2.new(1, 0, 1, 0)
-blur.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
-blur.BackgroundTransparency = 0.5
-blur.BorderSizePixel = 0
-blur.Parent = keyGui
-
--- Main Key Frame
-local keyFrame = Instance.new("Frame")
-keyFrame.Size = UDim2.new(0, 400, 0, 300)
-keyFrame.Position = UDim2.new(0.5, -200, 0.5, -150)
-keyFrame.BackgroundColor3 = Color3.fromRGB(20, 20, 30)
-keyFrame.BackgroundTransparency = 0.1
-keyFrame.BorderSizePixel = 0
-keyFrame.Parent = keyGui
-
-local glassCorner = Instance.new("UICorner")
-glassCorner.CornerRadius = UDim.new(0, 20)
-glassCorner.Parent = keyFrame
-
-local glassStroke = Instance.new("UIStroke")
-glassStroke.Thickness = 2
-glassStroke.Color = Color3.fromRGB(255, 100, 255)
-glassStroke.Transparency = 0.3
-glassStroke.Parent = keyFrame
-
--- LOGO (FIX: PAKE RBXASSETID)
-local logo = Instance.new("ImageLabel")
-logo.Size = UDim2.new(0, 80, 0, 80)
-logo.Position = UDim2.new(0.5, -40, 0, 20)
-logo.BackgroundTransparency = 1
-logo.Image = "rbxassetid://128768766773988"
-logo.ImageColor3 = Color3.fromRGB(255, 100, 255)
-logo.Parent = keyFrame
-
-local logoCorner = Instance.new("UICorner")
-logoCorner.CornerRadius = UDim.new(0, 40)
-logoCorner.Parent = logo
-
--- Title
-local keyTitle = Instance.new("TextLabel")
-keyTitle.Size = UDim2.new(1, 0, 0, 30)
-keyTitle.Position = UDim2.new(0, 0, 0, 110)
-keyTitle.BackgroundTransparency = 1
-keyTitle.TextColor3 = Color3.fromRGB(255, 100, 255)
-keyTitle.Text = "H4XX HUB | FLICK AIMBOT"
-keyTitle.Font = Enum.Font.GothamBold
-keyTitle.TextSize = 18
-keyTitle.Parent = keyFrame
-
--- Subtitle
-local keySub = Instance.new("TextLabel")
-keySub.Size = UDim2.new(1, 0, 0, 20)
-keySub.Position = UDim2.new(0, 0, 0, 140)
-keySub.BackgroundTransparency = 1
-keySub.TextColor3 = Color3.fromRGB(200, 200, 200)
-keySub.Text = "MASUKKAN KEY UNTUK AKSES"
-keySub.Font = Enum.Font.Gotham
-keySub.TextSize = 12
-keySub.Parent = keyFrame
-
--- Key Input
-local keyInput = Instance.new("TextBox")
-keyInput.Size = UDim2.new(0.8, 0, 0, 40)
-keyInput.Position = UDim2.new(0.1, 0, 0, 170)
-keyInput.BackgroundColor3 = Color3.fromRGB(30, 30, 40)
-keyInput.BackgroundTransparency = 0.3
-keyInput.PlaceholderText = "MASUKKAN KEY..."
-keyInput.PlaceholderColor3 = Color3.fromRGB(150, 150, 150)
-keyInput.TextColor3 = Color3.fromRGB(255, 255, 255)
-keyInput.Font = Enum.Font.Gotham
-keyInput.TextSize = 14
-keyInput.ClearTextOnFocus = false
-keyInput.Parent = keyFrame
-
-local inputCorner = Instance.new("UICorner")
-inputCorner.CornerRadius = UDim.new(0, 10)
-inputCorner.Parent = keyInput
-
--- Get Key Button
-local getKeyBtn = Instance.new("TextButton")
-getKeyBtn.Size = UDim2.new(0.35, 0, 0, 35)
-getKeyBtn.Position = UDim2.new(0.1, 0, 0, 220)
-getKeyBtn.BackgroundColor3 = Color3.fromRGB(50, 50, 150)
-getKeyBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
-getKeyBtn.Text = "GET KEY"
-getKeyBtn.Font = Enum.Font.GothamBold
-getKeyBtn.TextSize = 14
-getKeyBtn.Parent = keyFrame
-
-local getKeyCorner = Instance.new("UICorner")
-getKeyCorner.CornerRadius = UDim.new(0, 10)
-getKeyCorner.Parent = getKeyBtn
-
--- Enter Button
-local enterBtn = Instance.new("TextButton")
-enterBtn.Size = UDim2.new(0.35, 0, 0, 35)
-enterBtn.Position = UDim2.new(0.55, 0, 0, 220)
-enterBtn.BackgroundColor3 = Color3.fromRGB(255, 100, 255)
-enterBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
-enterBtn.Text = "ENTER"
-enterBtn.Font = Enum.Font.GothamBold
-enterBtn.TextSize = 14
-enterBtn.Parent = keyFrame
-
-local enterCorner = Instance.new("UICorner")
-enterCorner.CornerRadius = UDim.new(0, 10)
-enterCorner.Parent = enterBtn
-
--- Destroy Button
-local destroyBtn = Instance.new("TextButton")
-destroyBtn.Size = UDim2.new(0, 30, 0, 30)
-destroyBtn.Position = UDim2.new(1, -40, 0, 10)
-destroyBtn.BackgroundColor3 = Color3.fromRGB(255, 50, 50)
-destroyBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
-destroyBtn.Text = "X"
-destroyBtn.Font = Enum.Font.GothamBold
-destroyBtn.TextSize = 16
-destroyBtn.Parent = keyFrame
-
-local destroyCorner = Instance.new("UICorner")
-destroyCorner.CornerRadius = UDim.new(0, 8)
-destroyCorner.Parent = destroyBtn
-
--- Notification
-local notif = Instance.new("TextLabel")
-notif.Size = UDim2.new(1, 0, 0, 25)
-notif.Position = UDim2.new(0, 0, 0, 265)
-notif.BackgroundTransparency = 1
-notif.TextColor3 = Color3.fromRGB(255, 50, 50)
-notif.Text = ""
-notif.Font = Enum.Font.Gotham
-notif.TextSize = 12
-notif.Parent = keyFrame
-
--- ================== LOADING GUI ==================
-local loadingGui = Instance.new("ScreenGui")
-loadingGui.Name = "H4xxHub_Loading"
-loadingGui.Parent = CoreGui
-loadingGui.Enabled = false
-
-local loadingFrame = Instance.new("Frame")
-loadingFrame.Size = UDim2.new(0, 500, 0, 300)
-loadingFrame.Position = UDim2.new(0.5, -250, 0.5, -150)
-loadingFrame.BackgroundColor3 = Color3.fromRGB(20, 20, 30)
-loadingFrame.BackgroundTransparency = 0.1
-loadingFrame.BorderSizePixel = 0
-loadingFrame.Parent = loadingGui
-
-local loadingCorner = Instance.new("UICorner")
-loadingCorner.CornerRadius = UDim.new(0, 20)
-loadingCorner.Parent = loadingFrame
-
-local loadingStroke = Instance.new("UIStroke")
-loadingStroke.Thickness = 2
-loadingStroke.Color = Color3.fromRGB(255, 100, 255)
-loadingStroke.Transparency = 0.3
-loadingStroke.Parent = loadingFrame
-
--- Loading Title
-local loadingTitle = Instance.new("TextLabel")
-loadingTitle.Size = UDim2.new(1, 0, 0, 50)
-loadingTitle.Position = UDim2.new(0, 0, 0, 30)
-loadingTitle.BackgroundTransparency = 1
-loadingTitle.TextColor3 = Color3.fromRGB(255, 100, 255)
-loadingTitle.Text = "TUNGGU SEBENTAR YAA.."
-loadingTitle.Font = Enum.Font.GothamBold
-loadingTitle.TextSize = 22
-loadingTitle.Parent = loadingFrame
-
--- Spinner
-local spinnerContainer = Instance.new("Frame")
-spinnerContainer.Size = UDim2.new(0, 80, 0, 80)
-spinnerContainer.Position = UDim2.new(0.5, -40, 0, 90)
-spinnerContainer.BackgroundTransparency = 1
-spinnerContainer.Parent = loadingFrame
-
-local dots = {}
-local colors = {Color3.fromRGB(255, 100, 255), Color3.fromRGB(200, 100, 255), Color3.fromRGB(255, 150, 255)}
-
-for i = 1, 8 do
-    local dot = Instance.new("Frame")
-    dot.Size = UDim2.new(0, 10, 0, 10)
-    dot.BackgroundColor3 = colors[(i % #colors) + 1]
-    dot.BorderSizePixel = 0
-    dot.Parent = spinnerContainer
-    
-    local dotCorner = Instance.new("UICorner")
-    dotCorner.CornerRadius = UDim.new(0, 5)
-    dotCorner.Parent = dot
-    
-    dots[i] = dot
-end
-
--- Loading Text
-local loadingText = Instance.new("TextLabel")
-loadingText.Size = UDim2.new(1, 0, 0, 30)
-loadingText.Position = UDim2.new(0, 0, 0, 180)
-loadingText.BackgroundTransparency = 1
-loadingText.TextColor3 = Color3.fromRGB(200, 200, 200)
-loadingText.Text = "MEMUAT AIMBOT..."
-loadingText.Font = Enum.Font.Gotham
-loadingText.TextSize = 14
-loadingText.Parent = loadingFrame
-
--- Progress Bar
-local progressBar = Instance.new("Frame")
-progressBar.Size = UDim2.new(0.8, 0, 0, 8)
-progressBar.Position = UDim2.new(0.1, 0, 0, 220)
-progressBar.BackgroundColor3 = Color3.fromRGB(40, 40, 50)
-progressBar.BorderSizePixel = 0
-progressBar.Parent = loadingFrame
-
-local progressCorner = Instance.new("UICorner")
-progressCorner.CornerRadius = UDim.new(0, 4)
-progressCorner.Parent = progressBar
-
-local progressFill = Instance.new("Frame")
-progressFill.Size = UDim2.new(0, 0, 1, 0)
-progressFill.BackgroundColor3 = Color3.fromRGB(255, 100, 255)
-progressFill.BorderSizePixel = 0
-progressFill.Parent = progressBar
-
-local fillCorner = Instance.new("UICorner")
-fillCorner.CornerRadius = UDim.new(0, 4)
-fillCorner.Parent = progressFill
-
--- Loading Messages
-local loadingMessages = {
-    "MENGINISIALISASI AIMBOT...",
-    "MENGATUR ESP...",
-    "MENGOPTIMALKAN FOV...",
-    "MEMUAT WALKSPEED...",
-    "MENGAKTIFKAN INFINITE JUMP...",
-    "MENGKALIBRASI SISTEM...",
-    "H4XX HUB SIAP DIGUNAKAN!"
-}
-
--- ================== MAIN PANEL GUI ==================
-local mainPanelGui = Instance.new("ScreenGui")
-mainPanelGui.Name = "H4xxHub_MainPanel"
-mainPanelGui.Parent = CoreGui
-mainPanelGui.Enabled = false
-
-local mainPanelFrame = Instance.new("Frame")
-mainPanelFrame.Size = UDim2.new(0, 400, 0, 250)
-mainPanelFrame.Position = UDim2.new(0.5, -200, 0.5, -125)
-mainPanelFrame.BackgroundColor3 = Color3.fromRGB(20, 20, 30)
-mainPanelFrame.BackgroundTransparency = 0.1
-mainPanelFrame.BorderSizePixel = 0
-mainPanelFrame.Parent = mainPanelGui
-
-local mainPanelCorner = Instance.new("UICorner")
-mainPanelCorner.CornerRadius = UDim.new(0, 20)
-mainPanelCorner.Parent = mainPanelFrame
-
-local mainPanelStroke = Instance.new("UIStroke")
-mainPanelStroke.Thickness = 2
-mainPanelStroke.Color = Color3.fromRGB(255, 100, 255)
-mainPanelStroke.Transparency = 0.3
-mainPanelStroke.Parent = mainPanelFrame
-
--- Panel Title
-local panelTitle = Instance.new("TextLabel")
-panelTitle.Size = UDim2.new(1, 0, 0, 50)
-panelTitle.Position = UDim2.new(0, 0, 0, 20)
-panelTitle.BackgroundTransparency = 1
-panelTitle.TextColor3 = Color3.fromRGB(255, 100, 255)
-panelTitle.Text = "H4XX HUB"
-panelTitle.Font = Enum.Font.GothamBold
-panelTitle.TextSize = 24
-panelTitle.Parent = mainPanelFrame
-
--- Panel Subtitle
-local panelSub = Instance.new("TextLabel")
-panelSub.Size = UDim2.new(1, 0, 0, 30)
-panelSub.Position = UDim2.new(0, 0, 0, 70)
-panelSub.BackgroundTransparency = 1
-panelSub.TextColor3 = Color3.fromRGB(200, 200, 200)
-panelSub.Text = "PILIH MENU"
-panelSub.Font = Enum.Font.Gotham
-panelSub.TextSize = 14
-panelSub.Parent = mainPanelFrame
-
--- Info Script Button
-local infoScriptBtn = Instance.new("TextButton")
-infoScriptBtn.Size = UDim2.new(0.4, 0, 0, 45)
-infoScriptBtn.Position = UDim2.new(0.1, 0, 0, 120)
-infoScriptBtn.BackgroundColor3 = Color3.fromRGB(50, 50, 150)
-infoScriptBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
-infoScriptBtn.Text = "INFO SCRIPT"
-infoScriptBtn.Font = Enum.Font.GothamBold
-infoScriptBtn.TextSize = 14
-infoScriptBtn.Parent = mainPanelFrame
-
-local infoScriptCorner = Instance.new("UICorner")
-infoScriptCorner.CornerRadius = UDim.new(0, 10)
-infoScriptCorner.Parent = infoScriptBtn
-
--- Execute Button
-local executeBtn = Instance.new("TextButton")
-executeBtn.Size = UDim2.new(0.4, 0, 0, 45)
-executeBtn.Position = UDim2.new(0.5, 0, 0, 120)
-executeBtn.BackgroundColor3 = Color3.fromRGB(255, 100, 255)
-executeBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
-executeBtn.Text = "EXECUTE"
-executeBtn.Font = Enum.Font.GothamBold
-executeBtn.TextSize = 14
-executeBtn.Parent = mainPanelFrame
-
-local executeCorner = Instance.new("UICorner")
-executeCorner.CornerRadius = UDim.new(0, 10)
-executeCorner.Parent = executeBtn
-
--- Panel Destroy Button
-local panelDestroyBtn = Instance.new("TextButton")
-panelDestroyBtn.Size = UDim2.new(0, 30, 0, 30)
-panelDestroyBtn.Position = UDim2.new(1, -40, 0, 10)
-panelDestroyBtn.BackgroundColor3 = Color3.fromRGB(255, 50, 50)
-panelDestroyBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
-panelDestroyBtn.Text = "X"
-panelDestroyBtn.Font = Enum.Font.GothamBold
-panelDestroyBtn.TextSize = 16
-panelDestroyBtn.Parent = mainPanelFrame
-
-local panelDestroyCorner = Instance.new("UICorner")
-panelDestroyCorner.CornerRadius = UDim.new(0, 8)
-panelDestroyCorner.Parent = panelDestroyBtn
-
--- ================== INFO PANEL ==================
-local infoPanelGui = Instance.new("ScreenGui")
-infoPanelGui.Name = "H4xxHub_InfoPanel"
-infoPanelGui.Parent = CoreGui
-infoPanelGui.Enabled = false
-
-local infoPanelFrame = Instance.new("Frame")
-infoPanelFrame.Size = UDim2.new(0, 400, 0, 300)
-infoPanelFrame.Position = UDim2.new(0.5, -200, 0.5, -150)
-infoPanelFrame.BackgroundColor3 = Color3.fromRGB(20, 20, 30)
-infoPanelFrame.BackgroundTransparency = 0.1
-infoPanelFrame.BorderSizePixel = 0
-infoPanelFrame.Parent = infoPanelGui
-
-local infoPanelCorner = Instance.new("UICorner")
-infoPanelCorner.CornerRadius = UDim.new(0, 20)
-infoPanelCorner.Parent = infoPanelFrame
-
-local infoPanelStroke = Instance.new("UIStroke")
-infoPanelStroke.Thickness = 2
-infoPanelStroke.Color = Color3.fromRGB(255, 100, 255)
-infoPanelStroke.Transparency = 0.3
-infoPanelStroke.Parent = infoPanelFrame
-
--- Info Title
-local infoTitle = Instance.new("TextLabel")
-infoTitle.Size = UDim2.new(1, 0, 0, 40)
-infoTitle.Position = UDim2.new(0, 0, 0, 15)
-infoTitle.BackgroundTransparency = 1
-infoTitle.TextColor3 = Color3.fromRGB(255, 100, 255)
-infoTitle.Text = "INFORMASI SCRIPT"
-infoTitle.Font = Enum.Font.GothamBold
-infoTitle.TextSize = 20
-infoTitle.Parent = infoPanelFrame
-
--- Info Content (KEY UDAH DIHAPUS, OWNER ptur)
-local infoContent = Instance.new("TextLabel")
-infoContent.Size = UDim2.new(0.9, 0, 0, 160)
-infoContent.Position = UDim2.new(0.05, 0, 0, 60)
-infoContent.BackgroundColor3 = Color3.fromRGB(30, 30, 40)
-infoContent.BackgroundTransparency = 0.3
-infoContent.TextColor3 = Color3.fromRGB(200, 200, 255)
-infoContent.Text = [[
-📌 OWNER: ptur
-📌 DISCORD: https://discord.gg/ZxN4uDEgP
-📌 VERSION: 2.0.0
-
-🔹 ESP OUTLINE + RAINBOW
-🔹 AIMLOCK FOV (WARNA + RAINBOW)
-🔹 WALKSPEED 500
-🔹 INFINITE JUMP
-🔹 NOCLIP
-]]
-infoContent.Font = Enum.Font.Gotham
-infoContent.TextSize = 14
-infoContent.TextXAlignment = Enum.TextXAlignment.Left
-infoContent.TextYAlignment = Enum.TextYAlignment.Top
-infoContent.Parent = infoPanelFrame
-
-local infoContentCorner = Instance.new("UICorner")
-infoContentCorner.CornerRadius = UDim.new(0, 10)
-infoContentCorner.Parent = infoContent
-
--- Kembali Button
-local kembaliBtn = Instance.new("TextButton")
-kembaliBtn.Size = UDim2.new(0.3, 0, 0, 40)
-kembaliBtn.Position = UDim2.new(0.35, 0, 0, 235)
-kembaliBtn.BackgroundColor3 = Color3.fromRGB(100, 100, 100)
-kembaliBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
-kembaliBtn.Text = "KEMBALI"
-kembaliBtn.Font = Enum.Font.GothamBold
-kembaliBtn.TextSize = 14
-kembaliBtn.Parent = infoPanelFrame
-
-local kembaliCorner = Instance.new("UICorner")
-kembaliCorner.CornerRadius = UDim.new(0, 10)
-kembaliCorner.Parent = kembaliBtn
-
--- Info Destroy Button
-local infoDestroyBtn = Instance.new("TextButton")
-infoDestroyBtn.Size = UDim2.new(0, 30, 0, 30)
-infoDestroyBtn.Position = UDim2.new(1, -40, 0, 10)
-infoDestroyBtn.BackgroundColor3 = Color3.fromRGB(255, 50, 50)
-infoDestroyBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
-infoDestroyBtn.Text = "X"
-infoDestroyBtn.Font = Enum.Font.GothamBold
-infoDestroyBtn.TextSize = 16
-infoDestroyBtn.Parent = infoPanelFrame
-
-local infoDestroyCorner = Instance.new("UICorner")
-infoDestroyCorner.CornerRadius = UDim.new(0, 8)
-infoDestroyCorner.Parent = infoDestroyBtn
-
--- ================== H4XX HUB GUI ==================
-local gui = Instance.new("ScreenGui")
-gui.Name = "H4xxHub"
-gui.Parent = CoreGui
-gui.Enabled = false
-
--- Main Frame
-local mainFrame = Instance.new("Frame")
-mainFrame.Size = UDim2.new(0, 400, 0, 420)
-mainFrame.Position = UDim2.new(0.5, -200, 0.5, -210)
-mainFrame.BackgroundColor3 = Color3.fromRGB(15, 15, 15)
-mainFrame.BorderSizePixel = 0
-mainFrame.Active = true
-mainFrame.Draggable = true
-mainFrame.Parent = gui
-
-local mainCorner = Instance.new("UICorner")
-mainCorner.CornerRadius = UDim.new(0, 15)
-mainCorner.Parent = mainFrame
-
--- Title Bar
-local titleBar = Instance.new("Frame")
-titleBar.Size = UDim2.new(1, 0, 0, 40)
-titleBar.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
-titleBar.BorderSizePixel = 0
-titleBar.Parent = mainFrame
-
-local titleCorner = Instance.new("UICorner")
-titleCorner.CornerRadius = UDim.new(0, 15)
-titleCorner.Parent = titleBar
-
-local titleText = Instance.new("TextLabel")
-titleText.Size = UDim2.new(1, -80, 1, 0)
-titleText.Position = UDim2.new(0, 15, 0, 0)
-titleText.BackgroundTransparency = 1
-titleText.TextColor3 = Color3.fromRGB(255, 100, 255)
-titleText.Text = "H4XX HUB | FLICK AIMBOT 🔥"
-titleText.Font = Enum.Font.GothamBold
-titleText.TextSize = 16
-titleText.TextXAlignment = Enum.TextXAlignment.Left
-titleText.Parent = titleBar
-
-local minBtn = Instance.new("TextButton")
-minBtn.Size = UDim2.new(0, 30, 0, 30)
-minBtn.Position = UDim2.new(1, -70, 0, 5)
-minBtn.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
-minBtn.TextColor3 = Color3.new(1, 1, 1)
-minBtn.Text = "–"
-minBtn.Font = Enum.Font.GothamBold
-minBtn.TextSize = 20
-minBtn.Parent = titleBar
-
-local minCorner = Instance.new("UICorner")
-minCorner.CornerRadius = UDim.new(0, 8)
-minCorner.Parent = minBtn
-
-local closeBtn = Instance.new("TextButton")
-closeBtn.Size = UDim2.new(0, 30, 0, 30)
-closeBtn.Position = UDim2.new(1, -35, 0, 5)
-closeBtn.BackgroundColor3 = Color3.fromRGB(200, 50, 50)
-closeBtn.TextColor3 = Color3.new(1, 1, 1)
-closeBtn.Text = "X"
-closeBtn.Font = Enum.Font.GothamBold
-closeBtn.TextSize = 18
-closeBtn.Parent = titleBar
-
-local closeCorner = Instance.new("UICorner")
-closeCorner.CornerRadius = UDim.new(0, 8)
-closeCorner.Parent = closeBtn
-
--- Tabs
-local tabsFrame = Instance.new("Frame")
-tabsFrame.Size = UDim2.new(1, -20, 0, 45)
-tabsFrame.Position = UDim2.new(0, 10, 0, 50)
-tabsFrame.BackgroundTransparency = 1
-tabsFrame.Parent = mainFrame
-
-local espTab = Instance.new("TextButton")
-espTab.Size = UDim2.new(0.33, -4, 1, 0)
-espTab.Position = UDim2.new(0, 0, 0, 0)
-espTab.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-espTab.TextColor3 = Color3.new(1, 1, 1)
-espTab.Text = "⚡ ESP"
-espTab.Font = Enum.Font.GothamBold
-espTab.TextSize = 14
-espTab.Parent = tabsFrame
-
-local espTabCorner = Instance.new("UICorner")
-espTabCorner.CornerRadius = UDim.new(0, 8)
-espTabCorner.Parent = espTab
-
-local aimTab = Instance.new("TextButton")
-aimTab.Size = UDim2.new(0.33, -4, 1, 0)
-aimTab.Position = UDim2.new(0.33, 8, 0, 0)
-aimTab.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
-aimTab.TextColor3 = Color3.new(1, 1, 1)
-aimTab.Text = "🎯 AIMBOT"
-aimTab.Font = Enum.Font.GothamBold
-aimTab.TextSize = 14
-aimTab.Parent = tabsFrame
-
-local aimTabCorner = Instance.new("UICorner")
-aimTabCorner.CornerRadius = UDim.new(0, 8)
-aimTabCorner.Parent = aimTab
-
-local localTab = Instance.new("TextButton")
-localTab.Size = UDim2.new(0.33, -4, 1, 0)
-localTab.Position = UDim2.new(0.66, 16, 0, 0)
-localTab.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
-localTab.TextColor3 = Color3.new(1, 1, 1)
-localTab.Text = "👤 LOCAL"
-localTab.Font = Enum.Font.GothamBold
-localTab.TextSize = 14
-localTab.Parent = tabsFrame
-
-local localTabCorner = Instance.new("UICorner")
-localTabCorner.CornerRadius = UDim.new(0, 8)
-localTabCorner.Parent = localTab
-
--- Content Frame
-local contentFrame = Instance.new("Frame")
-contentFrame.Size = UDim2.new(1, -20, 1, -110)
-contentFrame.Position = UDim2.new(0, 10, 0, 100)
-contentFrame.BackgroundTransparency = 1
-contentFrame.Parent = mainFrame
-
--- ESP Content
-local espContent = Instance.new("ScrollingFrame")
-espContent.Size = UDim2.new(1, 0, 1, 0)
-espContent.BackgroundTransparency = 1
-espContent.ScrollBarThickness = 5
-espContent.ScrollBarImageColor3 = Color3.fromRGB(255, 100, 255)
-espContent.CanvasSize = UDim2.new(0, 0, 0, 350)
-espContent.Visible = true
-espContent.Parent = contentFrame
-
--- Aimbot Content
-local aimContent = Instance.new("ScrollingFrame")
-aimContent.Size = UDim2.new(1, 0, 1, 0)
-aimContent.BackgroundTransparency = 1
-aimContent.ScrollBarThickness = 5
-aimContent.ScrollBarImageColor3 = Color3.fromRGB(255, 100, 255)
-aimContent.CanvasSize = UDim2.new(0, 0, 0, 450)
-aimContent.Visible = false
-aimContent.Parent = contentFrame
-
--- Local Content
-local localContent = Instance.new("ScrollingFrame")
-localContent.Size = UDim2.new(1, 0, 1, 0)
-localContent.BackgroundTransparency = 1
-localContent.ScrollBarThickness = 5
-localContent.ScrollBarImageColor3 = Color3.fromRGB(255, 100, 255)
-localContent.CanvasSize = UDim2.new(0, 0, 0, 300)
-localContent.Visible = false
-localContent.Parent = contentFrame
-
--- ================== ESP CONTROLS ==================
-local espY = 10
-local spacing = 45
-
--- ESP Toggle
-local espToggle = Instance.new("TextButton")
-espToggle.Size = UDim2.new(0.9, 0, 0, 35)
-espToggle.Position = UDim2.new(0.05, 0, 0, espY)
-espToggle.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
-espToggle.TextColor3 = Color3.new(1, 1, 1)
-espToggle.Text = "ESP"
-espToggle.Font = Enum.Font.GothamBold
-espToggle.TextSize = 15
-espToggle.Parent = espContent
-
-local espToggleCorner = Instance.new("UICorner")
-espToggleCorner.CornerRadius = UDim.new(0, 8)
-espToggleCorner.Parent = espToggle
-
-local espIndicator = Instance.new("Frame")
-espIndicator.Size = UDim2.new(0, 20, 0, 20)
-espIndicator.Position = UDim2.new(1, -30, 0.5, -10)
-espIndicator.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
-espIndicator.BorderSizePixel = 0
-espIndicator.Parent = espToggle
-
-local espIndicatorCorner = Instance.new("UICorner")
-espIndicatorCorner.CornerRadius = UDim.new(0, 5)
-espIndicatorCorner.Parent = espIndicator
-
-espY = espY + spacing
-
--- Box Thickness
-local thicknessLabel = Instance.new("TextLabel")
-thicknessLabel.Size = UDim2.new(0.4, 0, 0, 25)
-thicknessLabel.Position = UDim2.new(0.05, 0, 0, espY)
-thicknessLabel.BackgroundTransparency = 1
-thicknessLabel.TextColor3 = Color3.new(1, 1, 1)
-thicknessLabel.Text = "Thickness:"
-thicknessLabel.Font = Enum.Font.Gotham
-thicknessLabel.TextSize = 14
-thicknessLabel.TextXAlignment = Enum.TextXAlignment.Left
-thicknessLabel.Parent = espContent
-
-local thicknessValue = Instance.new("TextLabel")
-thicknessValue.Size = UDim2.new(0, 40, 0, 25)
-thicknessValue.Position = UDim2.new(0.5, 0, 0, espY)
-thicknessValue.BackgroundTransparency = 1
-thicknessValue.TextColor3 = Color3.fromRGB(0, 255, 100)
-thicknessValue.Text = "1.5"
-thicknessValue.Font = Enum.Font.GothamBold
-thicknessValue.TextSize = 16
-thicknessValue.Parent = espContent
-
-local thicknessMinus = Instance.new("TextButton")
-thicknessMinus.Size = UDim2.new(0, 30, 0, 30)
-thicknessMinus.Position = UDim2.new(0.7, -15, 0, espY-2)
-thicknessMinus.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-thicknessMinus.TextColor3 = Color3.new(1, 1, 1)
-thicknessMinus.Text = "-"
-thicknessMinus.Font = Enum.Font.GothamBold
-thicknessMinus.TextSize = 18
-thicknessMinus.Parent = espContent
-
-local thicknessMinusCorner = Instance.new("UICorner")
-thicknessMinusCorner.CornerRadius = UDim.new(0, 6)
-thicknessMinusCorner.Parent = thicknessMinus
-
-local thicknessPlus = Instance.new("TextButton")
-thicknessPlus.Size = UDim2.new(0, 30, 0, 30)
-thicknessPlus.Position = UDim2.new(0.85, -15, 0, espY-2)
-thicknessPlus.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-thicknessPlus.TextColor3 = Color3.new(1, 1, 1)
-thicknessPlus.Text = "+"
-thicknessPlus.Font = Enum.Font.GothamBold
-thicknessPlus.TextSize = 18
-thicknessPlus.Parent = espContent
-
-local thicknessPlusCorner = Instance.new("UICorner")
-thicknessPlusCorner.CornerRadius = UDim.new(0, 6)
-thicknessPlusCorner.Parent = thicknessPlus
-
-espY = espY + spacing
-
--- Distance Toggle
-local distToggle = Instance.new("TextButton")
-distToggle.Size = UDim2.new(0.9, 0, 0, 35)
-distToggle.Position = UDim2.new(0.05, 0, 0, espY)
-distToggle.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
-distToggle.TextColor3 = Color3.new(1, 1, 1)
-distToggle.Text = "Distance"
-distToggle.Font = Enum.Font.GothamBold
-distToggle.TextSize = 15
-distToggle.Parent = espContent
-
-local distToggleCorner = Instance.new("UICorner")
-distToggleCorner.CornerRadius = UDim.new(0, 8)
-distToggleCorner.Parent = distToggle
-
-local distIndicator = Instance.new("Frame")
-distIndicator.Size = UDim2.new(0, 20, 0, 20)
-distIndicator.Position = UDim2.new(1, -30, 0.5, -10)
-distIndicator.BackgroundColor3 = Color3.fromRGB(0, 255, 0)
-distIndicator.BorderSizePixel = 0
-distIndicator.Parent = distToggle
-
-local distIndicatorCorner = Instance.new("UICorner")
-distIndicatorCorner.CornerRadius = UDim.new(0, 5)
-distIndicatorCorner.Parent = distIndicator
-
-espY = espY + spacing
-
--- Snapline Toggle
-local snapToggle = Instance.new("TextButton")
-snapToggle.Size = UDim2.new(0.9, 0, 0, 35)
-snapToggle.Position = UDim2.new(0.05, 0, 0, espY)
-snapToggle.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
-snapToggle.TextColor3 = Color3.new(1, 1, 1)
-snapToggle.Text = "Snapline"
-snapToggle.Font = Enum.Font.GothamBold
-snapToggle.TextSize = 15
-snapToggle.Parent = espContent
-
-local snapToggleCorner = Instance.new("UICorner")
-snapToggleCorner.CornerRadius = UDim.new(0, 8)
-snapToggleCorner.Parent = snapToggle
-
-local snapIndicator = Instance.new("Frame")
-snapIndicator.Size = UDim2.new(0, 20, 0, 20)
-snapIndicator.Position = UDim2.new(1, -30, 0.5, -10)
-snapIndicator.BackgroundColor3 = Color3.fromRGB(0, 255, 0)
-snapIndicator.BorderSizePixel = 0
-snapIndicator.Parent = snapToggle
-
-local snapIndicatorCorner = Instance.new("UICorner")
-snapIndicatorCorner.CornerRadius = UDim.new(0, 5)
-snapIndicatorCorner.Parent = snapIndicator
-
-espY = espY + spacing
-
--- Snapline Position
-local posLabel = Instance.new("TextLabel")
-posLabel.Size = UDim2.new(0.4, 0, 0, 25)
-posLabel.Position = UDim2.new(0.05, 0, 0, espY)
-posLabel.BackgroundTransparency = 1
-posLabel.TextColor3 = Color3.new(1, 1, 1)
-posLabel.Text = "Position:"
-posLabel.Font = Enum.Font.Gotham
-posLabel.TextSize = 14
-posLabel.TextXAlignment = Enum.TextXAlignment.Left
-posLabel.Parent = espContent
-
-local posValue = Instance.new("TextButton")
-posValue.Size = UDim2.new(0.4, 0, 0, 30)
-posValue.Position = UDim2.new(0.5, 0, 0, espY-2)
-posValue.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-posValue.TextColor3 = Color3.new(1, 1, 1)
-posValue.Text = "Center"
-posValue.Font = Enum.Font.GothamBold
-posValue.TextSize = 14
-posValue.Parent = espContent
-
-local posValueCorner = Instance.new("UICorner")
-posValueCorner.CornerRadius = UDim.new(0, 6)
-posValueCorner.Parent = posValue
-
-espY = espY + spacing
-
--- Rainbow Toggle
-local rainbowToggle = Instance.new("TextButton")
-rainbowToggle.Size = UDim2.new(0.9, 0, 0, 35)
-rainbowToggle.Position = UDim2.new(0.05, 0, 0, espY)
-rainbowToggle.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
-rainbowToggle.TextColor3 = Color3.new(1, 1, 1)
-rainbowToggle.Text = "Rainbow"
-rainbowToggle.Font = Enum.Font.GothamBold
-rainbowToggle.TextSize = 15
-rainbowToggle.Parent = espContent
-
-local rainbowToggleCorner = Instance.new("UICorner")
-rainbowToggleCorner.CornerRadius = UDim.new(0, 8)
-rainbowToggleCorner.Parent = rainbowToggle
-
-local rainbowIndicator = Instance.new("Frame")
-rainbowIndicator.Size = UDim2.new(0, 20, 0, 20)
-rainbowIndicator.Position = UDim2.new(1, -30, 0.5, -10)
-rainbowIndicator.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
-rainbowIndicator.BorderSizePixel = 0
-rainbowIndicator.Parent = rainbowToggle
-
-local rainbowIndicatorCorner = Instance.new("UICorner")
-rainbowIndicatorCorner.CornerRadius = UDim.new(0, 5)
-rainbowIndicatorCorner.Parent = rainbowIndicator
-
-espY = espY + spacing
-espContent.CanvasSize = UDim2.new(0, 0, 0, espY + 20)
-
--- ================== AIMBOT CONTROLS ==================
-local aimY = 10
-
--- Aimbot Toggle
-local aimToggle = Instance.new("TextButton")
-aimToggle.Size = UDim2.new(0.9, 0, 0, 35)
-aimToggle.Position = UDim2.new(0.05, 0, 0, aimY)
-aimToggle.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
-aimToggle.TextColor3 = Color3.new(1, 1, 1)
-aimToggle.Text = "AIMBOT"
-aimToggle.Font = Enum.Font.GothamBold
-aimToggle.TextSize = 15
-aimToggle.Parent = aimContent
-
-local aimToggleCorner = Instance.new("UICorner")
-aimToggleCorner.CornerRadius = UDim.new(0, 8)
-aimToggleCorner.Parent = aimToggle
-
-local aimIndicator = Instance.new("Frame")
-aimIndicator.Size = UDim2.new(0, 20, 0, 20)
-aimIndicator.Position = UDim2.new(1, -30, 0.5, -10)
-aimIndicator.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
-aimIndicator.BorderSizePixel = 0
-aimIndicator.Parent = aimToggle
-
-local aimIndicatorCorner = Instance.new("UICorner")
-aimIndicatorCorner.CornerRadius = UDim.new(0, 5)
-aimIndicatorCorner.Parent = aimIndicator
-
-aimY = aimY + spacing
-
--- Priority
-local priorityLabel = Instance.new("TextLabel")
-priorityLabel.Size = UDim2.new(0.4, 0, 0, 25)
-priorityLabel.Position = UDim2.new(0.05, 0, 0, aimY)
-priorityLabel.BackgroundTransparency = 1
-priorityLabel.TextColor3 = Color3.new(1, 1, 1)
-priorityLabel.Text = "Priority:"
-priorityLabel.Font = Enum.Font.Gotham
-priorityLabel.TextSize = 14
-priorityLabel.TextXAlignment = Enum.TextXAlignment.Left
-priorityLabel.Parent = aimContent
-
-local priorityValue = Instance.new("TextButton")
-priorityValue.Size = UDim2.new(0.4, 0, 0, 30)
-priorityValue.Position = UDim2.new(0.5, 0, 0, aimY-2)
-priorityValue.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-priorityValue.TextColor3 = Color3.new(1, 1, 1)
-priorityValue.Text = settings.Aimbot.Priority
-priorityValue.Font = Enum.Font.GothamBold
-priorityValue.TextSize = 14
-priorityValue.Parent = aimContent
-
-local priorityValueCorner = Instance.new("UICorner")
-priorityValueCorner.CornerRadius = UDim.new(0, 6)
-priorityValueCorner.Parent = priorityValue
-
-aimY = aimY + spacing
-
--- FOV Toggle
-local fovToggle = Instance.new("TextButton")
-fovToggle.Size = UDim2.new(0.9, 0, 0, 35)
-fovToggle.Position = UDim2.new(0.05, 0, 0, aimY)
-fovToggle.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
-fovToggle.TextColor3 = Color3.new(1, 1, 1)
-fovToggle.Text = "FOV CIRCLE"
-fovToggle.Font = Enum.Font.GothamBold
-fovToggle.TextSize = 15
-fovToggle.Parent = aimContent
-
-local fovToggleCorner = Instance.new("UICorner")
-fovToggleCorner.CornerRadius = UDim.new(0, 8)
-fovToggleCorner.Parent = fovToggle
-
-local fovIndicator = Instance.new("Frame")
-fovIndicator.Size = UDim2.new(0, 20, 0, 20)
-fovIndicator.Position = UDim2.new(1, -30, 0.5, -10)
-fovIndicator.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
-fovIndicator.BorderSizePixel = 0
-fovIndicator.Parent = fovToggle
-
-local fovIndicatorCorner = Instance.new("UICorner")
-fovIndicatorCorner.CornerRadius = UDim.new(0, 5)
-fovIndicatorCorner.Parent = fovIndicator
-
-aimY = aimY + spacing
-
--- FOV Controls Container
-local fovControls = Instance.new("Frame")
-fovControls.Size = UDim2.new(0.9, 0, 0, 140)
-fovControls.Position = UDim2.new(0.05, 0, 0, aimY)
-fovControls.BackgroundTransparency = 1
-fovControls.Visible = false
-fovControls.Parent = aimContent
-
--- FOV Size Label
-local fovSizeLabel = Instance.new("TextLabel")
-fovSizeLabel.Size = UDim2.new(0.4, 0, 0, 25)
-fovSizeLabel.Position = UDim2.new(0, 0, 0, 0)
-fovSizeLabel.BackgroundTransparency = 1
-fovSizeLabel.TextColor3 = Color3.new(1, 1, 1)
-fovSizeLabel.Text = "FOV Size:"
-fovSizeLabel.Font = Enum.Font.Gotham
-fovSizeLabel.TextSize = 14
-fovSizeLabel.TextXAlignment = Enum.TextXAlignment.Left
-fovSizeLabel.Parent = fovControls
-
-local fovValue = Instance.new("TextLabel")
-fovValue.Size = UDim2.new(0, 40, 0, 25)
-fovValue.Position = UDim2.new(0.5, 0, 0, 0)
-fovValue.BackgroundTransparency = 1
-fovValue.TextColor3 = Color3.fromRGB(0, 255, 100)
-fovValue.Text = tostring(settings.Aimbot.FOV)
-fovValue.Font = Enum.Font.GothamBold
-fovValue.TextSize = 16
-fovValue.Parent = fovControls
-
-local fovMinus = Instance.new("TextButton")
-fovMinus.Size = UDim2.new(0, 30, 0, 30)
-fovMinus.Position = UDim2.new(0.7, -15, 0, -2)
-fovMinus.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-fovMinus.TextColor3 = Color3.new(1, 1, 1)
-fovMinus.Text = "-"
-fovMinus.Font = Enum.Font.GothamBold
-fovMinus.TextSize = 18
-fovMinus.Parent = fovControls
-
-local fovMinusCorner = Instance.new("UICorner")
-fovMinusCorner.CornerRadius = UDim.new(0, 6)
-fovMinusCorner.Parent = fovMinus
-
-local fovPlus = Instance.new("TextButton")
-fovPlus.Size = UDim2.new(0, 30, 0, 30)
-fovPlus.Position = UDim2.new(0.85, -15, 0, -2)
-fovPlus.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-fovPlus.TextColor3 = Color3.new(1, 1, 1)
-fovPlus.Text = "+"
-fovPlus.Font = Enum.Font.GothamBold
-fovPlus.TextSize = 18
-fovPlus.Parent = fovControls
-
-local fovPlusCorner = Instance.new("UICorner")
-fovPlusCorner.CornerRadius = UDim.new(0, 6)
-fovPlusCorner.Parent = fovPlus
-
--- FOV Slider
-local fovSlider = Instance.new("Frame")
-fovSlider.Size = UDim2.new(0.9, 0, 0, 6)
-fovSlider.Position = UDim2.new(0.05, 0, 0, 40)
-fovSlider.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-fovSlider.BorderSizePixel = 0
-fovSlider.Parent = fovControls
-
-local fovFill = Instance.new("Frame")
-fovFill.Size = UDim2.new(settings.Aimbot.FOV/500, 0, 1, 0)
-fovFill.BackgroundColor3 = Color3.fromRGB(255, 100, 255)
-fovFill.BorderSizePixel = 0
-fovFill.Parent = fovSlider
-
--- FOV Color Picker
-local fovColorLabel = Instance.new("TextLabel")
-fovColorLabel.Size = UDim2.new(0.4, 0, 0, 25)
-fovColorLabel.Position = UDim2.new(0, 0, 0, 60)
-fovColorLabel.BackgroundTransparency = 1
-fovColorLabel.TextColor3 = Color3.new(1, 1, 1)
-fovColorLabel.Text = "FOV Color:"
-fovColorLabel.Font = Enum.Font.Gotham
-fovColorLabel.TextSize = 14
-fovColorLabel.TextXAlignment = Enum.TextXAlignment.Left
-fovColorLabel.Parent = fovControls
-
-local colors = {
-    {name = "Pink", color = Color3.fromRGB(255, 100, 255)},
-    {name = "Red", color = Color3.fromRGB(255, 0, 0)},
-    {name = "Blue", color = Color3.fromRGB(0, 100, 255)},
-    {name = "Green", color = Color3.fromRGB(0, 255, 0)},
-    {name = "Yellow", color = Color3.fromRGB(255, 255, 0)},
-    {name = "Cyan", color = Color3.fromRGB(0, 255, 255)}
-}
-
-for i, colorData in ipairs(colors) do
-    local btn = Instance.new("TextButton")
-    btn.Size = UDim2.new(0, 45, 0, 25)
-    btn.Position = UDim2.new(0.45 + ((i-1) * 0.09), 0, 0, 60)
-    btn.BackgroundColor3 = colorData.color
-    btn.Text = ""
-    btn.Parent = fovControls
-    
-    local btnCorner = Instance.new("UICorner")
-    btnCorner.CornerRadius = UDim.new(0, 4)
-    btnCorner.Parent = btn
-    
-    btn.MouseButton1Click:Connect(function()
-        settings.Aimbot.FOVColor = colorData.color
-        fovCircle.Color = colorData.color
-        fovFill.BackgroundColor3 = colorData.color
-        settings.Aimbot.FOVRainbow = false
-        TweenService:Create(fovRainbowIndicator, TweenInfo.new(0.2), {
-            BackgroundColor3 = Color3.fromRGB(255, 0, 0)
-        }):Play()
-    end)
-end
-
--- FOV Rainbow Toggle
-local fovRainbowToggle = Instance.new("TextButton")
-fovRainbowToggle.Size = UDim2.new(0.4, 0, 0, 30)
-fovRainbowToggle.Position = UDim2.new(0, 0, 0, 95)
-fovRainbowToggle.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
-fovRainbowToggle.TextColor3 = Color3.new(1, 1, 1)
-fovRainbowToggle.Text = "FOV RAINBOW"
-fovRainbowToggle.Font = Enum.Font.GothamBold
-fovRainbowToggle.TextSize = 12
-fovRainbowToggle.Parent = fovControls
-
-local fovRainbowCorner = Instance.new("UICorner")
-fovRainbowCorner.CornerRadius = UDim.new(0, 6)
-fovRainbowCorner.Parent = fovRainbowToggle
-
-local fovRainbowIndicator = Instance.new("Frame")
-fovRainbowIndicator.Size = UDim2.new(0, 20, 0, 20)
-fovRainbowIndicator.Position = UDim2.new(1, -30, 0.5, -10)
-fovRainbowIndicator.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
-fovRainbowIndicator.BorderSizePixel = 0
-fovRainbowIndicator.Parent = fovRainbowToggle
-
-local fovRainbowIndicatorCorner = Instance.new("UICorner")
-fovRainbowIndicatorCorner.CornerRadius = UDim.new(0, 5)
-fovRainbowIndicatorCorner.Parent = fovRainbowIndicator
-
-aimY = aimY + 140 + spacing
-
--- Max Distance
-local distLabel = Instance.new("TextLabel")
-distLabel.Size = UDim2.new(0.4, 0, 0, 25)
-distLabel.Position = UDim2.new(0.05, 0, 0, aimY)
-distLabel.BackgroundTransparency = 1
-distLabel.TextColor3 = Color3.new(1, 1, 1)
-distLabel.Text = "Max Dist:"
-distLabel.Font = Enum.Font.Gotham
-distLabel.TextSize = 14
-distLabel.TextXAlignment = Enum.TextXAlignment.Left
-distLabel.Parent = aimContent
-
-local distValue = Instance.new("TextLabel")
-distValue.Size = UDim2.new(0, 40, 0, 25)
-distValue.Position = UDim2.new(0.5, 0, 0, aimY)
-distValue.BackgroundTransparency = 1
-distValue.TextColor3 = Color3.fromRGB(0, 255, 100)
-distValue.Text = tostring(settings.Aimbot.MaxDistance)
-distValue.Font = Enum.Font.GothamBold
-distValue.TextSize = 16
-distValue.Parent = aimContent
-
-local distMinus = Instance.new("TextButton")
-distMinus.Size = UDim2.new(0, 30, 0, 30)
-distMinus.Position = UDim2.new(0.7, -15, 0, aimY-2)
-distMinus.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-distMinus.TextColor3 = Color3.new(1, 1, 1)
-distMinus.Text = "-"
-distMinus.Font = Enum.Font.GothamBold
-distMinus.TextSize = 18
-distMinus.Parent = aimContent
-
-local distMinusCorner = Instance.new("UICorner")
-distMinusCorner.CornerRadius = UDim.new(0, 6)
-distMinusCorner.Parent = distMinus
-
-local distPlus = Instance.new("TextButton")
-distPlus.Size = UDim2.new(0, 30, 0, 30)
-distPlus.Position = UDim2.new(0.85, -15, 0, aimY-2)
-distPlus.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-distPlus.TextColor3 = Color3.new(1, 1, 1)
-distPlus.Text = "+"
-distPlus.Font = Enum.Font.GothamBold
-distPlus.TextSize = 18
-distPlus.Parent = aimContent
-
-local distPlusCorner = Instance.new("UICorner")
-distPlusCorner.CornerRadius = UDim.new(0, 6)
-distPlusCorner.Parent = distPlus
-
-aimY = aimY + spacing
-
--- Distance Slider
-local distSlider = Instance.new("Frame")
-distSlider.Size = UDim2.new(0.9, 0, 0, 6)
-distSlider.Position = UDim2.new(0.05, 0, 0, aimY)
-distSlider.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-distSlider.BorderSizePixel = 0
-distSlider.Parent = aimContent
-
-local distFill = Instance.new("Frame")
-distFill.Size = UDim2.new(settings.Aimbot.MaxDistance/1000, 0, 1, 0)
-distFill.BackgroundColor3 = Color3.fromRGB(255, 100, 255)
-distFill.BorderSizePixel = 0
-distFill.Parent = distSlider
-
-aimY = aimY + 20
-aimContent.CanvasSize = UDim2.new(0, 0, 0, aimY + 20)
-
--- ================== LOCAL PLAYER CONTROLS ==================
-local localY = 10
-
--- WalkSpeed Label
-local wsLabel = Instance.new("TextLabel")
-wsLabel.Size = UDim2.new(0.4, 0, 0, 25)
-wsLabel.Position = UDim2.new(0.05, 0, 0, localY)
-wsLabel.BackgroundTransparency = 1
-wsLabel.TextColor3 = Color3.new(1, 1, 1)
-wsLabel.Text = "WalkSpeed:"
-wsLabel.Font = Enum.Font.Gotham
-wsLabel.TextSize = 14
-wsLabel.TextXAlignment = Enum.TextXAlignment.Left
-wsLabel.Parent = localContent
-
-local wsValue = Instance.new("TextLabel")
-wsValue.Size = UDim2.new(0, 40, 0, 25)
-wsValue.Position = UDim2.new(0.5, 0, 0, localY)
-wsValue.BackgroundTransparency = 1
-wsValue.TextColor3 = Color3.fromRGB(0, 255, 100)
-wsValue.Text = "16"
-wsValue.Font = Enum.Font.GothamBold
-wsValue.TextSize = 16
-wsValue.Parent = localContent
-
-local wsMinus = Instance.new("TextButton")
-wsMinus.Size = UDim2.new(0, 30, 0, 30)
-wsMinus.Position = UDim2.new(0.7, -15, 0, localY-2)
-wsMinus.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-wsMinus.TextColor3 = Color3.new(1, 1, 1)
-wsMinus.Text = "-"
-wsMinus.Font = Enum.Font.GothamBold
-wsMinus.TextSize = 18
-wsMinus.Parent = localContent
-
-local wsMinusCorner = Instance.new("UICorner")
-wsMinusCorner.CornerRadius = UDim.new(0, 6)
-wsMinusCorner.Parent = wsMinus
-
-local wsPlus = Instance.new("TextButton")
-wsPlus.Size = UDim2.new(0, 30, 0, 30)
-wsPlus.Position = UDim2.new(0.85, -15, 0, localY-2)
-wsPlus.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-wsPlus.TextColor3 = Color3.new(1, 1, 1)
-wsPlus.Text = "+"
-wsPlus.Font = Enum.Font.GothamBold
-wsPlus.TextSize = 18
-wsPlus.Parent = localContent
-
-local wsPlusCorner = Instance.new("UICorner")
-wsPlusCorner.CornerRadius = UDim.new(0, 6)
-wsPlusCorner.Parent = wsPlus
-
-localY = localY + spacing
-
--- WalkSpeed Reset Button
-local wsReset = Instance.new("TextButton")
-wsReset.Size = UDim2.new(0.9, 0, 0, 30)
-wsReset.Position = UDim2.new(0.05, 0, 0, localY)
-wsReset.BackgroundColor3 = Color3.fromRGB(50, 50, 150)
-wsReset.TextColor3 = Color3.new(1, 1, 1)
-wsReset.Text = "RESET SPEED (16)"
-wsReset.Font = Enum.Font.GothamBold
-wsReset.TextSize = 14
-wsReset.Parent = localContent
-
-local wsResetCorner = Instance.new("UICorner")
-wsResetCorner.CornerRadius = UDim.new(0, 8)
-wsResetCorner.Parent = wsReset
-
-localY = localY + spacing
-
--- WalkSpeed Slider
-local wsSlider = Instance.new("Frame")
-wsSlider.Size = UDim2.new(0.9, 0, 0, 6)
-wsSlider.Position = UDim2.new(0.05, 0, 0, localY)
-wsSlider.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-wsSlider.BorderSizePixel = 0
-wsSlider.Parent = localContent
-
-local wsFill = Instance.new("Frame")
-wsFill.Size = UDim2.new(16/500, 0, 1, 0)
-wsFill.BackgroundColor3 = Color3.fromRGB(0, 255, 100)
-wsFill.BorderSizePixel = 0
-wsFill.Parent = wsSlider
-
-localY = localY + spacing + 10
-
--- Inf Jump Toggle
-local infJumpToggle = Instance.new("TextButton")
-infJumpToggle.Size = UDim2.new(0.9, 0, 0, 35)
-infJumpToggle.Position = UDim2.new(0.05, 0, 0, localY)
-infJumpToggle.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
-infJumpToggle.TextColor3 = Color3.new(1, 1, 1)
-infJumpToggle.Text = "INFINITE JUMP"
-infJumpToggle.Font = Enum.Font.GothamBold
-infJumpToggle.TextSize = 15
-infJumpToggle.Parent = localContent
-
-local infJumpToggleCorner = Instance.new("UICorner")
-infJumpToggleCorner.CornerRadius = UDim.new(0, 8)
-infJumpToggleCorner.Parent = infJumpToggle
-
-local infJumpIndicator = Instance.new("Frame")
-infJumpIndicator.Size = UDim2.new(0, 20, 0, 20)
-infJumpIndicator.Position = UDim2.new(1, -30, 0.5, -10)
-infJumpIndicator.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
-infJumpIndicator.BorderSizePixel = 0
-infJumpIndicator.Parent = infJumpToggle
-
-local infJumpIndicatorCorner = Instance.new("UICorner")
-infJumpIndicatorCorner.CornerRadius = UDim.new(0, 5)
-infJumpIndicatorCorner.Parent = infJumpIndicator
-
-localY = localY + spacing
-
--- Noclip Toggle
-local noclipToggle = Instance.new("TextButton")
-noclipToggle.Size = UDim2.new(0.9, 0, 0, 35)
-noclipToggle.Position = UDim2.new(0.05, 0, 0, localY)
-noclipToggle.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
-noclipToggle.TextColor3 = Color3.new(1, 1, 1)
-noclipToggle.Text = "NOCLIP"
-noclipToggle.Font = Enum.Font.GothamBold
-noclipToggle.TextSize = 15
-noclipToggle.Parent = localContent
-
-local noclipToggleCorner = Instance.new("UICorner")
-noclipToggleCorner.CornerRadius = UDim.new(0, 8)
-noclipToggleCorner.Parent = noclipToggle
-
-local noclipIndicator = Instance.new("Frame")
-noclipIndicator.Size = UDim2.new(0, 20, 0, 20)
-noclipIndicator.Position = UDim2.new(1, -30, 0.5, -10)
-noclipIndicator.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
-noclipIndicator.BorderSizePixel = 0
-noclipIndicator.Parent = noclipToggle
-
-local noclipIndicatorCorner = Instance.new("UICorner")
-noclipIndicatorCorner.CornerRadius = UDim.new(0, 5)
-noclipIndicatorCorner.Parent = noclipIndicator
-
-localY = localY + spacing
-localContent.CanvasSize = UDim2.new(0, 0, 0, localY + 20)
-
--- ================== TAB SWITCHING ==================
-local currentTab = "ESP"
-
-local function switchTab(tab)
-    currentTab = tab
-    espContent.Visible = (tab == "ESP")
-    aimContent.Visible = (tab == "Aimbot")
-    localContent.Visible = (tab == "Local")
-    
-    if tab == "ESP" then
-        espTab.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-        aimTab.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
-        localTab.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
-    elseif tab == "Aimbot" then
-        espTab.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
-        aimTab.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-        localTab.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
-    else
-        espTab.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
-        aimTab.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
-        localTab.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-    end
-end
-
-espTab.MouseButton1Click:Connect(function() switchTab("ESP") end)
-aimTab.MouseButton1Click:Connect(function() switchTab("Aimbot") end)
-localTab.MouseButton1Click:Connect(function() switchTab("Local") end)
-
--- ================== BUTTON FUNCTIONS ==================
-espToggle.MouseButton1Click:Connect(function()
-    settings.ESP.Enabled = not settings.ESP.Enabled
-    TweenService:Create(espIndicator, TweenInfo.new(0.2), {
-        BackgroundColor3 = settings.ESP.Enabled and Color3.fromRGB(0, 255, 0) or Color3.fromRGB(255, 0, 0)
-    }):Play()
-end)
-
-distToggle.MouseButton1Click:Connect(function()
-    settings.ESP.DistanceEnabled = not settings.ESP.DistanceEnabled
-    TweenService:Create(distIndicator, TweenInfo.new(0.2), {
-        BackgroundColor3 = settings.ESP.DistanceEnabled and Color3.fromRGB(0, 255, 0) or Color3.fromRGB(255, 0, 0)
-    }):Play()
-end)
-
-snapToggle.MouseButton1Click:Connect(function()
-    settings.ESP.SnaplineEnabled = not settings.ESP.SnaplineEnabled
-    TweenService:Create(snapIndicator, TweenInfo.new(0.2), {
-        BackgroundColor3 = settings.ESP.SnaplineEnabled and Color3.fromRGB(0, 255, 0) or Color3.fromRGB(255, 0, 0)
-    }):Play()
-end)
-
-rainbowToggle.MouseButton1Click:Connect(function()
-    settings.ESP.RainbowEnabled = not settings.ESP.RainbowEnabled
-    TweenService:Create(rainbowIndicator, TweenInfo.new(0.2), {
-        BackgroundColor3 = settings.ESP.RainbowEnabled and Color3.fromRGB(0, 255, 0) or Color3.fromRGB(255, 0, 0)
-    }):Play()
-end)
-
-aimToggle.MouseButton1Click:Connect(function()
-    settings.Aimbot.Enabled = not settings.Aimbot.Enabled
-    TweenService:Create(aimIndicator, TweenInfo.new(0.2), {
-        BackgroundColor3 = settings.Aimbot.Enabled and Color3.fromRGB(0, 255, 0) or Color3.fromRGB(255, 0, 0)
-    }):Play()
-end)
-
-fovToggle.MouseButton1Click:Connect(function()
-    settings.Aimbot.ShowFOV = not settings.Aimbot.ShowFOV
-    fovCircle.Visible = settings.Aimbot.ShowFOV
-    fovControls.Visible = settings.Aimbot.ShowFOV
-    TweenService:Create(fovIndicator, TweenInfo.new(0.2), {
-        BackgroundColor3 = settings.Aimbot.ShowFOV and Color3.fromRGB(0, 255, 0) or Color3.fromRGB(255, 0, 0)
-    }):Play()
-end)
-
-infJumpToggle.MouseButton1Click:Connect(function()
-    toggleInfJump()
-    TweenService:Create(infJumpIndicator, TweenInfo.new(0.2), {
-        BackgroundColor3 = settings.Local.InfJump and Color3.fromRGB(0, 255, 0) or Color3.fromRGB(255, 0, 0)
-    }):Play()
-end)
-
-noclipToggle.MouseButton1Click:Connect(function()
-    toggleNoclip()
-    TweenService:Create(noclipIndicator, TweenInfo.new(0.2), {
-        BackgroundColor3 = settings.Local.Noclip and Color3.fromRGB(0, 255, 0) or Color3.fromRGB(255, 0, 0)
-    }):Play()
-end)
-
--- Priority Cycle
-local priorityOptions = {"Closest", "Center"}
-local priorityIndex = 1
-
-priorityValue.MouseButton1Click:Connect(function()
-    priorityIndex = priorityIndex + 1
-    if priorityIndex > #priorityOptions then priorityIndex = 1 end
-    settings.Aimbot.Priority = priorityOptions[priorityIndex]
-    priorityValue.Text = settings.Aimbot.Priority
-end)
-
--- Snapline Position Cycle
-local posOptions = {"Center", "Bottom", "Top"}
-local posIndex = 2
-
-posValue.MouseButton1Click:Connect(function()
-    posIndex = posIndex + 1
-    if posIndex > #posOptions then posIndex = 1 end
-    settings.ESP.SnaplinePosition = posOptions[posIndex]
-    posValue.Text = settings.ESP.SnaplinePosition
-end)
-
--- Box Thickness Controls
-thicknessMinus.MouseButton1Click:Connect(function()
-    settings.ESP.BoxThickness = math.max(0.5, settings.ESP.BoxThickness - 0.5)
-    thicknessValue.Text = tostring(settings.ESP.BoxThickness)
-    for _, drawings in pairs(espDrawings) do
-        drawings.Box.Thickness = settings.ESP.BoxThickness
-    end
-end)
-
-thicknessPlus.MouseButton1Click:Connect(function()
-    settings.ESP.BoxThickness = math.min(5, settings.ESP.BoxThickness + 0.5)
-    thicknessValue.Text = tostring(settings.ESP.BoxThickness)
-    for _, drawings in pairs(espDrawings) do
-        drawings.Box.Thickness = settings.ESP.BoxThickness
-    end
-end)
-
--- FOV Controls
-fovMinus.MouseButton1Click:Connect(function()
-    settings.Aimbot.FOV = math.max(20, settings.Aimbot.FOV - 5)
-    fovValue.Text = tostring(settings.Aimbot.FOV)
-    fovFill.Size = UDim2.new(settings.Aimbot.FOV/500, 0, 1, 0)
-end)
-
-fovPlus.MouseButton1Click:Connect(function()
-    settings.Aimbot.FOV = math.min(500, settings.Aimbot.FOV + 5)
-    fovValue.Text = tostring(settings.Aimbot.FOV)
-    fovFill.Size = UDim2.new(settings.Aimbot.FOV/500, 0, 1, 0)
-end)
-
--- FOV Slider Drag
-local fovDragging = false
-fovSlider.InputBegan:Connect(function(input)
-    if input.UserInputType == Enum.UserInputType.MouseButton1 then
-        fovDragging = true
-    end
-end)
-
-fovSlider.InputEnded:Connect(function(input)
-    if input.UserInputType == Enum.UserInputType.MouseButton1 then
-        fovDragging = false
-    end
-end)
-
-fovSlider.InputChanged:Connect(function(input)
-    if fovDragging and (input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch) then
-        local relX = input.Position.X - fovSlider.AbsolutePosition.X
-        local percent = math.clamp(relX / fovSlider.AbsoluteSize.X, 0, 1)
-        settings.Aimbot.FOV = math.floor(percent * 480) + 20
-        fovValue.Text = tostring(settings.Aimbot.FOV)
-        fovFill.Size = UDim2.new(settings.Aimbot.FOV/500, 0, 1, 0)
-    end
-end)
-
--- FOV Rainbow Toggle
-fovRainbowToggle.MouseButton1Click:Connect(function()
-    settings.Aimbot.FOVRainbow = not settings.Aimbot.FOVRainbow
-    TweenService:Create(fovRainbowIndicator, TweenInfo.new(0.2), {
-        BackgroundColor3 = settings.Aimbot.FOVRainbow and Color3.fromRGB(0, 255, 0) or Color3.fromRGB(255, 0, 0)
-    }):Play()
-end)
-
--- Max Distance Controls
-distMinus.MouseButton1Click:Connect(function()
-    settings.Aimbot.MaxDistance = math.max(50, settings.Aimbot.MaxDistance - 25)
-    distValue.Text = tostring(settings.Aimbot.MaxDistance)
-    distFill.Size = UDim2.new(settings.Aimbot.MaxDistance/1000, 0, 1, 0)
-end)
-
-distPlus.MouseButton1Click:Connect(function()
-    settings.Aimbot.MaxDistance = math.min(1000, settings.Aimbot.MaxDistance + 25)
-    distValue.Text = tostring(settings.Aimbot.MaxDistance)
-    distFill.Size = UDim2.new(settings.Aimbot.MaxDistance/1000, 0, 1, 0)
-end)
-
--- Distance Slider Drag
-local distDragging = false
-distSlider.InputBegan:Connect(function(input)
-    if input.UserInputType == Enum.UserInputType.MouseButton1 then
-        distDragging = true
-    end
-end)
-
-distSlider.InputEnded:Connect(function(input)
-    if input.UserInputType == Enum.UserInputType.MouseButton1 then
-        distDragging = false
-    end
-end)
-
-distSlider.InputChanged:Connect(function(input)
-    if distDragging and (input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch) then
-        local relX = input.Position.X - distSlider.AbsolutePosition.X
-        local percent = math.clamp(relX / distSlider.AbsoluteSize.X, 0, 1)
-        settings.Aimbot.MaxDistance = math.floor(percent * 950) + 50
-        distValue.Text = tostring(settings.Aimbot.MaxDistance)
-        distFill.Size = UDim2.new(settings.Aimbot.MaxDistance/1000, 0, 1, 0)
-    end
-end)
-
--- WalkSpeed Controls
-wsMinus.MouseButton1Click:Connect(function()
-    local newSpeed = math.max(1, settings.Local.WalkSpeed - 5)
-    updateWalkSpeed(newSpeed)
-    wsValue.Text = tostring(newSpeed)
-    wsFill.Size = UDim2.new(newSpeed/500, 0, 1, 0)
-end)
-
-wsPlus.MouseButton1Click:Connect(function()
-    local newSpeed = math.min(500, settings.Local.WalkSpeed + 5)
-    updateWalkSpeed(newSpeed)
-    wsValue.Text = tostring(newSpeed)
-    wsFill.Size = UDim2.new(newSpeed/500, 0, 1, 0)
-end)
-
-wsReset.MouseButton1Click:Connect(function()
-    updateWalkSpeed(16)
-    wsValue.Text = "16"
-    wsFill.Size = UDim2.new(16/500, 0, 1, 0)
-end)
-
--- WalkSpeed Slider Drag
-local wsDragging = false
-wsSlider.InputBegan:Connect(function(input)
-    if input.UserInputType == Enum.UserInputType.MouseButton1 then
-        wsDragging = true
-    end
-end)
-
-wsSlider.InputEnded:Connect(function(input)
-    if input.UserInputType == Enum.UserInputType.MouseButton1 then
-        wsDragging = false
-    end
-end)
-
-wsSlider.InputChanged:Connect(function(input)
-    if wsDragging and (input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch) then
-        local relX = input.Position.X - wsSlider.AbsolutePosition.X
-        local percent = math.clamp(relX / wsSlider.AbsoluteSize.X, 0, 1)
-        local newSpeed = math.floor(percent * 499) + 1
-        updateWalkSpeed(newSpeed)
-        wsValue.Text = tostring(newSpeed)
-        wsFill.Size = UDim2.new(newSpeed/500, 0, 1, 0)
-    end
-end)
-
--- ================== KEY SYSTEM FUNCTIONS ==================
-getKeyBtn.MouseButton1Click:Connect(function()
-    setclipboard("https://discord.gg/ZxN4uDEgP")
-    notif.Text = "✅ LINK DISCORD COPIED!"
-    notif.TextColor3 = Color3.fromRGB(0, 255, 0)
-    TweenService:Create(notif, TweenInfo.new(2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {TextTransparency = 1}):Play()
-end)
-
-destroyBtn.MouseButton1Click:Connect(function()
-    keyGui:Destroy()
-    loadingGui:Destroy()
-    mainPanelGui:Destroy()
-    infoPanelGui:Destroy()
-    gui:Destroy()
-    if fovCircle then fovCircle:Remove() end
-    for _, drawings in pairs(espDrawings) do
-        if drawings.Box then drawings.Box:Remove() end
-        if drawings.Distance then drawings.Distance:Remove() end
-        if drawings.Snapline then drawings.Snapline:Remove() end
-    end
-end)
-
-panelDestroyBtn.MouseButton1Click:Connect(function()
-    keyGui:Destroy()
-    loadingGui:Destroy()
-    mainPanelGui:Destroy()
-    infoPanelGui:Destroy()
-    gui:Destroy()
-    if fovCircle then fovCircle:Remove() end
-    for _, drawings in pairs(espDrawings) do
-        if drawings.Box then drawings.Box:Remove() end
-        if drawings.Distance then drawings.Distance:Remove() end
-        if drawings.Snapline then drawings.Snapline:Remove() end
-    end
-end)
-
-infoDestroyBtn.MouseButton1Click:Connect(function()
-    keyGui:Destroy()
-    loadingGui:Destroy()
-    mainPanelGui:Destroy()
-    infoPanelGui:Destroy()
-    gui:Destroy()
-    if fovCircle then fovCircle:Remove() end
-    for _, drawings in pairs(espDrawings) do
-        if drawings.Box then drawings.Box:Remove() end
-        if drawings.Distance then drawings.Distance:Remove() end
-        if drawings.Snapline then drawings.Snapline:Remove() end
-    end
-end)
-
-enterBtn.MouseButton1Click:Connect(function()
-    local inputKey = keyInput.Text
-    if VALID_KEYS[inputKey] then
-        -- Key benar
-        notif.Text = "✅ KEY BENAR! LOADING..."
-        notif.TextColor3 = Color3.fromRGB(0, 255, 0)
-        
-        -- Hide key GUI
-        keyGui.Enabled = false
-        
-        -- Show loading GUI
-        loadingGui.Enabled = true
-        
-        -- Animasi spinner
-        local angle = 0
-        local spinConnection
-        spinConnection = RunService.RenderStepped:Connect(function()
-            angle = angle + 0.05
-            for i, dot in ipairs(dots) do
-                local rad = angle + (i * math.pi / 4)
-                local x = 35 + math.cos(rad) * 30
-                local y = 35 + math.sin(rad) * 30
-                dot.Position = UDim2.new(0, x, 0, y)
-                
-                local alpha = 0.5 + (math.sin(rad * 3) * 0.5)
-                dot.BackgroundTransparency = 1 - alpha
-            end
-        end)
-        
-        -- Progress bar animation
-        local progress = 0
-        local msgIndex = 1
-        local loadTime = 5
-        
-        for i = 1, 50 do
-            task.wait(loadTime / 50)
-            progress = progress + 0.02
-            progressFill.Size = UDim2.new(progress, 0, 1, 0)
-            
-            if i % 8 == 0 and msgIndex <= #loadingMessages then
-                loadingText.Text = loadingMessages[msgIndex]
-                msgIndex = msgIndex + 1
-            end
-        end
-        
-        spinConnection:Disconnect()
-        loadingGui.Enabled = false
-        mainPanelGui.Enabled = true
-        
-    else
-        -- Key salah
-        notif.Text = "❌ KEY SALAH! COBA LAGI"
-        notif.TextColor3 = Color3.fromRGB(255, 0, 0)
-        keyInput.Text = ""
-        TweenService:Create(keyInput, TweenInfo.new(0.1), {Position = UDim2.new(0.1, 10, 0, 170)}):Play()
-        task.wait(0.1)
-        TweenService:Create(keyInput, TweenInfo.new(0.1), {Position = UDim2.new(0.1, -10, 0, 170)}):Play()
-        task.wait(0.1)
-        TweenService:Create(keyInput, TweenInfo.new(0.1), {Position = UDim2.new(0.1, 0, 0, 170)}):Play()
-    end
-end)
-
--- Info Script Button
-infoScriptBtn.MouseButton1Click:Connect(function()
-    mainPanelGui.Enabled = false
-    infoPanelGui.Enabled = true
-end)
-
--- Kembali Button
-kembaliBtn.MouseButton1Click:Connect(function()
-    infoPanelGui.Enabled = false
-    mainPanelGui.Enabled = true
-end)
-
--- Execute Button
-executeBtn.MouseButton1Click:Connect(function()
-    mainPanelGui.Enabled = false
-    gui.Enabled = true
-    authenticated = true
-end)
-
--- ================== INITIALIZE ESP ==================
-for _, plr in ipairs(Players:GetPlayers()) do
-    if plr ~= player then createESP(plr) end
-end
-
-Players.PlayerAdded:Connect(function(plr)
-    if plr ~= player then
-        createESP(plr)
-        plr.CharacterAdded:Connect(function()
-            if espDrawings[plr] then
-                for _, d in pairs(espDrawings[plr]) do
-                    pcall(function() d:Remove() end)
-                end
-                espDrawings[plr] = nil
-            end
-            createESP(plr)
-        end)
-    end
-end)
-
-Players.PlayerRemoving:Connect(function(plr)
-    if espDrawings[plr] then
-        for _, d in pairs(espDrawings[plr]) do
-            pcall(function() d:Remove() end)
-        end
-        espDrawings[plr] = nil
-    end
-end)
-
--- ================== MAIN LOOP (FOV FIX) ==================
-RunService.RenderStepped:Connect(function()
-    if not authenticated then return end
-    
-    -- UPDATE FOV CIRCLE (MUNCUL PAS ON DOANG)
-    if settings.Aimbot.ShowFOV then
-        fovCircle.Radius = (settings.Aimbot.FOV / 2) * (camera.ViewportSize.Y / 100)
-        fovCircle.Position = Vector2.new(camera.ViewportSize.X / 2, camera.ViewportSize.Y / 2)
-        fovCircle.Visible = true
-        
-        if settings.Aimbot.FOVRainbow then
-            local hue = (tick() * rainbowSpeed) % 1
-            fovCircle.Color = Color3.fromHSV(hue, 1, 1)
-        else
-            fovCircle.Color = settings.Aimbot.FOVColor
-        end
-    else
-        fovCircle.Visible = false
-    end
-    
-    -- UPDATE ESP
-    for plr, drawings in pairs(espDrawings) do
-        updateESP(plr, drawings)
-    end
-    
-    -- AIMLOCK 100% NEMPEL (LANGSUNG LOOK, TANPA SMOOTHING)
+    -- AIMLOCK
     if settings.Aimbot.Enabled then
         local targets = findTargetsInFOV()
         
@@ -5783,3 +1949,6 @@ closeBtn.MouseButton1Click:Connect(function()
         if drawings.Snapline then drawings.Snapline:Remove() end
     end
 end)
+
+print("H4XX HUB | FLICK AIMBOT - KEY SYSTEM ACTIVE!")
+print("KEY: flick26h4xx | OWNER: ptur")
