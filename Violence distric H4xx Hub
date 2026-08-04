@@ -1,4 +1,4 @@
--- ============ H4XX HUB - FULL VERSION (DENGAN MASKED PANEL DI LUAR GUI) ============
+-- ============ H4XX HUB - FULL VERSION (MASKED PANEL DRAGGABLE TANPA BAR) ============
 local WindUI = loadstring(game:HttpGet("https://raw.githubusercontent.com/Footagesus/WindUI/main/dist/main.lua"))()
 
 local Window = WindUI:CreateWindow({
@@ -42,6 +42,16 @@ local ESPUpdateTimer = 0
 local ESPUpdateInterval = 0.5
 local LineTracerObjects = {}
 local MaskedPanel = nil
+local FloatingButton = nil
+local isDraggingPanel = false
+local dragStartPanel = nil
+local startPosPanel = nil
+
+local MaskedPanelConfig = {
+    Enabled = true,
+    Position = UDim2.new(0.01, 0, 0.3, 0),
+    Size = 140,
+}
 
 -- ============ FOV CIRCLE ============
 local fovCircle = Drawing.new("Circle")
@@ -56,18 +66,14 @@ fovCircle.Position = Vector2.new(Camera.ViewportSize.X / 2, Camera.ViewportSize.
 local rainbowSpeed = 0.05
 
 -- ============ ANIMASI AIM (DARI GAME) ============
--- Emperor: 75029269564639
--- AWP: 84197070712338
--- Dart: 75333108913266
 local AimAnimations = {
     "75029269564639",  -- Emperor
     "84197070712338",  -- AWP
     "75333108913266",  -- Dart
 }
 
--- ============ KILLER DATABASE (LENGKAP) - IGNORE SPEAR ============
+-- ============ KILLER DATABASE ============
 local KillerDatabase = {
-    -- ===== Killer (Jeff) - 3 IDs =====
     ["132817836308238"] = {
         Name = "Jeff",
         Emoji = "🔪",
@@ -96,7 +102,6 @@ local KillerDatabase = {
         Settings = { Range = 14, FaceSensitivity = 0.6, Strictness = 0.6, IsLunge = true, TriggerRange = 14 }
     },
     
-    -- ===== Slasher - 2 IDs =====
     ["139369275981139"] = {
         Name = "Slasher",
         Emoji = "🪓",
@@ -116,7 +121,6 @@ local KillerDatabase = {
         Settings = { Range = 16, FaceSensitivity = 0.7, Strictness = 0.5, IsLunge = true, TriggerRange = 14 }
     },
     
-    -- ===== Stalker (Stage 1-2) - 2 IDs =====
     ["133963973694098"] = {
         Name = "Stalker",
         Emoji = "👻",
@@ -136,7 +140,6 @@ local KillerDatabase = {
         Settings = { Range = 15, FaceSensitivity = 0.6, Strictness = 0.55, IsLunge = true, TriggerRange = 14 }
     },
     
-    -- ===== Stalker (Stage 3) - 2 IDs =====
     ["95934119190708"] = {
         Name = "Stalker (Stage 3)",
         Emoji = "💀",
@@ -156,7 +159,6 @@ local KillerDatabase = {
         Settings = { Range = 19, FaceSensitivity = 0.7, Strictness = 0.4, IsLunge = true, TriggerRange = 14 }
     },
     
-    -- ===== Hidden - 2 IDs =====
     ["74968262036854"] = {
         Name = "Hidden",
         Emoji = "🌫️",
@@ -176,7 +178,6 @@ local KillerDatabase = {
         Settings = { Range = 13, FaceSensitivity = 0.5, Strictness = 0.6, IsLunge = true, TriggerRange = 14 }
     },
     
-    -- ===== Abysswalker - 4 IDs =====
     ["78432063483146"] = {
         Name = "Abysswalker",
         Emoji = "⚔️",
@@ -214,7 +215,6 @@ local KillerDatabase = {
         Settings = { Range = 16, FaceSensitivity = 0.65, Strictness = 0.5, IsLunge = true, TriggerRange = 10 }
     },
     
-    -- ===== Veil (Knife Mode) - 2 IDs =====
     ["78935059863801"] = {
         Name = "Veil (Knife)",
         Emoji = "🗡️",
@@ -234,15 +234,8 @@ local KillerDatabase = {
         Settings = { Range = 13, FaceSensitivity = 0.75, Strictness = 0.45, IsLunge = true, TriggerRange = 14 }
     },
     
-    -- ===== Veil (Spear Mode) - IGNORE =====
-    -- ["93136435416899"] = IGNORE
-    -- ["86266790353635"] = IGNORE
-    -- ["92098503722633"] = IGNORE
-    -- ["84093948968516"] = IGNORE
-    -- ["138045669415653"] = IGNORE
-    -- ["137688077908355"] = IGNORE
+    -- Veil Spear IGNORE
     
-    -- ===== Masked (Base) - 2 IDs =====
     ["111920872708571"] = {
         Name = "Masked",
         Emoji = "🎭",
@@ -262,7 +255,6 @@ local KillerDatabase = {
         Settings = { Range = 15, FaceSensitivity = 0.6, Strictness = 0.55, IsLunge = true, TriggerRange = 14 }
     },
     
-    -- ===== Masked (Tony Variant) - 1 ID =====
     ["138720291317243"] = {
         Name = "Masked (Tony)",
         Emoji = "🎭",
@@ -273,7 +265,6 @@ local KillerDatabase = {
         Settings = { Range = 16, FaceSensitivity = 0.65, Strictness = 0.5, IsLunge = false, TriggerRange = 8 }
     },
     
-    -- ===== Masked (Cobra Variant) - 2 IDs =====
     ["130593238885843"] = {
         Name = "Masked (Cobra)",
         Emoji = "🐍",
@@ -293,7 +284,6 @@ local KillerDatabase = {
         Settings = { Range = 18, FaceSensitivity = 0.7, Strictness = 0.5, IsLunge = true, TriggerRange = 14 }
     },
     
-    -- ===== Masked (Alex Variant) - 3 IDs =====
     ["106871536134254"] = {
         Name = "Masked (Alex)",
         Emoji = "🎭",
@@ -322,7 +312,6 @@ local KillerDatabase = {
         Settings = { Range = 16, FaceSensitivity = 0.65, Strictness = 0.55, IsLunge = true, TriggerRange = 14 }
     },
     
-    -- ===== Cure - 2 IDs =====
     ["121216847022485"] = {
         Name = "Cure",
         Emoji = "💉",
@@ -444,7 +433,6 @@ local SilentAimConfig = {
     OffsetY = -2.5,
     OffsetZ = 0,
     ShowLineTracer = false,
-    ShowFloatingButton = true,
 }
 
 local SilentAimState = {
@@ -1499,7 +1487,7 @@ local function TriggerParry()
     return success
 end
 
--- ============ AUTO PARRY LOOP (AUTO ADJUST TANPA NOTIFY) ============
+-- ============ AUTO PARRY LOOP ============
 local function AutoParryLoop()
     if not ParryConfig.Enabled then
         SetParryCircleColor(Color3.fromRGB(100, 100, 100))
@@ -1544,7 +1532,6 @@ local function AutoParryLoop()
         CurrentAnimId = animId
         UpdateKillerLabel(killerData)
         
-        -- AUTO ADJUST LANGSUNG TANPA NOTIFY
         if ParryConfig.AutoAdjust then
             local newFaceSensitivity = killerData.Settings.FaceSensitivity or 0.6
             local newStrictness = killerData.Settings.Strictness or 0.55
@@ -1552,7 +1539,6 @@ local function AutoParryLoop()
             ParryConfig.CurrentStrictness = newStrictness
         end
         
-        -- NOTIFY KILLER (opsional, bisa di-toggle di UI)
         if ParryConfig.NotifyKiller then
             local previousName = ParryConfig._lastNotified or ""
             if killerData.DisplayName ~= previousName then
@@ -2002,6 +1988,7 @@ local function CreateFloatingButton()
     panel.Parent = screenGui
     panel.Active = true
     panel.Selectable = true
+    panel.ZIndex = 10
     
     local corner = Instance.new("UICorner")
     corner.CornerRadius = UDim.new(0, 12)
@@ -2013,11 +2000,11 @@ local function CreateFloatingButton()
     border.Transparency = 0.3
     border.Parent = panel
     
-    -- Crosshair
     local crosshair = Instance.new("Frame")
     crosshair.Size = UDim2.new(0, 50, 0, 50)
     crosshair.Position = UDim2.new(0.5, -25, 0.5, -25)
     crosshair.BackgroundTransparency = 1
+    crosshair.ZIndex = 5
     crosshair.Parent = panel
     
     local top = Instance.new("Frame")
@@ -2059,7 +2046,6 @@ local function CreateFloatingButton()
         end
     end)
     
-    -- Drag bar
     local barPanel = Instance.new("Frame")
     barPanel.Size = UDim2.new(0, FloatingButtonConfig.Size - 20, 0, 20)
     barPanel.Position = UDim2.new(0, 10, 1, 8)
@@ -2067,6 +2053,7 @@ local function CreateFloatingButton()
     barPanel.BackgroundTransparency = 0.6
     barPanel.BorderSizePixel = 0
     barPanel.Parent = panel
+    barPanel.ZIndex = 10
     
     local barCorner = Instance.new("UICorner")
     barCorner.CornerRadius = UDim.new(0, 6)
@@ -2081,23 +2068,35 @@ local function CreateFloatingButton()
     dragLabel.TextSize = 8
     dragLabel.Font = Enum.Font.SourceSansBold
     dragLabel.TextTransparency = 0.4
+    dragLabel.ZIndex = 11
     dragLabel.Parent = barPanel
     
-    -- Button
     local btn = Instance.new("TextButton")
     btn.Size = UDim2.new(1, 0, 1, 0)
     btn.Position = UDim2.new(0, 0, 0, 0)
     btn.BackgroundTransparency = 1
     btn.Text = ""
+    btn.ZIndex = 10
+    btn.AutoButtonColor = false
     btn.Parent = panel
     
+    btn.MouseEnter:Connect(function()
+        panel.BackgroundColor3 = Color3.fromRGB(230, 230, 240)
+        panel.BackgroundTransparency = 0.6
+    end)
+    
+    btn.MouseLeave:Connect(function()
+        panel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+        panel.BackgroundTransparency = 0.75
+    end)
+    
     btn.MouseButton1Click:Connect(function()
-        if not isDragging then
+        if not isDraggingBtn then
+            print("[Floating Button] 🖱️ Clicked! Calling FireToKiller()...")
             FireToKiller()
         end
     end)
     
-    -- Drag
     local isDraggingBtn = false
     local dragStartBtn = nil
     local startPosBtn = nil
@@ -2135,7 +2134,7 @@ local function CreateFloatingButton()
     return screenGui
 end
 
--- ============ MASKED PANEL (DI LUAR GUI) ============
+-- ============ MASKED PANEL (DRAGGABLE TANPA BAR) ============
 local function CreateMaskedPanel()
     if MaskedPanel then
         MaskedPanel:Destroy()
@@ -2147,11 +2146,11 @@ local function CreateMaskedPanel()
     screenGui.Parent = LocalPlayer.PlayerGui
     screenGui.ResetOnSpawn = false
     screenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+    screenGui.Enabled = MaskedPanelConfig.Enabled
     
-    -- Panel utama
     local panel = Instance.new("Frame")
-    panel.Size = UDim2.new(0, 140, 0, 280)
-    panel.Position = UDim2.new(0.01, 0, 0.3, 0)
+    panel.Size = UDim2.new(0, MaskedPanelConfig.Size, 0, 280)
+    panel.Position = MaskedPanelConfig.Position
     panel.BackgroundColor3 = Color3.fromRGB(30, 30, 40)
     panel.BackgroundTransparency = 0.15
     panel.BorderSizePixel = 1
@@ -2159,10 +2158,42 @@ local function CreateMaskedPanel()
     panel.Parent = screenGui
     panel.Active = true
     panel.Selectable = true
+    panel.ZIndex = 10
     
     local panelCorner = Instance.new("UICorner")
     panelCorner.CornerRadius = UDim.new(0, 8)
     panelCorner.Parent = panel
+    
+    -- DRAG LANGSUNG DI PANEL (TANPA BAR)
+    panel.InputBegan:Connect(function(input)
+        if input.UserInputType == Enum.UserInputType.MouseButton1 or 
+           input.UserInputType == Enum.UserInputType.Touch then
+            isDraggingPanel = true
+            dragStartPanel = input.Position
+            startPosPanel = panel.Position
+        end
+    end)
+    
+    panel.InputEnded:Connect(function(input)
+        if input.UserInputType == Enum.UserInputType.MouseButton1 or 
+           input.UserInputType == Enum.UserInputType.Touch then
+            isDraggingPanel = false
+        end
+    end)
+    
+    UserInputService.InputChanged:Connect(function(input)
+        if isDraggingPanel and (input.UserInputType == Enum.UserInputType.MouseMovement or
+                               input.UserInputType == Enum.UserInputType.Touch) then
+            local delta = input.Position - dragStartPanel
+            panel.Position = UDim2.new(
+                startPosPanel.X.Scale,
+                startPosPanel.X.Offset + delta.X,
+                startPosPanel.Y.Scale,
+                startPosPanel.Y.Offset + delta.Y
+            )
+            MaskedPanelConfig.Position = panel.Position
+        end
+    end)
     
     -- Title
     local title = Instance.new("TextLabel")
@@ -2175,7 +2206,7 @@ local function CreateMaskedPanel()
     title.Font = Enum.Font.GothamBold
     title.Parent = panel
     
-    -- Scroll frame untuk tombol
+    -- Scroll frame
     local scrollFrame = Instance.new("ScrollingFrame")
     scrollFrame.Size = UDim2.new(1, -10, 1, -35)
     scrollFrame.Position = UDim2.new(0, 5, 0, 30)
@@ -2191,18 +2222,10 @@ local function CreateMaskedPanel()
     layout.SortOrder = Enum.SortOrder.LayoutOrder
     layout.Parent = scrollFrame
     
-    -- Daftar topeng
     local Masks = {
-        "Richter",
-        "Tony",
-        "Alex",
-        "Brandon",
-        "Cobra",
-        "Richard",
-        "Rabbit"
+        "Richter", "Tony", "Alex", "Brandon", "Cobra", "Richard", "Rabbit"
     }
     
-    -- Fungsi activate
     local function ActivateMaskedPower(maskName)
         print("[Masked] 🔥 Activating:", maskName)
         
@@ -2229,7 +2252,6 @@ local function CreateMaskedPanel()
         end
     end
     
-    -- Buat tombol
     for _, maskName in pairs(Masks) do
         local btn = Instance.new("TextButton")
         btn.Size = UDim2.new(1, -10, 0, 30)
@@ -2261,7 +2283,6 @@ local function CreateMaskedPanel()
         end)
     end
     
-    -- Tombol All
     local allBtn = Instance.new("TextButton")
     allBtn.Size = UDim2.new(1, -10, 0, 30)
     allBtn.Position = UDim2.new(0, 5, 0, 0)
@@ -2299,7 +2320,6 @@ local function CreateMaskedPanel()
         allBtn.BackgroundTransparency = 0.5
     end)
     
-    -- Update canvas size
     layout:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(function()
         scrollFrame.CanvasSize = UDim2.new(0, 0, 0, layout.AbsoluteContentSize.Y + 10)
     end)
@@ -2797,6 +2817,27 @@ KillerSection:Button({
     end
 })
 
+-- TOGGLE MASKED PANEL DI TAB KILLER
+local MaskedToggleSection = KillerTab:Section({
+    Title = "Masked Panel",
+})
+
+MaskedToggleSection:Toggle({
+    Title = "Show Masked Panel",
+    Default = true,
+    Callback = function(Value)
+        MaskedPanelConfig.Enabled = Value
+        if MaskedPanel then
+            MaskedPanel.Enabled = Value
+        end
+        WindUI:Notify({
+            Title = "Masked Panel",
+            Content = Value and "Shown" or "Hidden",
+            Duration = 2
+        })
+    end
+})
+
 -- ============ TAB 4: ESP ============
 local EspTab = Window:Tab({
     Title = "ESP",
@@ -3018,7 +3059,7 @@ print("Features:")
 print("  ✅ Auto Parry (Instant)")
 print("  ✅ Silent Aim (On Aim Stop)")
 print("  ✅ Floating Shoot Button (Draggable)")
-print("  ✅ Masked Panel (Di luar GUI)")
+print("  ✅ Masked Panel (Draggable - No Bar)")
 print("  ✅ Aimlock (On Aim)")
 print("  ✅ ESP (All/Killer/Survivor)")
 print("  ✅ Snapline")
@@ -3030,12 +3071,12 @@ print("=================================")
 print("[Auto Adjust] Langsung adjust TANPA NOTIFY")
 print("[Silent Aim] Fire INSTANT saat animasi aim BERHENTI")
 print("[Floating Button] Klik = FIRE | Drag bar = MOVE")
-print("[Masked Panel] Panel terpisah di kiri layar")
+print("[Masked Panel] Drag LANGSUNG di panel (tanpa bar)")
 print("=================================")
 
 WindUI:Notify({
     Title = "H4XX HUB",
-    Content = "by PTUR • Full Version Loaded! • Masked Panel",
+    Content = "by PTUR • Full Version Loaded! • Masked Panel Draggable",
     Duration = 3,
 })
 
@@ -3140,20 +3181,33 @@ _G.MaskedPanel = {
     Show = function()
         if MaskedPanel then
             MaskedPanel.Enabled = true
+            MaskedPanelConfig.Enabled = true
             print("[MaskedPanel] ✅ Shown")
         end
     end,
     Hide = function()
         if MaskedPanel then
             MaskedPanel.Enabled = false
+            MaskedPanelConfig.Enabled = false
             print("[MaskedPanel] ❌ Hidden")
         end
     end,
     Toggle = function()
         if MaskedPanel then
             MaskedPanel.Enabled = not MaskedPanel.Enabled
+            MaskedPanelConfig.Enabled = MaskedPanel.Enabled
             print("[MaskedPanel] Toggled:", MaskedPanel.Enabled and "ON" or "OFF")
         end
+    end,
+    Move = function(x, y)
+        MaskedPanelConfig.Position = UDim2.new(0, x or MaskedPanelConfig.Position.X.Offset, 0, y or MaskedPanelConfig.Position.Y.Offset)
+        if MaskedPanel then
+            local panel = MaskedPanel:FindFirstChildWhichIsA("Frame")
+            if panel then
+                panel.Position = MaskedPanelConfig.Position
+            end
+        end
+        print(string.format("[MaskedPanel] Moved to: %.0f, %.0f", x or MaskedPanelConfig.Position.X.Offset, y or MaskedPanelConfig.Position.Y.Offset))
     end,
 }
 
@@ -3162,7 +3216,7 @@ print("   ✅ ALL SYSTEMS LOADED!")
 print("   🎯 Auto Adjust: LANGSUNG tanpa Notify")
 print("   🎯 Silent Aim: Fire on Aim Stop")
 print("   🔫 Floating Button: Click to Fire")
-print("   🎭 Masked Panel: Di kiri layar")
+print("   🎭 Masked Panel: Drag langsung di panel")
 print("   ⌨️ K/Space = Fire (keyboard)")
 print("=================================")
 print("Global Commands:")
@@ -3179,4 +3233,5 @@ print("  _G.ShootButton.Move(x,y)     - Move Floating Button")
 print("  _G.MaskedPanel.Show()        - Show Masked Panel")
 print("  _G.MaskedPanel.Hide()        - Hide Masked Panel")
 print("  _G.MaskedPanel.Toggle()      - Toggle Masked Panel")
+print("  _G.MaskedPanel.Move(x,y)     - Move Masked Panel")
 print("=================================")
