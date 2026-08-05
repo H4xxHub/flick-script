@@ -1,4 +1,4 @@
--- ============ H4XX HUB - FULL VERSION (MASKED PANEL DRAGGABLE TANPA BAR) ============
+-- ============ H4XX HUB - FULL VERSION (TANPA EMOJI) ============
 local WindUI = loadstring(game:HttpGet("https://raw.githubusercontent.com/Footagesus/WindUI/main/dist/main.lua"))()
 
 local Window = WindUI:CreateWindow({
@@ -46,6 +46,18 @@ local FloatingButton = nil
 local isDraggingPanel = false
 local dragStartPanel = nil
 local startPosPanel = nil
+local isDraggingBtn = false
+local dragStartBtn = nil
+local startPosBtn = nil
+local KillerStunNotified = false
+
+-- Auto Gen Variables
+local AutoGenEnabled = false
+local AutoGenSpamCount = 0
+local AutoGenTriggerDistance = 7
+local AutoGenAllGenerators = {}
+local AutoGenAllPoints = {}
+local AutoGenIsSpamming = false
 
 local MaskedPanelConfig = {
     Enabled = true,
@@ -444,6 +456,45 @@ local SilentAimState = {
     LastTime = 0,
     IsFiring = false,
 }
+
+-- ============ FLOATING BUTTON CONFIG ============
+local FloatingButton = nil
+local FloatingButtonConfig = {
+    Enabled = true,
+    Position = UDim2.new(0.85, -50, 0.78, -50),
+    Size = 100,
+}
+
+-- ============ FUNGSI CEK KILLER STUN ============
+local function CheckKillerStun()
+    for _, player in pairs(Players:GetPlayers()) do
+        if player ~= LocalPlayer then
+            local team = player.Team and player.Team.Name or ""
+            if team == "Killer" then
+                local char = player.Character
+                if char then
+                    local humanoid = char:FindFirstChildOfClass("Humanoid")
+                    if humanoid then
+                        local speed = humanoid.WalkSpeed
+                        if speed == 0 and not KillerStunNotified then
+                            KillerStunNotified = true
+                            WindUI:Notify({
+                                Title = "KILLER STUNNED!",
+                                Content = player.Name .. " is stunned! Speed: 0",
+                                Duration = 3,
+                            })
+                            print("[Killer Stun] " .. player.Name .. " is stunned!")
+                            return true
+                        elseif speed > 0 then
+                            KillerStunNotified = false
+                        end
+                    end
+                end
+            end
+        end
+    end
+    return false
+end
 
 -- ============ FOV CIRCLE FUNCTIONS ============
 local function UpdateFOVCircle()
@@ -1045,32 +1096,32 @@ local function FireToKiller()
     
     SilentAimState.IsFiring = true
     
-    print("[Silent Aim] 🔫 FIRING...")
+    print("[Silent Aim] FIRING...")
     
     local gunTool = GetGunTool()
     if not gunTool then
-        print("[Silent Aim] ❌ Twist of Fate not equipped!")
+        print("[Silent Aim] Twist of Fate not equipped!")
         SilentAimState.IsFiring = false
         return false
     end
     
     local target, rawDist = GetSilentTarget()
     if not target then
-        print("[Silent Aim] ❌ No Killer found!")
+        print("[Silent Aim] No Killer found!")
         SilentAimState.IsFiring = false
         return false
     end
     
     local targetPos, distance = GetTargetPositionBody(target)
     if not targetPos then
-        print("[Silent Aim] ❌ Target position failed!")
+        print("[Silent Aim] Target position failed!")
         SilentAimState.IsFiring = false
         return false
     end
     
     local myPos = GetRightArmPosition()
     if not myPos then
-        print("[Silent Aim] ❌ Right Arm position failed!")
+        print("[Silent Aim] Right Arm position failed!")
         SilentAimState.IsFiring = false
         return false
     end
@@ -1079,26 +1130,26 @@ local function FireToKiller()
     
     local remote = ReplicatedStorage:FindFirstChild("Remotes")
     if not remote then
-        print("[Silent Aim] ❌ Remotes not found!")
+        print("[Silent Aim] Remotes not found!")
         SilentAimState.IsFiring = false
         return false
     end
     
     local twistRemote = remote:FindFirstChild("Items"):FindFirstChild("Twist of Fate")
     if not twistRemote then
-        print("[Silent Aim] ❌ Twist of Fate remote not found!")
+        print("[Silent Aim] Twist of Fate remote not found!")
         SilentAimState.IsFiring = false
         return false
     end
     
     local fireRemote = twistRemote:FindFirstChild("Fire")
     if not fireRemote then
-        print("[Silent Aim] ❌ Fire remote not found!")
+        print("[Silent Aim] Fire remote not found!")
         SilentAimState.IsFiring = false
         return false
     end
     
-    print(string.format("[Silent Aim] 🎯 Target: %s (%.1f studs)", target.Parent.Name, distance))
+    print(string.format("[Silent Aim] Target: %s (%.1f studs)", target.Parent.Name, distance))
     
     local success, err = pcall(function()
         fireRemote:FireServer(gunTool, direction)
@@ -1107,10 +1158,11 @@ local function FireToKiller()
     SilentAimState.IsFiring = false
     
     if success then
-        print("[Silent Aim] ✅ FIRESERVER SUCCESS!")
+        print("[Silent Aim] FIRESERVER SUCCESS!")
+        CheckKillerStun()
         return true
     else
-        print("[Silent Aim] ❌ FIRESERVER FAILED:", err)
+        print("[Silent Aim] FIRESERVER FAILED:", err)
         return false
     end
 end
@@ -1487,7 +1539,7 @@ local function TriggerParry()
     return success
 end
 
--- ============ AUTO PARRY LOOP ============
+-- ============ AUTO PARRY LOOP (AUTO ADJUST TANPA NOTIFY) ============
 local function AutoParryLoop()
     if not ParryConfig.Enabled then
         SetParryCircleColor(Color3.fromRGB(100, 100, 100))
@@ -1532,6 +1584,7 @@ local function AutoParryLoop()
         CurrentAnimId = animId
         UpdateKillerLabel(killerData)
         
+        -- AUTO ADJUST LANGSUNG TANPA NOTIFY
         if ParryConfig.AutoAdjust then
             local newFaceSensitivity = killerData.Settings.FaceSensitivity or 0.6
             local newStrictness = killerData.Settings.Strictness or 0.55
@@ -1539,6 +1592,7 @@ local function AutoParryLoop()
             ParryConfig.CurrentStrictness = newStrictness
         end
         
+        -- NOTIFY KILLER (opsional)
         if ParryConfig.NotifyKiller then
             local previousName = ParryConfig._lastNotified or ""
             if killerData.DisplayName ~= previousName then
@@ -1920,54 +1974,133 @@ local function SilentAimLoop()
     SilentAimState.IsAiming = isAiming
     
     if SilentAimState.WasAiming and not SilentAimState.IsAiming then
-        print("\n[Silent Aim] 🎯 Aim animation STOPPED! Firing to BODY...")
+        print("\n[Silent Aim] Aim animation STOPPED! Firing to BODY...")
         FireToKiller()
     end
 end
 
--- ============ AUTO FARM LOOP ============
-local function AutoFarmLoop()
-    if AutoFarmEnabled then
-        local nearestNPC = nil
-        local nearestDist = math.huge
-        local char = LocalPlayer.Character
-        if not char then return end
-        local root = char:FindFirstChild("HumanoidRootPart")
-        if not root then return end
-        
-        for _, obj in pairs(workspace:GetDescendants()) do
-            if obj:IsA("Model") and obj:FindFirstChildOfClass("Humanoid") then
-                if not Players:GetPlayerFromCharacter(obj) then
-                    local npcRoot = obj:FindFirstChild("HumanoidRootPart")
-                    if npcRoot then
-                        local dist = (npcRoot.Position - root.Position).Magnitude
-                        if dist < nearestDist then
-                            nearestDist = dist
-                            nearestNPC = obj
-                        end
-                    end
-                end
-            end
+-- ============ AUTO GEN FUNCTIONS ============
+local function SetupAutoGen()
+    local map = workspace:FindFirstChild("Map")
+    if not map then return end
+    
+    local generatorsContainer = map:FindFirstChild("Generators") or map:FindFirstChild("Gens") or map:FindFirstChild("NewGenerators")
+    if not generatorsContainer then return end
+    
+    AutoGenAllGenerators = {}
+    for _, child in pairs(generatorsContainer:GetChildren()) do
+        if child.Name == "Generator" and child:IsA("Model") then
+            table.insert(AutoGenAllGenerators, child)
         end
-        
-        if nearestNPC and nearestDist < 50 then
-            local humanoid = nearestNPC:FindFirstChildOfClass("Humanoid")
-            if humanoid and humanoid.Health > 0 then
-                root.CFrame = nearestNPC.HumanoidRootPart.CFrame * CFrame.new(0, 0, -3)
-                humanoid.Health = humanoid.Health - 5
+    end
+    
+    AutoGenAllPoints = {}
+    for _, gen in pairs(AutoGenAllGenerators) do
+        for i = 1, 15 do
+            local point = gen:FindFirstChild("GeneratorPoint" .. i)
+            if point then
+                table.insert(AutoGenAllPoints, {
+                    Generator = gen,
+                    Point = point
+                })
             end
         end
     end
 end
 
--- ============ FLOATING SHOOT BUTTON ============
-local FloatingButton = nil
-local FloatingButtonConfig = {
-    Enabled = true,
-    Position = UDim2.new(0.85, -50, 0.78, -50),
-    Size = 100,
-}
+local function GetPlayerSpeed()
+    local char = LocalPlayer.Character
+    if not char then return 0 end
+    local humanoid = char:FindFirstChildOfClass("Humanoid")
+    if not humanoid then return 0 end
+    return humanoid.WalkSpeed
+end
 
+local function CheckNearGenerator()
+    local char = LocalPlayer.Character
+    if not char then return false, math.huge end
+    local root = char:FindFirstChild("HumanoidRootPart")
+    if not root then return false, math.huge end
+    local playerPos = root.Position
+    
+    for _, gen in pairs(AutoGenAllGenerators) do
+        local genPos = gen.Position
+        local dist = (playerPos - genPos).Magnitude
+        if dist < AutoGenTriggerDistance then
+            return true, dist
+        end
+    end
+    return false, math.huge
+end
+
+local function StartAutoGen()
+    if AutoGenIsSpamming then return end
+    AutoGenIsSpamming = true
+    AutoGenSpamCount = 0
+    
+    SetupAutoGen()
+    
+    if #AutoGenAllPoints == 0 then
+        print("[Auto Gen] No GeneratorPoint found!")
+        AutoGenIsSpamming = false
+        return
+    end
+    
+    print(string.format("[Auto Gen] Found %d generators, %d points", #AutoGenAllGenerators, #AutoGenAllPoints))
+    
+    task.spawn(function()
+        local remote = ReplicatedStorage:FindFirstChild("Remotes")
+        if not remote then return end
+        
+        local genRemote = remote:FindFirstChild("Generator")
+        if not genRemote then return end
+        
+        local repairRemote = genRemote:FindFirstChild("RepairEvent")
+        local skillRemote = genRemote:FindFirstChild("SkillCheckResultEvent")
+        
+        if not repairRemote or not skillRemote then
+            print("[Auto Gen] Remote not found!")
+            AutoGenIsSpamming = false
+            return
+        end
+        
+        while AutoGenIsSpamming and AutoGenEnabled do
+            local speed = GetPlayerSpeed()
+            local near, dist = CheckNearGenerator()
+            
+            if near and speed == 0 then
+                AutoGenSpamCount = AutoGenSpamCount + 1
+                
+                for _, data in pairs(AutoGenAllPoints) do
+                    pcall(function()
+                        repairRemote:FireServer(data.Point, true)
+                    end)
+                end
+                
+                task.wait(0.02)
+                
+                for _, data in pairs(AutoGenAllPoints) do
+                    pcall(function()
+                        skillRemote:FireServer("success", 1, data.Generator, data.Point)
+                    end)
+                end
+                
+                if AutoGenSpamCount % 5 == 0 then
+                    print(string.format("[Auto Gen] Spam #%d - Speed 0, Near Gen! (%.1f studs)", AutoGenSpamCount, dist))
+                end
+                
+                task.wait(0.02)
+            else
+                if AutoGenSpamCount > 0 and AutoGenSpamCount % 10 == 0 then
+                    print(string.format("[Auto Gen] Waiting... Speed: %.1f, Near: %s, Dist: %.1f", speed, near and "YES" or "NO", dist))
+                end
+                task.wait(0.3)
+            end
+        end
+    end)
+end
+
+-- ============ FLOATING BUTTON ============
 local function CreateFloatingButton()
     if FloatingButton then
         FloatingButton:Destroy()
@@ -1978,6 +2111,7 @@ local function CreateFloatingButton()
     screenGui.Name = "ShootButton"
     screenGui.Parent = LocalPlayer.PlayerGui
     screenGui.ResetOnSpawn = false
+    screenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
     
     local panel = Instance.new("Frame")
     panel.Size = UDim2.new(0, FloatingButtonConfig.Size, 0, FloatingButtonConfig.Size)
@@ -2000,6 +2134,7 @@ local function CreateFloatingButton()
     border.Transparency = 0.3
     border.Parent = panel
     
+    -- Crosshair
     local crosshair = Instance.new("Frame")
     crosshair.Size = UDim2.new(0, 50, 0, 50)
     crosshair.Position = UDim2.new(0.5, -25, 0.5, -25)
@@ -2035,6 +2170,7 @@ local function CreateFloatingButton()
     right.BackgroundTransparency = 0.3
     right.Parent = crosshair
     
+    -- Rotasi crosshair
     spawn(function()
         while wait(0.03) do
             pcall(function()
@@ -2046,6 +2182,7 @@ local function CreateFloatingButton()
         end
     end)
     
+    -- Drag bar
     local barPanel = Instance.new("Frame")
     barPanel.Size = UDim2.new(0, FloatingButtonConfig.Size - 20, 0, 20)
     barPanel.Position = UDim2.new(0, 10, 1, 8)
@@ -2063,13 +2200,94 @@ local function CreateFloatingButton()
     dragLabel.Size = UDim2.new(1, 0, 0, 16)
     dragLabel.Position = UDim2.new(0, 0, 0, 2)
     dragLabel.BackgroundTransparency = 1
-    dragLabel.Text = "⤉ DRAG ⤈"
+    dragLabel.Text = "DRAG"
     dragLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
     dragLabel.TextSize = 8
     dragLabel.Font = Enum.Font.SourceSansBold
     dragLabel.TextTransparency = 0.4
     dragLabel.ZIndex = 11
     dragLabel.Parent = barPanel
+    
+    -- ============================================
+    -- BUTTON FIRE
+    -- ============================================
+    local function FireFromButton()
+        if SilentAimState.IsFiring then return end
+        
+        SilentAimState.IsFiring = true
+        
+        print("[Floating Button] FIRING...")
+        
+        local gunTool = GetGunTool()
+        if not gunTool then
+            print("[Floating Button] Twist of Fate not equipped!")
+            SilentAimState.IsFiring = false
+            return
+        end
+        
+        local target, rawDist = GetSilentTarget()
+        if not target then
+            print("[Floating Button] No Killer found!")
+            SilentAimState.IsFiring = false
+            return
+        end
+        
+        local targetPos, distance = GetTargetPositionBody(target)
+        if not targetPos then
+            print("[Floating Button] Target position failed!")
+            SilentAimState.IsFiring = false
+            return
+        end
+        
+        local myPos = GetRightArmPosition()
+        if not myPos then
+            print("[Floating Button] Right Arm position failed!")
+            SilentAimState.IsFiring = false
+            return
+        end
+        
+        local direction = (targetPos - myPos).Unit
+        
+        local remote = ReplicatedStorage:FindFirstChild("Remotes")
+        if not remote then
+            print("[Floating Button] Remotes not found!")
+            SilentAimState.IsFiring = false
+            return
+        end
+        
+        local twistRemote = remote:FindFirstChild("Items"):FindFirstChild("Twist of Fate")
+        if not twistRemote then
+            print("[Floating Button] Twist of Fate remote not found!")
+            SilentAimState.IsFiring = false
+            return
+        end
+        
+        local fireRemote = twistRemote:FindFirstChild("Fire")
+        if not fireRemote then
+            print("[Floating Button] Fire remote not found!")
+            SilentAimState.IsFiring = false
+            return
+        end
+        
+        print(string.format("[Floating Button] Target: %s (%.1f studs)", target.Parent.Name, distance))
+        
+        local success, err = pcall(function()
+            fireRemote:FireServer(gunTool, direction)
+        end)
+        
+        SilentAimState.IsFiring = false
+        
+        if success then
+            print("[Floating Button] FIRESERVER SUCCESS!")
+            -- Flash effect
+            panel.BackgroundColor3 = Color3.fromRGB(200, 200, 210)
+            task.wait(0.05)
+            panel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+            CheckKillerStun()
+        else
+            print("[Floating Button] FIRESERVER FAILED:", err)
+        end
+    end
     
     local btn = Instance.new("TextButton")
     btn.Size = UDim2.new(1, 0, 1, 0)
@@ -2092,21 +2310,20 @@ local function CreateFloatingButton()
     
     btn.MouseButton1Click:Connect(function()
         if not isDraggingBtn then
-            print("[Floating Button] 🖱️ Clicked! Calling FireToKiller()...")
-            FireToKiller()
+            FireFromButton()
         end
     end)
     
-    local isDraggingBtn = false
-    local dragStartBtn = nil
-    local startPosBtn = nil
-    
+    -- ============================================
+    -- DRAG
+    -- ============================================
     barPanel.InputBegan:Connect(function(input)
         if input.UserInputType == Enum.UserInputType.MouseButton1 or 
            input.UserInputType == Enum.UserInputType.Touch then
             isDraggingBtn = true
             dragStartBtn = input.Position
             startPosBtn = panel.Position
+            print("[Floating Button] Dragging started")
         end
     end)
     
@@ -2114,6 +2331,7 @@ local function CreateFloatingButton()
         if input.UserInputType == Enum.UserInputType.MouseButton1 or 
            input.UserInputType == Enum.UserInputType.Touch then
             isDraggingBtn = false
+            print("[Floating Button] Dragging stopped")
         end
     end)
     
@@ -2134,7 +2352,7 @@ local function CreateFloatingButton()
     return screenGui
 end
 
--- ============ MASKED PANEL (DRAGGABLE TANPA BAR) ============
+-- ============ MASKED PANEL ============
 local function CreateMaskedPanel()
     if MaskedPanel then
         MaskedPanel:Destroy()
@@ -2164,7 +2382,6 @@ local function CreateMaskedPanel()
     panelCorner.CornerRadius = UDim.new(0, 8)
     panelCorner.Parent = panel
     
-    -- DRAG LANGSUNG DI PANEL (TANPA BAR)
     panel.InputBegan:Connect(function(input)
         if input.UserInputType == Enum.UserInputType.MouseButton1 or 
            input.UserInputType == Enum.UserInputType.Touch then
@@ -2195,18 +2412,16 @@ local function CreateMaskedPanel()
         end
     end)
     
-    -- Title
     local title = Instance.new("TextLabel")
     title.Size = UDim2.new(1, 0, 0, 25)
     title.Position = UDim2.new(0, 0, 0, 5)
     title.BackgroundTransparency = 1
-    title.Text = "🎭 MASKED"
+    title.Text = "MASKED"
     title.TextColor3 = Color3.fromRGB(255, 255, 255)
     title.TextSize = 14
     title.Font = Enum.Font.GothamBold
     title.Parent = panel
     
-    -- Scroll frame
     local scrollFrame = Instance.new("ScrollingFrame")
     scrollFrame.Size = UDim2.new(1, -10, 1, -35)
     scrollFrame.Position = UDim2.new(0, 5, 0, 30)
@@ -2222,13 +2437,10 @@ local function CreateMaskedPanel()
     layout.SortOrder = Enum.SortOrder.LayoutOrder
     layout.Parent = scrollFrame
     
-    local Masks = {
-        "Richter", "Tony", "Alex", "Brandon", "Cobra", "Richard", "Rabbit"
-    }
+    local Masks = {"Richter", "Tony", "Alex", "Brandon", "Cobra", "Richard", "Rabbit"}
     
     local function ActivateMaskedPower(maskName)
-        print("[Masked] 🔥 Activating:", maskName)
-        
+        print("[Masked] Activating:", maskName)
         local args = { maskName }
         
         local success, err = pcall(function()
@@ -2236,19 +2448,11 @@ local function CreateMaskedPanel()
         end)
         
         if success then
-            print("[Masked] ✅ Activated:", maskName)
-            WindUI:Notify({
-                Title = "🎭 " .. maskName,
-                Content = "Power activated!",
-                Duration = 2
-            })
+            print("[Masked] Activated:", maskName)
+            WindUI:Notify({Title = maskName, Content = "Power activated!", Duration = 2})
         else
-            print("[Masked] ❌ Failed:", err)
-            WindUI:Notify({
-                Title = "❌ Failed",
-                Content = tostring(err),
-                Duration = 3
-            })
+            print("[Masked] Failed:", err)
+            WindUI:Notify({Title = "Failed", Content = tostring(err), Duration = 3})
         end
     end
     
@@ -2288,7 +2492,7 @@ local function CreateMaskedPanel()
     allBtn.Position = UDim2.new(0, 5, 0, 0)
     allBtn.BackgroundColor3 = Color3.fromRGB(80, 50, 50)
     allBtn.BackgroundTransparency = 0.5
-    allBtn.Text = "⚡ ALL"
+    allBtn.Text = "ALL"
     allBtn.TextColor3 = Color3.fromRGB(255, 200, 100)
     allBtn.TextSize = 12
     allBtn.Font = Enum.Font.GothamBold
@@ -2303,11 +2507,7 @@ local function CreateMaskedPanel()
             ActivateMaskedPower(maskName)
             task.wait(0.1)
         end
-        WindUI:Notify({
-            Title = "All Masks",
-            Content = "All powers activated!",
-            Duration = 2
-        })
+        WindUI:Notify({Title = "All Masks", Content = "All powers activated!", Duration = 2})
     end)
     
     allBtn.MouseEnter:Connect(function()
@@ -2352,17 +2552,13 @@ RunService.Heartbeat:Connect(function()
     pcall(LineTracerLoop)
     pcall(ESPLoop)
     pcall(SilentAimLoop)
+    pcall(CheckKillerStun)
 end)
 
--- ============ TAB 1: HOME ============
-local HomeTab = Window:Tab({
-    Title = "HOME",
-    Icon = "home",
-})
-
-local HomeSection = HomeTab:Section({
-    Title = "Pengaturan Utama",
-})
+-- ============ TABS ============
+-- HOME TAB
+local HomeTab = Window:Tab({Title = "HOME", Icon = "home"})
+local HomeSection = HomeTab:Section({Title = "Pengaturan Utama"})
 
 HomeSection:Toggle({
     Title = "Stamina Tak Terbatas",
@@ -2396,16 +2592,11 @@ HomeSection:Button({
     end
 })
 
--- ============ TAB 2: MAIN ============
-local MainTab = Window:Tab({
-    Title = "MAIN",
-    Icon = "star",
-})
+-- MAIN TAB
+local MainTab = Window:Tab({Title = "MAIN", Icon = "star"})
 
-local MainSection = MainTab:Section({
-    Title = "Auto Parry (Instant)",
-})
-
+-- Auto Parry
+local MainSection = MainTab:Section({Title = "Auto Parry (Instant)"})
 MainSection:Toggle({
     Title = "Auto Parry",
     Default = false,
@@ -2479,11 +2670,8 @@ MainSection:Toggle({
     end
 })
 
--- SNAPLINE
-local SnaplineSection = MainTab:Section({
-    Title = "Snapline",
-})
-
+-- Snapline
+local SnaplineSection = MainTab:Section({Title = "Snapline"})
 SnaplineSection:Toggle({
     Title = "Snapline",
     Default = false,
@@ -2503,11 +2691,8 @@ SnaplineSection:Toggle({
     end
 })
 
--- AIMLOCK
-local AimlockSection = MainTab:Section({
-    Title = "Aimlock",
-})
-
+-- Aimlock
+local AimlockSection = MainTab:Section({Title = "Aimlock"})
 AimlockSection:Toggle({
     Title = "Aimlock",
     Default = false,
@@ -2522,11 +2707,7 @@ AimlockSection:Toggle({
     Default = false,
     Callback = function(Value)
         AimlockConfig.ShowFOV = Value
-        if Value then
-            UpdateFOVCircle()
-        else
-            fovCircle.Visible = false
-        end
+        if Value then UpdateFOVCircle() else fovCircle.Visible = false end
         WindUI:Notify({Title = "FOV", Content = Value and "Visible" or "Hidden", Duration = 2})
     end
 })
@@ -2585,30 +2766,19 @@ AimlockSection:Toggle({
     end
 })
 
--- SILENT AIM
-local SilentAimSection = MainTab:Section({
-    Title = "Silent Aim (On Aim Stop)",
-})
-
+-- Silent Aim
+local SilentAimSection = MainTab:Section({Title = "Silent Aim"})
 SilentAimSection:Toggle({
     Title = "Silent Aim",
     Default = false,
     Callback = function(Value)
         SilentAimConfig.Enabled = Value
         if Value then
-            print("[Silent Aim] ✅ Enabled - Fire on Aim Stop")
-            WindUI:Notify({
-                Title = "Silent Aim",
-                Content = "Enabled - Fire on Aim Stop",
-                Duration = 2
-            })
+            print("[Silent Aim] Enabled - Fire on Aim Stop")
+            WindUI:Notify({Title = "Silent Aim", Content = "Enabled - Fire on Aim Stop", Duration = 2})
         else
-            print("[Silent Aim] ❌ Disabled")
-            WindUI:Notify({
-                Title = "Silent Aim",
-                Content = "Disabled",
-                Duration = 2
-            })
+            print("[Silent Aim] Disabled")
+            WindUI:Notify({Title = "Silent Aim", Content = "Disabled", Duration = 2})
         end
     end
 })
@@ -2628,11 +2798,7 @@ SilentAimSection:Toggle({
             end
             LineTracerObjects = {}
         end
-        WindUI:Notify({
-            Title = "Line Tracer",
-            Content = Value and "Visible" or "Hidden",
-            Duration = 2
-        })
+        WindUI:Notify({Title = "Line Tracer", Content = Value and "Visible" or "Hidden", Duration = 2})
     end
 })
 
@@ -2643,11 +2809,7 @@ SilentAimSection:Slider({
     Callback = function(value)
         SilentAimConfig.OffsetY = value
         print("[Silent Aim] Offset Y:", value)
-        WindUI:Notify({
-            Title = "Offset Y",
-            Content = "Target: " .. (value < -1 and "BODY" or "HEAD"),
-            Duration = 2
-        })
+        WindUI:Notify({Title = "Offset Y", Content = "Target: " .. (value < -1 and "BODY" or "HEAD"), Duration = 2})
     end
 })
 
@@ -2663,11 +2825,7 @@ SilentAimSection:Slider({
 
 SilentAimSection:Dropdown({
     Title = "Animation ID (Aim)",
-    Values = {
-        "Emperor (75029269564639)",
-        "AWP (84197070712338)",
-        "Dart (75333108913266)"
-    },
+    Values = {"Emperor (75029269564639)", "AWP (84197070712338)", "Dart (75333108913266)"},
     Default = 1,
     Callback = function(value)
         local animIds = {
@@ -2677,37 +2835,25 @@ SilentAimSection:Dropdown({
         }
         SilentAimConfig.AnimationId = animIds[value] or "75029269564639"
         print("[Silent Aim] Animation ID:", SilentAimConfig.AnimationId)
-        WindUI:Notify({
-            Title = "Animation Aim",
-            Content = "Set to: " .. value,
-            Duration = 2
-        })
+        WindUI:Notify({Title = "Animation Aim", Content = "Set to: " .. value, Duration = 2})
     end
 })
 
 SilentAimSection:Button({
-    Title = "📡 Test Fire (Manual)",
+    Title = "Test Fire (Manual)",
     Callback = function()
-        print("[Silent Aim] 🔫 Manual fire to BODY!")
+        print("[Silent Aim] Manual fire to BODY!")
         local success = FireToKiller()
         if success then
-            WindUI:Notify({
-                Title = "✅ Fire Success!",
-                Content = "Target: BODY",
-                Duration = 2
-            })
+            WindUI:Notify({Title = "Fire Success!", Content = "Target: BODY", Duration = 2})
         else
-            WindUI:Notify({
-                Title = "❌ Fire Failed!",
-                Content = "Check console for details",
-                Duration = 3
-            })
+            WindUI:Notify({Title = "Fire Failed!", Content = "Check console for details", Duration = 3})
         end
     end
 })
 
 SilentAimSection:Button({
-    Title = "📊 Status",
+    Title = "Status",
     Callback = function()
         local target, dist = GetSilentTarget()
         print("=================================")
@@ -2724,55 +2870,63 @@ SilentAimSection:Button({
         print("Bullet Speed:", SilentAimConfig.BulletSpeed)
         print("Line Tracer:", SilentAimConfig.ShowLineTracer and "ON" or "OFF")
         print("=================================")
-        
-        WindUI:Notify({
-            Title = "📊 Status",
-            Content = "Check console for details",
-            Duration = 3
-        })
+        WindUI:Notify({Title = "Status", Content = "Check console for details", Duration = 3})
     end
 })
 
--- FLOATING BUTTON
-local FloatSection = MainTab:Section({
-    Title = "Floating Shoot Button",
-})
-
+-- Floating Button
+local FloatSection = MainTab:Section({Title = "Floating Shoot Button"})
 FloatSection:Toggle({
     Title = "Show Floating Button",
     Default = true,
     Callback = function(Value)
         FloatingButtonConfig.Enabled = Value
         if Value then
-            if FloatingButton then
-                FloatingButton:Destroy()
-                FloatingButton = nil
-            end
+            if FloatingButton then FloatingButton:Destroy(); FloatingButton = nil end
             FloatingButton = CreateFloatingButton()
-            WindUI:Notify({
-                Title = "Floating Button",
-                Content = "Shown",
-                Duration = 2
-            })
+            WindUI:Notify({Title = "Floating Button", Content = "Shown", Duration = 2})
         else
-            if FloatingButton then
-                FloatingButton:Destroy()
-                FloatingButton = nil
-            end
-            WindUI:Notify({
-                Title = "Floating Button",
-                Content = "Hidden",
-                Duration = 2
-            })
+            if FloatingButton then FloatingButton:Destroy(); FloatingButton = nil end
+            WindUI:Notify({Title = "Floating Button", Content = "Hidden", Duration = 2})
         end
     end
 })
 
--- AUTO FARM
-local FarmSection = MainTab:Section({
-    Title = "Auto Farm",
+-- Auto Gen
+local AutoGenSection = MainTab:Section({Title = "Auto Generator"})
+AutoGenSection:Toggle({
+    Title = "Auto Generator (Speed 0 + Near Gen)",
+    Default = false,
+    Callback = function(Value)
+        AutoGenEnabled = Value
+        if Value then
+            print("[Auto Gen] Enabled - Speed 0 + Near Gen")
+            SetupAutoGen()
+            WindUI:Notify({Title = "Auto Gen", Content = "Enabled - Speed 0 + Near Gen", Duration = 2})
+            task.spawn(function()
+                StartAutoGen()
+            end)
+        else
+            AutoGenIsSpamming = false
+            print("[Auto Gen] Disabled")
+            WindUI:Notify({Title = "Auto Gen", Content = "Disabled", Duration = 2})
+        end
+    end
 })
 
+AutoGenSection:Slider({
+    Title = "Trigger Distance (studs)",
+    Step = 0.5,
+    Value = { Min = 1, Max = 20, Default = 7 },
+    Callback = function(value)
+        AutoGenTriggerDistance = value
+        print(string.format("[Auto Gen] Trigger distance set to: %.1f studs", value))
+        WindUI:Notify({Title = "Trigger Distance", Content = string.format("%.1f studs", value), Duration = 2})
+    end
+})
+
+-- Auto Farm
+local FarmSection = MainTab:Section({Title = "Auto Farm"})
 FarmSection:Toggle({
     Title = "Auto Farm",
     Default = false,
@@ -2781,15 +2935,9 @@ FarmSection:Toggle({
     end
 })
 
--- ============ TAB 3: KILLER ============
-local KillerTab = Window:Tab({
-    Title = "KILLER",
-    Icon = "sword",
-})
-
-local KillerSection = KillerTab:Section({
-    Title = "Pengaturan Killer",
-})
+-- KILLER TAB
+local KillerTab = Window:Tab({Title = "KILLER", Icon = "sword"})
+local KillerSection = KillerTab:Section({Title = "Pengaturan Killer"})
 
 KillerSection:Toggle({
     Title = "One Hit Kill",
@@ -2813,40 +2961,36 @@ KillerSection:Button({
                 end
             end
         end
-        WindUI:Notify({Title = "Killer", Content = "Semua Player Terbunuh!", Duration = 2})
+        WindUI:Notify({Title = "Kill All", Content = "Semua Player Terbunuh!", Duration = 2})
     end
 })
 
--- TOGGLE MASKED PANEL DI TAB KILLER
-local MaskedToggleSection = KillerTab:Section({
-    Title = "Masked Panel",
+-- Killer Stun
+local StunSection = KillerTab:Section({Title = "Killer Stun Detector"})
+StunSection:Toggle({
+    Title = "Notify Killer Stun",
+    Default = true,
+    Callback = function(Value)
+        print("[Killer Stun] Notify:", Value and "ON" or "OFF")
+        WindUI:Notify({Title = "Killer Stun", Content = Value and "Notif ON" or "Notif OFF", Duration = 2})
+    end
 })
 
+-- Masked Panel
+local MaskedToggleSection = KillerTab:Section({Title = "Masked Panel"})
 MaskedToggleSection:Toggle({
     Title = "Show Masked Panel",
     Default = true,
     Callback = function(Value)
         MaskedPanelConfig.Enabled = Value
-        if MaskedPanel then
-            MaskedPanel.Enabled = Value
-        end
-        WindUI:Notify({
-            Title = "Masked Panel",
-            Content = Value and "Shown" or "Hidden",
-            Duration = 2
-        })
+        if MaskedPanel then MaskedPanel.Enabled = Value end
+        WindUI:Notify({Title = "Masked Panel", Content = Value and "Shown" or "Hidden", Duration = 2})
     end
 })
 
--- ============ TAB 4: ESP ============
-local EspTab = Window:Tab({
-    Title = "ESP",
-    Icon = "eye",
-})
-
-local EspPlayerSection = EspTab:Section({
-    Title = "ESP Player",
-})
+-- ESP TAB
+local EspTab = Window:Tab({Title = "ESP", Icon = "eye"})
+local EspPlayerSection = EspTab:Section({Title = "ESP Player"})
 
 EspPlayerSection:Toggle({
     Title = "ESP All Player",
@@ -2878,9 +3022,7 @@ EspPlayerSection:Toggle({
                     local char = player.Character
                     if char and char:FindFirstChild("HumanoidRootPart") then
                         local highlight = CreateHighlight(char, Color3.fromRGB(255, 0, 0))
-                        if highlight then
-                            table.insert(ESPObjects, highlight)
-                        end
+                        if highlight then table.insert(ESPObjects, highlight) end
                     end
                 end
             end
@@ -2908,9 +3050,7 @@ EspPlayerSection:Toggle({
                             color = GetHealthColor(healthPercent)
                         end
                         local highlight = CreateHighlight(char, color)
-                        if highlight then
-                            table.insert(ESPObjects, highlight)
-                        end
+                        if highlight then table.insert(ESPObjects, highlight) end
                     end
                 end
             end
@@ -2925,21 +3065,13 @@ EspPlayerSection:Toggle({
     Default = false,
     Callback = function(Value)
         NotifKnock = Value
-        if not Value then
-            KnockNotified = {}
-        end
+        if not Value then KnockNotified = {} end
     end
 })
 
--- ============ TAB 5: SETTING ============
-local SettingTab = Window:Tab({
-    Title = "SETTING",
-    Icon = "settings",
-})
-
-local SettingSection = SettingTab:Section({
-    Title = "Pengaturan UI",
-})
+-- SETTING TAB
+local SettingTab = Window:Tab({Title = "SETTING", Icon = "settings"})
+local SettingSection = SettingTab:Section({Title = "Pengaturan UI"})
 
 SettingSection:Toggle({
     Title = "FPS Unlock",
@@ -2965,13 +3097,9 @@ SettingSection:Toggle({
     Default = false,
     Callback = function(Value)
         if Value then
-            if not FullbrightEnabled then
-                ToggleFullbright()
-            end
+            if not FullbrightEnabled then ToggleFullbright() end
         else
-            if FullbrightEnabled then
-                ToggleFullbright()
-            end
+            if FullbrightEnabled then ToggleFullbright() end
         end
     end
 })
@@ -2981,13 +3109,9 @@ SettingSection:Toggle({
     Default = false,
     Callback = function(Value)
         if Value then
-            if not NoFogEnabled then
-                ToggleNoFog()
-            end
+            if not NoFogEnabled then ToggleNoFog() end
         else
-            if NoFogEnabled then
-                ToggleNoFog()
-            end
+            if NoFogEnabled then ToggleNoFog() end
         end
     end
 })
@@ -3007,14 +3131,8 @@ SettingSection:Button({
         fovCircle:Remove()
         DestroyDangerBillboard()
         StopParryAnimation()
-        if FloatingButton then
-            FloatingButton:Destroy()
-            FloatingButton = nil
-        end
-        if MaskedPanel then
-            MaskedPanel:Destroy()
-            MaskedPanel = nil
-        end
+        if FloatingButton then FloatingButton:Destroy(); FloatingButton = nil end
+        if MaskedPanel then MaskedPanel:Destroy(); MaskedPanel = nil end
         for _, obj in pairs(SnaplineObjects) do
             pcall(function()
                 if obj.beam then obj.beam:Destroy() end
@@ -3056,27 +3174,24 @@ print("   by PTUR")
 print("=================================")
 print("Tabs: HOME | MAIN | KILLER | ESP | SETTING")
 print("Features:")
-print("  ✅ Auto Parry (Instant)")
-print("  ✅ Silent Aim (On Aim Stop)")
-print("  ✅ Floating Shoot Button (Draggable)")
-print("  ✅ Masked Panel (Draggable - No Bar)")
-print("  ✅ Aimlock (On Aim)")
-print("  ✅ ESP (All/Killer/Survivor)")
-print("  ✅ Snapline")
-print("  ✅ Line Tracer")
-print("  ✅ Danger Indicator")
-print("  ✅ Fullbright & No Fog")
-print("  ✅ Auto Farm")
-print("=================================")
-print("[Auto Adjust] Langsung adjust TANPA NOTIFY")
-print("[Silent Aim] Fire INSTANT saat animasi aim BERHENTI")
-print("[Floating Button] Klik = FIRE | Drag bar = MOVE")
-print("[Masked Panel] Drag LANGSUNG di panel (tanpa bar)")
+print("  Auto Parry (Instant)")
+print("  Silent Aim (On Aim Stop)")
+print("  Floating Shoot Button")
+print("  Masked Panel (Draggable)")
+print("  Auto Generator (Speed 0 + Near Gen)")
+print("  Killer Stun Detector")
+print("  Aimlock")
+print("  ESP")
+print("  Snapline")
+print("  Line Tracer")
+print("  Danger Indicator")
+print("  Fullbright & No Fog")
+print("  Auto Farm")
 print("=================================")
 
 WindUI:Notify({
     Title = "H4XX HUB",
-    Content = "by PTUR • Full Version Loaded! • Masked Panel Draggable",
+    Content = "by PTUR • Full Version Loaded!",
     Duration = 3,
 })
 
@@ -3084,12 +3199,12 @@ WindUI:Notify({
 _G.SilentAim = {
     Enable = function()
         SilentAimConfig.Enabled = true
-        print("[SilentAim] ✅ Enabled - Fire on Aim Stop")
-        WindUI:Notify({Title = "Silent Aim", Content = "Enabled - Fire on Aim Stop", Duration = 2})
+        print("[SilentAim] Enabled")
+        WindUI:Notify({Title = "Silent Aim", Content = "Enabled", Duration = 2})
     end,
     Disable = function()
         SilentAimConfig.Enabled = false
-        print("[SilentAim] ❌ Disabled")
+        print("[SilentAim] Disabled")
         WindUI:Notify({Title = "Silent Aim", Content = "Disabled", Duration = 2})
     end,
     Toggle = function()
@@ -3111,7 +3226,7 @@ _G.SilentAim = {
         print("  Line Tracer:", SilentAimConfig.ShowLineTracer and "ON" or "OFF")
     end,
     Fire = function()
-        print("[SilentAim] 🔫 Manual fire!")
+        print("[SilentAim] Manual fire!")
         FireToKiller()
     end,
     SetOffset = function(y)
@@ -3153,13 +3268,13 @@ _G.ShootButton = {
     Show = function()
         if FloatingButton then
             FloatingButton.Enabled = true
-            print("[ShootButton] ✅ Shown")
+            print("[ShootButton] Shown")
         end
     end,
     Hide = function()
         if FloatingButton then
             FloatingButton.Enabled = false
-            print("[ShootButton] ❌ Hidden")
+            print("[ShootButton] Hidden")
         end
     end,
     Fire = function()
@@ -3182,14 +3297,14 @@ _G.MaskedPanel = {
         if MaskedPanel then
             MaskedPanel.Enabled = true
             MaskedPanelConfig.Enabled = true
-            print("[MaskedPanel] ✅ Shown")
+            print("[MaskedPanel] Shown")
         end
     end,
     Hide = function()
         if MaskedPanel then
             MaskedPanel.Enabled = false
             MaskedPanelConfig.Enabled = false
-            print("[MaskedPanel] ❌ Hidden")
+            print("[MaskedPanel] Hidden")
         end
     end,
     Toggle = function()
@@ -3211,13 +3326,95 @@ _G.MaskedPanel = {
     end,
 }
 
+_G.AutoGen = {
+    Enable = function()
+        AutoGenEnabled = true
+        print("[AutoGen] Enabled")
+        WindUI:Notify({Title = "Auto Gen", Content = "Enabled", Duration = 2})
+        task.spawn(function()
+            StartAutoGen()
+        end)
+    end,
+    Disable = function()
+        AutoGenEnabled = false
+        AutoGenIsSpamming = false
+        print("[AutoGen] Disabled")
+        WindUI:Notify({Title = "Auto Gen", Content = "Disabled", Duration = 2})
+    end,
+    Toggle = function()
+        AutoGenEnabled = not AutoGenEnabled
+        if AutoGenEnabled then
+            print("[AutoGen] Enabled")
+            WindUI:Notify({Title = "Auto Gen", Content = "Enabled", Duration = 2})
+            task.spawn(function()
+                StartAutoGen()
+            end)
+        else
+            AutoGenIsSpamming = false
+            print("[AutoGen] Disabled")
+            WindUI:Notify({Title = "Auto Gen", Content = "Disabled", Duration = 2})
+        end
+    end,
+    Status = function()
+        print("[AutoGen] Status:")
+        print("  Enabled:", AutoGenEnabled)
+        print("  Spamming:", AutoGenIsSpamming)
+        print("  Spam Count:", AutoGenSpamCount)
+        print("  Trigger Distance:", AutoGenTriggerDistance)
+        print("  Generators:", #AutoGenAllGenerators)
+        print("  GeneratorPoints:", #AutoGenAllPoints)
+        
+        local speed = GetPlayerSpeed()
+        local near, dist = CheckNearGenerator()
+        print("  Player Speed:", speed)
+        print("  Near Generator:", near)
+        print("  Distance:", dist ~= math.huge and string.format("%.1f studs", dist) or "N/A")
+    end,
+    SetDistance = function(dist)
+        AutoGenTriggerDistance = dist or 7
+        print(string.format("[AutoGen] Trigger distance set to: %.1f studs", AutoGenTriggerDistance))
+        WindUI:Notify({Title = "Trigger Distance", Content = string.format("%.1f studs", AutoGenTriggerDistance), Duration = 2})
+    end,
+    FireOnce = function()
+        print("[AutoGen] Firing once...")
+        SetupAutoGen()
+        if #AutoGenAllPoints == 0 then
+            print("[AutoGen] No GeneratorPoint found!")
+            return
+        end
+        local remote = ReplicatedStorage:FindFirstChild("Remotes")
+        if not remote then return end
+        local genRemote = remote:FindFirstChild("Generator")
+        if not genRemote then return end
+        local repairRemote = genRemote:FindFirstChild("RepairEvent")
+        local skillRemote = genRemote:FindFirstChild("SkillCheckResultEvent")
+        if not repairRemote or not skillRemote then
+            print("[AutoGen] Remote not found!")
+            return
+        end
+        for _, data in pairs(AutoGenAllPoints) do
+            pcall(function()
+                repairRemote:FireServer(data.Point, true)
+            end)
+        end
+        task.wait(0.05)
+        for _, data in pairs(AutoGenAllPoints) do
+            pcall(function()
+                skillRemote:FireServer("success", 1, data.Generator, data.Point)
+            end)
+        end
+        print("[AutoGen] Done!")
+        WindUI:Notify({Title = "Auto Gen", Content = "Fire once done!", Duration = 2})
+    end,
+}
+
 print("=================================")
-print("   ✅ ALL SYSTEMS LOADED!")
-print("   🎯 Auto Adjust: LANGSUNG tanpa Notify")
-print("   🎯 Silent Aim: Fire on Aim Stop")
-print("   🔫 Floating Button: Click to Fire")
-print("   🎭 Masked Panel: Drag langsung di panel")
-print("   ⌨️ K/Space = Fire (keyboard)")
+print("   ALL SYSTEMS LOADED!")
+print("   Silent Aim: Fire on Aim Stop")
+print("   Floating Button: FireServer")
+print("   Auto Gen: Speed 0 + Near Gen")
+print("   Killer Stun Detector")
+print("   Masked Panel: Draggable")
 print("=================================")
 print("Global Commands:")
 print("  _G.SilentAim.Enable()        - Enable Silent Aim")
@@ -3234,4 +3431,10 @@ print("  _G.MaskedPanel.Show()        - Show Masked Panel")
 print("  _G.MaskedPanel.Hide()        - Hide Masked Panel")
 print("  _G.MaskedPanel.Toggle()      - Toggle Masked Panel")
 print("  _G.MaskedPanel.Move(x,y)     - Move Masked Panel")
+print("  _G.AutoGen.Enable()          - Enable Auto Gen")
+print("  _G.AutoGen.Disable()         - Disable Auto Gen")
+print("  _G.AutoGen.Toggle()          - Toggle Auto Gen")
+print("  _G.AutoGen.Status()          - Status")
+print("  _G.AutoGen.SetDistance(n)    - Set trigger distance")
+print("  _G.AutoGen.FireOnce()        - Fire once")
 print("=================================")
