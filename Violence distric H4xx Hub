@@ -1,4 +1,4 @@
--- ============ H4XX HUB - FULL VERSION (LINE TRACER TWIST OF FATE → BODY) ============
+-- ============ H4XX HUB - FULL VERSION (FIXED SILENT AIM, FLOATBUTTON & LINE TRACER) ============
 local WindUI = loadstring(game:HttpGet("https://raw.githubusercontent.com/Footagesus/WindUI/main/dist/main.lua"))()
 
 local Window = WindUI:CreateWindow({
@@ -52,10 +52,12 @@ local KillerStunNotified = false
 -- Auto Gen Variables
 local AutoGenEnabled = false
 local AutoGenSpamCount = 0
-local AutoGenTriggerDistance = 7
 local AutoGenAllGenerators = {}
 local AutoGenAllPoints = {}
 local AutoGenIsSpamming = false
+local PointStartTime = nil
+local isSpamming = false
+local spamThread = nil
 
 local MaskedPanelConfig = {
     Enabled = false,
@@ -420,39 +422,6 @@ local ParryVisuals = {
     StatusLabel = nil,
 }
 
--- ============ FUNGSI SET SPEED ============
-local function SetPlayerSpeed(speed)
-    local char = LocalPlayer.Character
-    if not char then return end
-    
-    local humanoid = char:FindFirstChildOfClass("Humanoid")
-    if not humanoid then return end
-    
-    humanoid.WalkSpeed = speed
-end
-
-local function GetPlayerSpeed()
-    local char = LocalPlayer.Character
-    if not char then return 16 end
-    
-    local humanoid = char:FindFirstChildOfClass("Humanoid")
-    if not humanoid then return 16 end
-    
-    return humanoid.WalkSpeed
-end
-
-local function FreezePlayer(duration)
-    if not ParryConfig.FreezeOnParry then return end
-    
-    ParryState.OriginalSpeed = GetPlayerSpeed()
-    SetPlayerSpeed(0)
-    
-    task.spawn(function()
-        task.wait(duration)
-        SetPlayerSpeed(ParryState.OriginalSpeed)
-    end)
-end
-
 -- ============ PARRYING DAGGER REMOTE (DOUBLE PARRY) ============
 local function ParryWithDaggerRemote()
     local remote = game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Items"):WaitForChild("Parrying Dagger"):WaitForChild("parry")
@@ -504,8 +473,23 @@ local function TriggerParry()
         ParryState.LastParryTime = tick()
         ParryState.IsParrying = true
         
+        -- FREEZE PLAYER SAAT PARRY BERHASIL
         if ParryConfig.FreezeOnParry then
-            FreezePlayer(ParryConfig.FreezeDuration)
+            local player = game.Players.LocalPlayer
+            local char = player.Character
+            if char then
+                local hum = char:FindFirstChildOfClass("Humanoid")
+                if hum then
+                    hum.WalkSpeed = 0
+                    print("[Parry] Speed 0 selama", ParryConfig.FreezeDuration, "detik")
+                    
+                    task.spawn(function()
+                        task.wait(ParryConfig.FreezeDuration)
+                        hum.WalkSpeed = 16
+                        print("[Parry] Speed kembali ke 16")
+                    end)
+                end
+            end
         end
         
         task.spawn(function()
@@ -730,21 +714,20 @@ local function IsKillerVisible(killerChar)
     return true
 end
 
--- ============ LINE TRACER (TWIST OF FATE → BODY) ============
+-- ============ LINE TRACER (RIGHT ARM → BODY) ============
 
--- Ambil posisi Twist of Fate (senjata)
-local function GetTwistOfFatePosition()
+-- Ambil posisi Right Arm
+local function GetRightArmPosition()
     local char = LocalPlayer.Character
     if not char then return nil end
     
-    local twist = char:FindFirstChild("Twist of Fate")
-    if not twist then return nil end
-    
-    for _, child in pairs(twist:GetChildren()) do
-        if child:IsA("BasePart") then
-            return child.Position
-        end
+    local rightArm = char:FindFirstChild("Right Arm")
+    if rightArm then
+        return rightArm.Position
     end
+    
+    local root = char:FindFirstChild("HumanoidRootPart")
+    if root then return root.Position end
     
     return nil
 end
@@ -760,7 +743,7 @@ local function GetKillerBodyPosition()
     return root.Position
 end
 
--- Create Line Tracer dari Twist of Fate ke Body Killer
+-- Create Line Tracer dari Right Arm ke Body Killer
 local function CreateLineTracer(from, to)
     if not from or not to then return nil end
     
@@ -806,7 +789,8 @@ local function UpdateLineTracer()
     
     if not SilentAimConfig.ShowLineTracer then return end
     
-    local from = GetTwistOfFatePosition()
+    -- PAKAI RIGHT ARM
+    local from = GetRightArmPosition()
     if not from then return end
     
     local to = GetKillerBodyPosition()
@@ -1035,7 +1019,7 @@ local function IsKillerFacingPlayer(killerChar)
     return dotProduct > ParryConfig.CurrentFaceSensitivity
 end
 
--- ============ SILENT AIM FUNCTIONS (FIXED) ============
+-- ============ SILENT AIM FUNCTIONS (FIXED FIRE) ============
 
 local function GetGunTool()
     local char = LocalPlayer.Character
@@ -1075,7 +1059,7 @@ local function GetSilentTarget()
     return target, targetDist
 end
 
--- GET TARGET POSITION - BODY dengan prediction lebih akurat
+-- GET TARGET POSITION - BODY
 local function GetTargetPositionBody(target)
     if not target then return nil, math.huge end
     
@@ -1109,19 +1093,19 @@ local function GetTargetPositionBody(target)
     local distance = (killerPos - root.Position).Magnitude
     local timeToTarget = distance / SilentAimConfig.BulletSpeed
     
-    -- Prediction dengan smooth
+    -- Prediction
     local prediction = Vector3.new(0, 0, 0)
     if velocity.Magnitude > 1.0 then
         prediction = velocity * timeToTarget * 0.8
     end
     
-    -- Target ke BODY (HumanoidRootPart)
+    -- Target ke BODY
     local targetPos = killerPos + prediction
     
     return targetPos, distance
 end
 
--- AMBIL POSISI MUZZLE (UJUNG SENJATA) DARI TWIST OF FATE
+-- AMBIL POSISI MUZZLE DARI TWIST OF FATE
 local function GetMuzzlePosition()
     local char = LocalPlayer.Character
     if not char then return nil end
@@ -1136,6 +1120,12 @@ local function GetMuzzlePosition()
         end
     end
     
+    -- Fallback: Right Arm
+    local rightArm = char:FindFirstChild("Right Arm")
+    if rightArm then
+        return rightArm.Position
+    end
+    
     -- Fallback: HumanoidRootPart
     local root = char:FindFirstChild("HumanoidRootPart")
     if root then return root.Position end
@@ -1143,69 +1133,64 @@ local function GetMuzzlePosition()
     return nil
 end
 
--- FIRE TO KILLER - PAKAI MUZZLE POSITION
+-- FIRE TO KILLER (FIXED)
 local function FireToKiller()
     if not SilentAimConfig.Enabled then return false end
     if SilentAimState.IsFiring then return false end
     
     SilentAimState.IsFiring = true
     
-    print("[Silent Aim] 🔫 FIRING...")
-    
+    -- AMBIL GUN TOOL
     local gunTool = GetGunTool()
     if not gunTool then
-        print("[Silent Aim] ❌ Twist of Fate not equipped!")
         SilentAimState.IsFiring = false
         return false
     end
     
+    -- AMBIL TARGET
     local target, rawDist = GetSilentTarget()
     if not target then
-        print("[Silent Aim] ❌ No Killer found!")
         SilentAimState.IsFiring = false
         return false
     end
     
+    -- AMBIL POSISI TARGET
     local targetPos, distance = GetTargetPositionBody(target)
     if not targetPos then
-        print("[Silent Aim] ❌ Target position failed!")
         SilentAimState.IsFiring = false
         return false
     end
     
-    -- PAKAI MUZZLE POSITION
+    -- AMBIL POSISI MUZZLE
     local myPos = GetMuzzlePosition()
     if not myPos then
-        print("[Silent Aim] ❌ Muzzle position failed!")
         SilentAimState.IsFiring = false
         return false
     end
     
-    -- Hitung arah tembakan
+    -- HITUNG ARAH
     local direction = (targetPos - myPos).Unit
-    print(string.format("[Silent Aim] 🎯 Target: %s | Distance: %.1f studs", target.Parent.Name, distance))
     
+    -- AMBIL REMOTE
     local remote = ReplicatedStorage:FindFirstChild("Remotes")
     if not remote then
-        print("[Silent Aim] ❌ Remotes not found!")
         SilentAimState.IsFiring = false
         return false
     end
     
     local twistRemote = remote:FindFirstChild("Items"):FindFirstChild("Twist of Fate")
     if not twistRemote then
-        print("[Silent Aim] ❌ Twist of Fate remote not found!")
         SilentAimState.IsFiring = false
         return false
     end
     
     local fireRemote = twistRemote:FindFirstChild("Fire")
     if not fireRemote then
-        print("[Silent Aim] ❌ Fire remote not found!")
         SilentAimState.IsFiring = false
         return false
     end
     
+    -- FIRESERVER
     local success, err = pcall(function()
         fireRemote:FireServer(gunTool, direction)
     end)
@@ -1213,13 +1198,11 @@ local function FireToKiller()
     SilentAimState.IsFiring = false
     
     if success then
-        print("[Silent Aim] ✅ FIRESERVER SUCCESS!")
         CheckKillerStun()
         return true
-    else
-        print("[Silent Aim] ❌ FIRESERVER FAILED:", err)
-        return false
     end
+    
+    return false
 end
 
 -- SILENT AIM LOOP
@@ -1248,7 +1231,6 @@ local function SilentAimLoop()
     SilentAimState.IsAiming = isAiming
     
     if SilentAimState.WasAiming and not SilentAimState.IsAiming then
-        print("[Silent Aim] ⏹️ Aim stopped! Firing...")
         FireToKiller()
     end
 end
@@ -1916,12 +1898,54 @@ local function ESPLoop()
 end
 
 -- ============ AUTO GEN FUNCTIONS ============
-local function SetupAutoGen()
+
+-- CEK GENERATOR DI MAP
+local function CheckGenerators()
     local map = workspace:FindFirstChild("Map")
-    if not map then return end
+    if not map then
+        print("[Auto Gen] ❌ Map not found!")
+        return false
+    end
     
     local generatorsContainer = map:FindFirstChild("Generators") or map:FindFirstChild("Gens") or map:FindFirstChild("NewGenerators")
-    if not generatorsContainer then return end
+    if not generatorsContainer then
+        print("[Auto Gen] ❌ Generators container not found!")
+        return false
+    end
+    
+    local totalGenerators = 0
+    local totalPoints = 0
+    
+    for _, child in pairs(generatorsContainer:GetChildren()) do
+        if child.Name == "Generator" and child:IsA("Model") then
+            totalGenerators = totalGenerators + 1
+            print("[Auto Gen] Found Generator:", child.Name)
+            
+            for i = 1, 4 do
+                local point = child:FindFirstChild("GeneratorPoint" .. i)
+                if point then
+                    totalPoints = totalPoints + 1
+                    print("[Auto Gen]   ✅ Point", i, ":", point.Name)
+                else
+                    print("[Auto Gen]   ❌ Point", i, ": Not found")
+                end
+            end
+        end
+    end
+    
+    print("[Auto Gen] Total Generators:", totalGenerators)
+    print("[Auto Gen] Total Points (1-4):", totalPoints)
+    
+    return totalGenerators > 0 and totalPoints > 0
+end
+
+-- SETUP AUTO GEN
+local function SetupAutoGen()
+    local map = workspace:FindFirstChild("Map")
+    if not map then return false end
+    
+    local generatorsContainer = map:FindFirstChild("Generators") or map:FindFirstChild("Gens") or map:FindFirstChild("NewGenerators")
+    if not generatorsContainer then return false end
     
     AutoGenAllGenerators = {}
     for _, child in pairs(generatorsContainer:GetChildren()) do
@@ -1932,7 +1956,7 @@ local function SetupAutoGen()
     
     AutoGenAllPoints = {}
     for _, gen in pairs(AutoGenAllGenerators) do
-        for i = 1, 15 do
+        for i = 1, 4 do
             local point = gen:FindFirstChild("GeneratorPoint" .. i)
             if point then
                 table.insert(AutoGenAllPoints, {
@@ -1942,101 +1966,191 @@ local function SetupAutoGen()
             end
         end
     end
+    
+    print(string.format("[Auto Gen] Found %d generators, %d points (1-4)", #AutoGenAllGenerators, #AutoGenAllPoints))
+    return #AutoGenAllGenerators > 0 and #AutoGenAllPoints > 0
 end
 
-local function GetPlayerSpeed()
+-- CEK APAKAH PLAYER BERDIRI DI SALAH SATU GENERATORPOINT 1-4
+local function CheckPlayerOnGeneratorPoint()
     local char = LocalPlayer.Character
-    if not char then return 0 end
-    local humanoid = char:FindFirstChildOfClass("Humanoid")
-    if not humanoid then return 0 end
-    return humanoid.WalkSpeed
-end
-
-local function CheckNearGenerator()
-    local char = LocalPlayer.Character
-    if not char then return false, math.huge end
+    if not char then return false, nil, nil end
+    
     local root = char:FindFirstChild("HumanoidRootPart")
-    if not root then return false, math.huge end
+    if not root then return false, nil, nil end
+    
     local playerPos = root.Position
     
-    for _, gen in pairs(AutoGenAllGenerators) do
-        local genPos = gen.Position
-        local dist = (playerPos - genPos).Magnitude
-        if dist < AutoGenTriggerDistance then
-            return true, dist
+    for _, data in pairs(AutoGenAllPoints) do
+        local point = data.Point
+        if point and point:IsA("BasePart") then
+            local pointPos = point.Position
+            local dist = (playerPos - pointPos).Magnitude
+            if dist < 3 then
+                return true, point, data.Generator
+            end
         end
     end
-    return false, math.huge
+    
+    return false, nil, nil
 end
 
+-- CEK APAKAH PLAYER DIAM (SPEED 0)
+local function IsPlayerIdle()
+    local char = LocalPlayer.Character
+    if not char then return false end
+    
+    local hum = char:FindFirstChildOfClass("Humanoid")
+    if not hum then return false end
+    
+    return hum.WalkSpeed == 0
+end
+
+-- CEK DURASI PLAYER DI POINT
+local function GetPlayerOnPointDuration()
+    local onPoint, point, gen = CheckPlayerOnGeneratorPoint()
+    local idle = IsPlayerIdle()
+    
+    if not onPoint or not idle then
+        return false, nil, nil, 0
+    end
+    
+    if not PointStartTime then
+        PointStartTime = tick()
+    end
+    
+    local duration = tick() - PointStartTime
+    
+    if duration >= 1.5 then
+        PointStartTime = tick()
+        return true, point, gen, duration
+    end
+    
+    return false, point, gen, duration
+end
+
+-- FIRE REPAIR
+local function FireRepair(point, gen)
+    local remote = ReplicatedStorage:FindFirstChild("Remotes")
+    if not remote then return end
+    
+    local genRemote = remote:FindFirstChild("Generator")
+    if not genRemote then return end
+    
+    local repairRemote = genRemote:FindFirstChild("RepairEvent")
+    local skillRemote = genRemote:FindFirstChild("SkillCheckResultEvent")
+    
+    if not repairRemote or not skillRemote then return end
+    
+    pcall(function()
+        repairRemote:FireServer(point, true)
+    end)
+    
+    task.wait(0.05)
+    
+    pcall(function()
+        skillRemote:FireServer("success", 1, gen, point)
+    end)
+end
+
+-- START AUTO GEN
 local function StartAutoGen()
     if AutoGenIsSpamming then return end
+    if isSpamming then return end
+    
     AutoGenIsSpamming = true
+    isSpamming = true
     AutoGenSpamCount = 0
+    PointStartTime = nil
     
-    SetupAutoGen()
-    
-    if #AutoGenAllPoints == 0 then
-        print("[Auto Gen] No GeneratorPoint found!")
+    if not SetupAutoGen() then
+        print("[Auto Gen] ❌ Setup failed! No generators or points found.")
         AutoGenIsSpamming = false
+        isSpamming = false
         return
     end
     
-    print(string.format("[Auto Gen] Found %d generators, %d points", #AutoGenAllGenerators, #AutoGenAllPoints))
+    print("[Auto Gen] Started! Waiting for player on point...")
     
-    task.spawn(function()
+    spamThread = task.spawn(function()
         local remote = ReplicatedStorage:FindFirstChild("Remotes")
-        if not remote then return end
+        if not remote then
+            print("[Auto Gen] ❌ Remotes not found!")
+            AutoGenIsSpamming = false
+            isSpamming = false
+            return
+        end
         
         local genRemote = remote:FindFirstChild("Generator")
-        if not genRemote then return end
+        if not genRemote then
+            print("[Auto Gen] ❌ Generator remote not found!")
+            AutoGenIsSpamming = false
+            isSpamming = false
+            return
+        end
         
         local repairRemote = genRemote:FindFirstChild("RepairEvent")
         local skillRemote = genRemote:FindFirstChild("SkillCheckResultEvent")
         
         if not repairRemote or not skillRemote then
-            print("[Auto Gen] Remote not found!")
+            print("[Auto Gen] ❌ RepairEvent or SkillCheckResultEvent not found!")
             AutoGenIsSpamming = false
+            isSpamming = false
             return
         end
         
-        while AutoGenIsSpamming and AutoGenEnabled do
-            local speed = GetPlayerSpeed()
-            local near, dist = CheckNearGenerator()
+        while isSpamming and AutoGenEnabled do
+            local ready, point, gen, duration = GetPlayerOnPointDuration()
             
-            if near and speed == 0 then
+            if ready and point and gen then
                 AutoGenSpamCount = AutoGenSpamCount + 1
                 
-                for _, data in pairs(AutoGenAllPoints) do
-                    pcall(function()
-                        repairRemote:FireServer(data.Point, true)
-                    end)
-                end
-                
-                task.wait(0.02)
-                
-                for _, data in pairs(AutoGenAllPoints) do
-                    pcall(function()
-                        skillRemote:FireServer("success", 1, data.Generator, data.Point)
-                    end)
-                end
+                FireRepair(point, gen)
                 
                 if AutoGenSpamCount % 5 == 0 then
-                    print(string.format("[Auto Gen] Spam #%d - Speed 0, Near Gen! (%.1f studs)", AutoGenSpamCount, dist))
+                    print(string.format("[Auto Gen] Spam #%d - Point: %s", AutoGenSpamCount, point.Name))
                 end
                 
-                task.wait(0.02)
-            else
-                if AutoGenSpamCount > 0 and AutoGenSpamCount % 10 == 0 then
-                    print(string.format("[Auto Gen] Waiting... Speed: %.1f, Near: %s, Dist: %.1f", speed, near and "YES" or "NO", dist))
+                task.wait(0.05)
+                
+                -- CEK APAKAH PLAYER MASIH DI POINT
+                local stillOnPoint, _, _ = CheckPlayerOnGeneratorPoint()
+                if not stillOnPoint then
+                    print("[Auto Gen] ❌ Player left point! Stopping...")
+                    PointStartTime = nil
+                    break
                 end
-                task.wait(0.3)
+            else
+                if not CheckPlayerOnGeneratorPoint() then
+                    PointStartTime = nil
+                end
+                task.wait(0.2)
             end
         end
+        
+        print("[Auto Gen] Stopped!")
+        AutoGenIsSpamming = false
+        isSpamming = false
+        spamThread = nil
     end)
 end
 
--- ============ FLOATING BUTTON (FIXED - PAKAI MUZZLE POSITION) ============
+-- STOP AUTO GEN
+local function StopAutoGen()
+    AutoGenEnabled = false
+    AutoGenIsSpamming = false
+    isSpamming = false
+    PointStartTime = nil
+    
+    if spamThread then
+        task.cancel(spamThread)
+        spamThread = nil
+    end
+    
+    print("[Auto Gen] Stopped!")
+end
+
+-- ============ FLOATING BUTTON (FIXED FIRE) ============
 local function CreateFloatingButton()
     if FloatingButton then
         FloatingButton:Destroy()
@@ -2071,7 +2185,7 @@ local function CreateFloatingButton()
     border.Transparency = 0.3
     border.Parent = panel
     
-    -- Crosshair lebih besar dan jelas
+    -- Crosshair
     local crosshair = Instance.new("Frame")
     crosshair.Size = UDim2.new(0, 60, 0, 60)
     crosshair.Position = UDim2.new(0.5, -30, 0.5, -30)
@@ -2079,7 +2193,6 @@ local function CreateFloatingButton()
     crosshair.ZIndex = 5
     crosshair.Parent = panel
     
-    -- Garis crosshair lebih tebal
     local top = Instance.new("Frame")
     top.Size = UDim2.new(0, 6, 0, 20)
     top.Position = UDim2.new(0.5, -3, 0, 0)
@@ -2108,7 +2221,6 @@ local function CreateFloatingButton()
     right.BackgroundTransparency = 0.2
     right.Parent = crosshair
     
-    -- Dot tengah
     local dot = Instance.new("Frame")
     dot.Size = UDim2.new(0, 8, 0, 8)
     dot.Position = UDim2.new(0.5, -4, 0.5, -4)
@@ -2120,7 +2232,7 @@ local function CreateFloatingButton()
     dotCorner.CornerRadius = UDim.new(1, 0)
     dotCorner.Parent = dot
     
-    -- Rotasi crosshair pelan
+    -- Rotasi crosshair
     spawn(function()
         while wait(0.05) do
             pcall(function()
@@ -2158,7 +2270,6 @@ local function CreateFloatingButton()
     dragLabel.ZIndex = 11
     dragLabel.Parent = barPanel
     
-    -- Label "FIRE"
     local fireLabel = Instance.new("TextLabel")
     fireLabel.Size = UDim2.new(1, 0, 0, 20)
     fireLabel.Position = UDim2.new(0, 0, 0, 65)
@@ -2172,60 +2283,56 @@ local function CreateFloatingButton()
     fireLabel.Parent = panel
     
     -- ============================================
-    -- BUTTON FIRE (PAKAI LOGIC SAMA DENGAN SILENT AIM - MUZZLE POSITION)
+    -- BUTTON FIRE (FIXED - SAMA KAYAK SILENT AIM)
     -- ============================================
     local function FireFromButton()
         if SilentAimState.IsFiring then return end
         
-        print("[FloatButton] 🔫 FIRING...")
+        SilentAimState.IsFiring = true
         
         local gunTool = GetGunTool()
         if not gunTool then
-            print("[FloatButton] ❌ Twist of Fate not equipped!")
+            SilentAimState.IsFiring = false
             return
         end
         
         local target, rawDist = GetSilentTarget()
         if not target then
-            print("[FloatButton] ❌ No Killer found!")
+            SilentAimState.IsFiring = false
             return
         end
         
         local targetPos, distance = GetTargetPositionBody(target)
         if not targetPos then
-            print("[FloatButton] ❌ Target position failed!")
+            SilentAimState.IsFiring = false
             return
         end
         
-        -- PAKAI MUZZLE POSITION (sama seperti Silent Aim)
         local myPos = GetMuzzlePosition()
         if not myPos then
-            print("[FloatButton] ❌ Muzzle position failed!")
+            SilentAimState.IsFiring = false
             return
         end
         
         local direction = (targetPos - myPos).Unit
-        print(string.format("[FloatButton] 🎯 Target: %s | Distance: %.1f studs", target.Parent.Name, distance))
         
         local remote = ReplicatedStorage:FindFirstChild("Remotes")
         if not remote then
-            print("[FloatButton] ❌ Remotes not found!")
+            SilentAimState.IsFiring = false
             return
         end
         
         local twistRemote = remote:FindFirstChild("Items"):FindFirstChild("Twist of Fate")
         if not twistRemote then
-            print("[FloatButton] ❌ Twist of Fate remote not found!")
+            SilentAimState.IsFiring = false
             return
         end
         
         local fireRemote = twistRemote:FindFirstChild("Fire")
         if not fireRemote then
-            print("[FloatButton] ❌ Fire remote not found!")
+            SilentAimState.IsFiring = false
             return
         end
-        
-        SilentAimState.IsFiring = true
         
         local success, err = pcall(function()
             fireRemote:FireServer(gunTool, direction)
@@ -2234,14 +2341,11 @@ local function CreateFloatingButton()
         SilentAimState.IsFiring = false
         
         if success then
-            print("[FloatButton] ✅ FIRESERVER SUCCESS!")
             -- Flash effect
             panel.BackgroundColor3 = Color3.fromRGB(200, 50, 50)
             task.wait(0.05)
             panel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
             CheckKillerStun()
-        else
-            print("[FloatButton] ❌ FIRESERVER FAILED:", err)
         end
     end
     
@@ -2732,7 +2836,7 @@ SilentAimSection:Toggle({
 })
 
 SilentAimSection:Toggle({
-    Title = "Line Tracer (Twist of Fate → Body)",
+    Title = "Line Tracer (Right Arm → Body)",
     Default = false,
     Callback = function(Value)
         SilentAimConfig.ShowLineTracer = Value
@@ -2746,7 +2850,7 @@ SilentAimSection:Toggle({
             end
             LineTracerObjects = {}
         end
-        WindUI:Notify({Title = "Line Tracer", Content = Value and "Visible (Twist→Body)" or "Hidden", Duration = 2})
+        WindUI:Notify({Title = "Line Tracer", Content = Value and "Visible (Right Arm→Body)" or "Hidden", Duration = 2})
     end
 })
 
@@ -2804,7 +2908,7 @@ SilentAimSection:Button({
         end
         print("Animation ID:", SilentAimConfig.AnimationId)
         print("Bullet Speed:", SilentAimConfig.BulletSpeed)
-        print("Line Tracer:", SilentAimConfig.ShowLineTracer and "ON (Twist→Body)" or "OFF")
+        print("Line Tracer:", SilentAimConfig.ShowLineTracer and "ON (Right Arm→Body)" or "OFF")
         print("=================================")
         WindUI:Notify({Title = "Status", Content = "Check console for details", Duration = 3})
     end
@@ -2831,33 +2935,121 @@ FloatSection:Toggle({
 -- Auto Gen
 local AutoGenSection = MainTab:Section({Title = "Auto Generator"})
 AutoGenSection:Toggle({
-    Title = "Auto Generator (Speed 0 + Near Gen)",
+    Title = "Auto Generator",
     Default = false,
     Callback = function(Value)
         AutoGenEnabled = Value
         if Value then
-            print("[Auto Gen] Enabled - Speed 0 + Near Gen")
+            print("[Auto Gen] Enabled - Point 1-4 + Speed 0 + 1.5s")
             SetupAutoGen()
-            WindUI:Notify({Title = "Auto Gen", Content = "Enabled - Speed 0 + Near Gen", Duration = 2})
+            WindUI:Notify({Title = "Auto Gen", Content = "Enabled - Point 1-4 + Speed 0 + 1.5s", Duration = 2})
             task.spawn(function()
                 StartAutoGen()
             end)
         else
-            AutoGenIsSpamming = false
-            print("[Auto Gen] Disabled")
+            StopAutoGen()
             WindUI:Notify({Title = "Auto Gen", Content = "Disabled", Duration = 2})
         end
     end
 })
 
-AutoGenSection:Slider({
-    Title = "Trigger Distance (studs)",
-    Step = 0.5,
-    Value = { Min = 1, Max = 20, Default = 7 },
-    Callback = function(value)
-        AutoGenTriggerDistance = value
-        print(string.format("[Auto Gen] Trigger distance set to: %.1f studs", value))
-        WindUI:Notify({Title = "Trigger Distance", Content = string.format("%.1f studs", value), Duration = 2})
+-- Auto Gen Test
+local TestGenSection = MainTab:Section({Title = "Auto Gen - Test"})
+
+TestGenSection:Button({
+    Title = "Test: Cek Generators",
+    Callback = function()
+        local result = CheckGenerators()
+        WindUI:Notify({
+            Title = "Generator Check",
+            Content = result and "✅ Found!" or "❌ Not found!",
+            Duration = 3,
+        })
+    end
+})
+
+TestGenSection:Button({
+    Title = "Test: Setup Auto Gen",
+    Callback = function()
+        local result = SetupAutoGen()
+        WindUI:Notify({
+            Title = "Setup Auto Gen",
+            Content = string.format("✅ %d gens, %d points", #AutoGenAllGenerators, #AutoGenAllPoints),
+            Duration = 3,
+        })
+    end
+})
+
+TestGenSection:Button({
+    Title = "Test: Cek Player on Point",
+    Callback = function()
+        local onPoint, point, gen = CheckPlayerOnGeneratorPoint()
+        if onPoint then
+            WindUI:Notify({
+                Title = "✅ On Point!",
+                Content = string.format("%s - %s", point.Name, gen.Name),
+                Duration = 3,
+            })
+        else
+            WindUI:Notify({
+                Title = "❌ Not on Point",
+                Content = "Berdiri di GeneratorPoint 1-4",
+                Duration = 3,
+            })
+        end
+    end
+})
+
+TestGenSection:Button({
+    Title = "Test: Cek Idle",
+    Callback = function()
+        local idle = IsPlayerIdle()
+        WindUI:Notify({
+            Title = "Idle Check",
+            Content = idle and "✅ Speed 0" or "❌ Not idle",
+            Duration = 3,
+        })
+    end
+})
+
+TestGenSection:Button({
+    Title = "Test: Cek Duration",
+    Callback = function()
+        local ready, point, gen, duration = GetPlayerOnPointDuration()
+        if ready then
+            WindUI:Notify({
+                Title = "✅ READY!",
+                Content = string.format("%.1f detik - %s", duration, point.Name),
+                Duration = 3,
+            })
+        else
+            WindUI:Notify({
+                Title = "⏳ Waiting...",
+                Content = string.format("%.1f/1.5 detik", duration or 0),
+                Duration = 3,
+            })
+        end
+    end
+})
+
+TestGenSection:Button({
+    Title = "Test: Fire Once",
+    Callback = function()
+        local onPoint, point, gen = CheckPlayerOnGeneratorPoint()
+        local idle = IsPlayerIdle()
+        
+        if not onPoint then
+            WindUI:Notify({Title = "Error", Content = "Player tidak di point!", Duration = 2})
+            return
+        end
+        
+        if not idle then
+            WindUI:Notify({Title = "Error", Content = "Player tidak diam! (Speed 0)", Duration = 2})
+            return
+        end
+        
+        FireRepair(point, gen)
+        WindUI:Notify({Title = "Fire Once", Content = "✅ Berhasil!", Duration = 2})
     end
 })
 
@@ -3105,12 +3297,12 @@ print("   by PTUR")
 print("=================================")
 print("Tabs: HOME | MAIN | KILLER | ESP | SETTING")
 print("Features:")
-print("  Auto Parry (Double Parry 0.005s delay + Freeze)")
-print("  Silent Aim (Fire on Aim Stop - Muzzle Position)")
-print("  Line Tracer (Twist of Fate → Body)")
-print("  Floating Shoot Button (Muzzle Position)")
+print("  Auto Parry (Double Parry 0.005s delay + Speed 0)")
+print("  Silent Aim (Fire on Aim Stop - FIXED)")
+print("  Line Tracer (Right Arm → Body - FIXED)")
+print("  Floating Shoot Button (FIXED)")
+print("  Auto Generator (Point 1-4 + Speed 0 + 1.5s)")
 print("  Masked Panel (OFF by default)")
-print("  Auto Generator (Speed 0 + Near Gen)")
 print("  Killer Stun Detector")
 print("  Aimlock")
 print("  ESP")
@@ -3118,8 +3310,10 @@ print("  Danger Indicator")
 print("  Fullbright & No Fog")
 print("  Auto Farm")
 print("=================================")
+print("Silent Aim & FloatButton: FIRE FIXED!")
+print("Line Tracer: RIGHT ARM → BODY")
+print("Auto Gen: Berdiri di GeneratorPoint 1-4, Speed 0, tunggu 1.5 detik")
 print("Floating Button & Masked Panel: OFF by default")
-print("Aktifkan melalui toggle di menu!")
 print("=================================")
 
 WindUI:Notify({
@@ -3182,7 +3376,7 @@ _G.SilentAim = {
         end
         print("  Animation ID:", SilentAimConfig.AnimationId)
         print("  Bullet Speed:", SilentAimConfig.BulletSpeed)
-        print("  Line Tracer:", SilentAimConfig.ShowLineTracer and "ON (Twist→Body)" or "OFF")
+        print("  Line Tracer:", SilentAimConfig.ShowLineTracer and "ON (Right Arm→Body)" or "OFF")
     end,
     Fire = function()
         print("[SilentAim] Manual fire!")
@@ -3198,7 +3392,7 @@ _G.SilentAim = {
     end,
     ToggleLineTracer = function()
         SilentAimConfig.ShowLineTracer = not SilentAimConfig.ShowLineTracer
-        print("[SilentAim] Line Tracer:", SilentAimConfig.ShowLineTracer and "ON (Twist→Body)" or "OFF")
+        print("[SilentAim] Line Tracer:", SilentAimConfig.ShowLineTracer and "ON (Right Arm→Body)" or "OFF")
         if not SilentAimConfig.ShowLineTracer then
             for _, obj in pairs(LineTracerObjects) do
                 pcall(function()
@@ -3293,9 +3487,7 @@ _G.AutoGen = {
         end)
     end,
     Disable = function()
-        AutoGenEnabled = false
-        AutoGenIsSpamming = false
-        print("[AutoGen] Disabled")
+        StopAutoGen()
         WindUI:Notify({Title = "Auto Gen", Content = "Disabled", Duration = 2})
     end,
     Toggle = function()
@@ -3307,8 +3499,7 @@ _G.AutoGen = {
                 StartAutoGen()
             end)
         else
-            AutoGenIsSpamming = false
-            print("[AutoGen] Disabled")
+            StopAutoGen()
             WindUI:Notify({Title = "Auto Gen", Content = "Disabled", Duration = 2})
         end
     end,
@@ -3317,67 +3508,45 @@ _G.AutoGen = {
         print("  Enabled:", AutoGenEnabled)
         print("  Spamming:", AutoGenIsSpamming)
         print("  Spam Count:", AutoGenSpamCount)
-        print("  Trigger Distance:", AutoGenTriggerDistance)
         print("  Generators:", #AutoGenAllGenerators)
-        print("  GeneratorPoints:", #AutoGenAllPoints)
+        print("  GeneratorPoints (1-4):", #AutoGenAllPoints)
         
-        local speed = GetPlayerSpeed()
-        local near, dist = CheckNearGenerator()
-        print("  Player Speed:", speed)
-        print("  Near Generator:", near)
-        print("  Distance:", dist ~= math.huge and string.format("%.1f studs", dist) or "N/A")
-    end,
-    SetDistance = function(dist)
-        AutoGenTriggerDistance = dist or 7
-        print(string.format("[AutoGen] Trigger distance set to: %.1f studs", AutoGenTriggerDistance))
-        WindUI:Notify({Title = "Trigger Distance", Content = string.format("%.1f studs", AutoGenTriggerDistance), Duration = 2})
+        local onPoint, point, gen = CheckPlayerOnGeneratorPoint()
+        local idle = IsPlayerIdle()
+        local ready, _, _, duration = GetPlayerOnPointDuration()
+        print("  On Point:", onPoint and "YES" or "NO")
+        if onPoint then
+            print("    Point:", point and point.Name or "N/A")
+            print("    Generator:", gen and gen.Name or "N/A")
+        end
+        print("  Idle (Speed 0):", idle and "YES" or "NO")
+        print("  Ready (1.5s):", ready and "YES" or "NO")
+        print("  Duration:", duration and string.format("%.1f/1.5s", duration) or "0/1.5s")
     end,
     FireOnce = function()
-        print("[AutoGen] Firing once...")
-        SetupAutoGen()
-        if #AutoGenAllPoints == 0 then
-            print("[AutoGen] No GeneratorPoint found!")
+        local onPoint, point, gen = CheckPlayerOnGeneratorPoint()
+        if not onPoint then
+            print("[AutoGen] ❌ Player tidak di point!")
             return
         end
-        local remote = ReplicatedStorage:FindFirstChild("Remotes")
-        if not remote then return end
-        local genRemote = remote:FindFirstChild("Generator")
-        if not genRemote then return end
-        local repairRemote = genRemote:FindFirstChild("RepairEvent")
-        local skillRemote = genRemote:FindFirstChild("SkillCheckResultEvent")
-        if not repairRemote or not skillRemote then
-            print("[AutoGen] Remote not found!")
+        if not IsPlayerIdle() then
+            print("[AutoGen] ❌ Player tidak diam!")
             return
         end
-        for _, data in pairs(AutoGenAllPoints) do
-            pcall(function()
-                repairRemote:FireServer(data.Point, true)
-            end)
-        end
-        task.wait(0.05)
-        for _, data in pairs(AutoGenAllPoints) do
-            pcall(function()
-                skillRemote:FireServer("success", 1, data.Generator, data.Point)
-            end)
-        end
-        print("[AutoGen] Done!")
-        WindUI:Notify({Title = "Auto Gen", Content = "Fire once done!", Duration = 2})
+        FireRepair(point, gen)
+        print("[AutoGen] ✅ Fire once done!")
     end,
 }
 
 print("=================================")
 print("   ALL SYSTEMS LOADED!")
-print("   Auto Parry: Double Parry (0.005s delay) + Freeze")
-print("   Silent Aim: Fire on Aim Stop (Muzzle Position)")
-print("   Line Tracer: Twist of Fate → Body")
-print("   Floating Button: Muzzle Position")
-print("   Masked Panel: OFF by default")
-print("   Auto Gen: Speed 0 + Near Gen")
-print("   Killer Stun Detector")
+print("   Auto Parry: Double Parry + Speed 0")
+print("   Silent Aim: Fire on Aim Stop (FIXED)")
+print("   Line Tracer: Right Arm → Body (FIXED)")
+print("   Auto Gen: Point 1-4 + Speed 0 + 1.5s")
 print("=================================")
-print("Global Commands:")
-print("  _G.ParryDagger.Parry()    - Test Parry Dagger")
-print("  _G.ParryDagger.Status()   - Check Remote")
+print("Commands:")
+print("  _G.ParryDagger.Parry()    - Test Parry")
 print("  _G.SilentAim.Enable()     - Enable Silent Aim")
 print("  _G.SilentAim.Disable()    - Disable Silent Aim")
 print("  _G.SilentAim.Toggle()     - Toggle Silent Aim")
@@ -3387,21 +3556,17 @@ print("  _G.ShootButton.Toggle()   - Toggle Floating Button")
 print("  _G.ShootButton.Show()     - Show Floating Button")
 print("  _G.ShootButton.Hide()     - Hide Floating Button")
 print("  _G.ShootButton.Fire()     - Fire")
-print("  _G.ShootButton.Move(x,y)  - Move Floating Button")
 print("  _G.MaskedPanel.Show()     - Show Masked Panel")
 print("  _G.MaskedPanel.Hide()     - Hide Masked Panel")
 print("  _G.MaskedPanel.Toggle()   - Toggle Masked Panel")
-print("  _G.MaskedPanel.Move(x,y)  - Move Masked Panel")
 print("  _G.AutoGen.Enable()       - Enable Auto Gen")
 print("  _G.AutoGen.Disable()      - Disable Auto Gen")
 print("  _G.AutoGen.Toggle()       - Toggle Auto Gen")
 print("  _G.AutoGen.Status()       - Status")
-print("  _G.AutoGen.SetDistance(n) - Set trigger distance")
 print("  _G.AutoGen.FireOnce()     - Fire once")
 print("=================================")
-print("DOUBLE PARRY: ENABLED (0.005s delay)")
-print("FREEZE ON PARRY: ENABLED (1 detik)")
-print("LINE TRACER: TWIST OF FATE → BODY")
-print("SILENT AIM & FLOATBUTTON: Muzzle Position (Twist of Fate)")
+print("SILENT AIM & FLOATBUTTON: FIRE FIXED!")
+print("LINE TRACER: RIGHT ARM → BODY")
+print("AUTO GEN: Berdiri di GeneratorPoint 1-4, Speed 0, tunggu 1.5 detik")
 print("FLOATING BUTTON & MASKED PANEL: OFF by default!")
 print("=================================")
