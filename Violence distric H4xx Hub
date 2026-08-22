@@ -151,7 +151,7 @@ local AimbotState = {
 }
 
 -- ============================================
--- 🗡️ VEIL SILENT AIM (FIXED - TANPA ERROR)
+-- 🗡️ VEIL SILENT AIM (DENGAN AUTO PREDICT HEIGHT)
 -- ============================================
 
 local VeilConfig = {
@@ -180,77 +180,11 @@ local VeilState = {
 }
 
 -- ============================================
--- 🔧 VEIL HOOK (SAFE - TANPA ERROR)
+-- 🔧 VEIL HOOK
 -- ============================================
 local oldIndex = nil
 local VeilHookActive = false
-local VeilHookInstalled = false
-local original__index = nil
 
-local function SetupVeilHook()
-    if VeilHookActive then return end
-    
-    print("[Veil] 🔧 Setting up hook...")
-    
-    local mt = getrawmetatable(game)
-    if not mt then
-        print("[Veil] ❌ Cannot get metatable!")
-        return
-    end
-    
-    original__index = mt.__index
-    
-    oldIndex = hookmetamethod(game, "__index", function(self, key)
-        if VeilConfig.Enabled and self:IsA("Camera") and key == "CFrame" then
-            local callingScript = getcallingscript and getcallingscript()
-            if callingScript and 
-               (string.find(callingScript.Name, "Projectile") or 
-                string.find(callingScript.Name, "Veil") or 
-                string.find(callingScript.Name, "Animations")) then
-                local predictedPos = VeilGetDynamicPrediction()
-                if predictedPos then
-                    local originalCFrame = original__index(self, key)
-                    if originalCFrame then
-                        return CFrame.new(originalCFrame.Position, predictedPos)
-                    end
-                end
-            end
-        end
-        return original__index(self, key)
-    end)
-    
-    VeilHookActive = true
-    VeilHookInstalled = true
-    print("[Veil] ✅ Hook installed!")
-end
-
-local function UnhookVeil()
-    if not VeilHookActive then return end
-    
-    print("[Veil] 🔧 Unhooking...")
-    
-    pcall(function()
-        local mt = getrawmetatable(game)
-        if mt then
-            if original__index then
-                mt.__index = original__index
-                print("[Veil] ✅ Hook restored to original!")
-            else
-                mt.__index = nil
-                print("[Veil] ✅ Hook removed!")
-            end
-        end
-    end)
-    
-    oldIndex = nil
-    VeilHookActive = false
-    VeilHookInstalled = false
-    print("[Veil] ❌ Unhooked!")
-end
-
--- ============================================
--- 🔍 VEIL SCAN SINGLE TARGET
--- ============================================
 local function VeilScanSingleTarget()
     if not VeilConfig.Enabled then return nil, nil, math.huge end
     if not (LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("HumanoidRootPart")) then 
@@ -300,9 +234,6 @@ local function VeilScanSingleTarget()
     return closestPlayerPart, closestScreenPos, finalDistance3D
 end
 
--- ============================================
--- 🎯 VEIL AUTO PREDICT HEIGHT
--- ============================================
 local function VeilGetAutoHeight(distance)
     if not VeilConfig.AutoPredictHeight then
         return VeilConfig.HeadOffset
@@ -319,9 +250,6 @@ local function VeilGetAutoHeight(distance)
     end
 end
 
--- ============================================
--- 🎯 VEIL GET DYNAMIC PREDICTION
--- ============================================
 local function VeilGetDynamicPrediction()
     if not VeilConfig.Enabled then return nil end
     
@@ -383,6 +311,42 @@ local function VeilGetDynamicPrediction()
     end
     
     return nil
+end
+
+local function SetupVeilHook()
+    if VeilHookActive then return end
+    oldIndex = hookmetamethod(game, "__index", function(self, key)
+        if self:IsA("Camera") and key == "CFrame" then
+            local callingScript = getcallingscript and getcallingscript()
+            if VeilConfig.Enabled and callingScript and 
+               (string.find(callingScript.Name, "Projectile") or 
+                string.find(callingScript.Name, "Veil") or 
+                string.find(callingScript.Name, "Animations")) then
+                local predictedPos = VeilGetDynamicPrediction()
+                if predictedPos then
+                    local originalCFrame = oldIndex(self, key)
+                    return CFrame.new(originalCFrame.Position, predictedPos)
+                end
+            end
+        end
+        return oldIndex(self, key)
+    end)
+    VeilHookActive = true
+end
+
+local function UnhookVeil()
+    if VeilHookActive then
+        pcall(function()
+            local mt = getrawmetatable(game)
+            if mt and mt.__index then
+                if mt.__index == oldIndex then
+                    mt.__index = nil
+                end
+            end
+        end)
+        oldIndex = nil
+        VeilHookActive = false
+    end
 end
 
 -- ============================================
@@ -505,47 +469,29 @@ local function VeilMainLoop()
 end
 
 -- ============================================
--- 🎛️ VEIL UI FUNCTIONS (FIXED)
+-- 🎛️ VEIL UI FUNCTIONS
 -- ============================================
-
 local function ToggleVeilSilent(state)
     VeilConfig.Enabled = state
-    
     if state then
-        if not VeilHookActive then
-            SetupVeilHook()
-        end
-        
+        if not VeilHookActive then SetupVeilHook() end
         CreateVeilVisuals()
-        if VeilState.FOVCircle then
-            VeilState.FOVCircle.Visible = true
-        end
-        
+        if VeilState.FOVCircle then VeilState.FOVCircle.Visible = true end
         if not VeilLoopConnection then
             VeilLoopConnection = RunService.Heartbeat:Connect(function()
                 pcall(VeilMainLoop)
             end)
         end
-        
         Library:Notify({ Title = "Veil Silent Aim", Content = "ON 🎯 (Auto Height)", Duration = 2 })
     else
-        -- 🔥 Matikan loop dulu
+        UnhookVeil()
+        DestroyVeilVisuals()
         if VeilLoopConnection then
             VeilLoopConnection:Disconnect()
             VeilLoopConnection = nil
         end
-        
-        -- 🔥 Unhook VEIL
-        UnhookVeil()
-        
-        -- 🔥 Hapus visual
-        DestroyVeilVisuals()
-        
-        -- 🔥 Reset state
         VeilState.LockedTarget = nil
         VeilState.LockedTargetScreenPos = nil
-        VeilState.CurrentHeightOffset = VeilConfig.HeadOffset
-        
         Library:Notify({ Title = "Veil Silent Aim", Content = "OFF", Duration = 2 })
     end
 end
@@ -577,7 +523,7 @@ end
 local function ToggleVeilAutoHeight(state)
     VeilConfig.AutoPredictHeight = state
     if state then
-        Library:Notify({ Title = "Auto Predict Height", Content = "ON 📏", Duration = 2 })
+        Library:Notify({ Title = "Auto Predict Height", Content = "ON 📏 (1-100:Y1 | 101-185:Y2 | 186-230:Y3)", Duration = 3 })
     else
         VeilState.CurrentHeightOffset = VeilConfig.HeadOffset
         Library:Notify({ Title = "Auto Predict Height", Content = "OFF", Duration = 2 })
@@ -607,7 +553,7 @@ local InstantSkillCheckConfig = {
 }
 
 -- ============================================
--- 👁️ ESP CONFIG
+-- 👁️ ESP CONFIG (FILL 20%)
 -- ============================================
 local ESPConfig = {
     Player = true,
@@ -616,7 +562,7 @@ local ESPConfig = {
     Generator = true,
     Window = true,
     UpdateInterval = 0.3,
-    FillTransparency = 0.8,
+    FillTransparency = 0.8, -- 20% fill
 }
 
 local ESPObjects = {}
@@ -2127,6 +2073,7 @@ local function UpdateESP()
             return
         end
         
+        -- 🔥 PLAYER ESP
         if ESPConfig.Player then
             for _, player in pairs(Players:GetPlayers()) do
                 if player ~= LocalPlayer then
@@ -2140,6 +2087,7 @@ local function UpdateESP()
             end
         end
         
+        -- 🔥 MAP OBJECTS
         local objects = FindMapObjects()
         
         if ESPConfig.Pallet then
@@ -2186,6 +2134,7 @@ local function UpdateESP()
     end
 end
 
+-- 🔥 FORCE UPDATE ESP
 local function ForceUpdateESP()
     ESPUpdateTimer = 0
     ESPNeedsUpdate = true
@@ -2194,6 +2143,7 @@ local function ForceUpdateESP()
     end)
 end
 
+-- 🔥 SETUP ESP LISTENERS (REAL-TIME UPDATE)
 local function SetupESPListeners()
     for _, conn in pairs(ESPConnections) do
         pcall(function() conn:Disconnect() end)
@@ -2204,17 +2154,20 @@ local function SetupESPListeners()
         ForceUpdateESP()
     end
     
+    -- 🔥 Player join/leave
     local conn1 = Players.PlayerAdded:Connect(onPlayerChange)
     table.insert(ESPConnections, conn1)
     
     local conn2 = Players.PlayerRemoving:Connect(onPlayerChange)
     table.insert(ESPConnections, conn2)
     
+    -- 🔥 Team change
     local conn3 = Players.PlayerAdded:Connect(function(player)
         player:GetPropertyChangedSignal("Team"):Connect(onPlayerChange)
     end)
     table.insert(ESPConnections, conn3)
     
+    -- 🔥 Character added/removing + Health change
     local conn4 = Players.PlayerAdded:Connect(function(player)
         player.CharacterAdded:Connect(function(char)
             onPlayerChange()
@@ -2227,6 +2180,7 @@ local function SetupESPListeners()
     end)
     table.insert(ESPConnections, conn4)
     
+    -- 🔥 Map changes
     local map = workspace:FindFirstChild("Map")
     if map then
         local conn5 = map.ChildAdded:Connect(onPlayerChange)
@@ -2239,6 +2193,7 @@ local function SetupESPListeners()
         table.insert(ESPConnections, conn8)
     end
     
+    -- 🔥 Workspace changes (for pallets, hooks, etc)
     local conn9 = workspace.DescendantAdded:Connect(function(child)
         if child:IsA("Model") and 
            (child.Name == "Palletwrong" or child.Name == "Hook" or child.Name == "Generator" or child.Name == "Window" or child.Name == "Walllight") then
@@ -2248,6 +2203,7 @@ local function SetupESPListeners()
     table.insert(ESPConnections, conn9)
 end
 
+-- 🔥 ESP LOOP
 local function ESPLoop()
     if not ESPLoopRunning then return end
     
@@ -2332,37 +2288,25 @@ local function SetAimbotSmoothness(value) AimbotConfig.Killer.Smoothness = value
 -- VEIL
 local function ToggleVeilSilent(state)
     VeilConfig.Enabled = state
-    
     if state then
-        if not VeilHookActive then
-            SetupVeilHook()
-        end
-        
+        if not VeilHookActive then SetupVeilHook() end
         CreateVeilVisuals()
-        if VeilState.FOVCircle then
-            VeilState.FOVCircle.Visible = true
-        end
-        
+        if VeilState.FOVCircle then VeilState.FOVCircle.Visible = true end
         if not VeilLoopConnection then
             VeilLoopConnection = RunService.Heartbeat:Connect(function()
                 pcall(VeilMainLoop)
             end)
         end
-        
         Library:Notify({ Title = "Veil Silent Aim", Content = "ON 🎯 (Auto Height)", Duration = 2 })
     else
+        UnhookVeil()
+        DestroyVeilVisuals()
         if VeilLoopConnection then
             VeilLoopConnection:Disconnect()
             VeilLoopConnection = nil
         end
-        
-        UnhookVeil()
-        DestroyVeilVisuals()
-        
         VeilState.LockedTarget = nil
         VeilState.LockedTargetScreenPos = nil
-        VeilState.CurrentHeightOffset = VeilConfig.HeadOffset
-        
         Library:Notify({ Title = "Veil Silent Aim", Content = "OFF", Duration = 2 })
     end
 end
@@ -2980,6 +2924,7 @@ VeilGroup:AddSlider("SliderVeilHeadOffset", {
 
 VeilGroup:AddDivider()
 
+-- 🔥 AUTO PREDICT HEIGHT
 VeilGroup:AddToggle("ToggleVeilAutoHeight", {
     Text = "📏 Auto Predict Height",
     Icon = "ruler",
@@ -3168,11 +3113,11 @@ print("=================================")
 print("✅ Auto Parry (ESC 2x + Visuals)")
 print("✅ Silent Aim - Twist of Fate")
 print("✅ Killer Aimbot")
-print("✅ Veil Silent Aim (FIXED - No Crash)")
+print("✅ Veil Silent Aim (Auto Height + FOV + Line)")
 print("  📏 Auto Height: 1-100:Y1 | 101-185:Y2 | 186-230:Y3")
 print("  🟢 FOV Circle: Hijau (Instance)")
 print("  🔴 Line Tracer: Merah ke 1 target")
-print("  🔧 Unhook saat dimatikan (No Error)")
+print("  🔧 Unhook saat dimatikan (No Crash)")
 print("✅ Auto SkillCheck (Wait for Zone)")
 print("✅ Instant SkillCheck (Ubah Rotate → Click)")
 print("✅ ESP Real-Time Update (Player join/leave, health, map)")
@@ -3180,11 +3125,16 @@ print("✅ ESP Fill 20% (FillTransparency = 0.8)")
 print("✅ Auto Farm")
 print("✅ Fullbright & No Fog")
 print("=================================")
-print("📌 VEIL FIX:")
-print("  - Hook tidak ganggu script game")
-print("  - Unhook saat dimatikan (No Error)")
-print("  - Loop di-stop sebelum unhook")
-print("  - Restore original __index metamethod")
+print("📌 GLOBAL COMMANDS:")
+print("  _G.AutoParry.Toggle()")
+print("  _G.H4XX.SilentAim.Toggle()")
+print("  _G.H4XX.KillerAimbot.Toggle()")
+print("  _G.H4XX.Veil.Toggle()")
+print("  _G.H4XX.Veil.SetFOV(250)")
+print("  _G.H4XX.ESP.All.Toggle()")
+print("  _G.H4XX.Auto.Gen.Toggle()")
+print("  _G.H4XX.Auto.Instant.Toggle()")
+print("  _G.H4XX.Auto.Farm.Toggle()")
 print("=================================")
 
 -- ============================================
