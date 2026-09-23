@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>LoveConfess — Buat Confess Kamu 💗</title>
+<style>
+:root{--pink:#ff4f87;--pink2:#ff8fb3;--bg:#fff4f8;--dark:#421d2d}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif;color:var(--dark);background:radial-gradient(circle at 20% 10%,#ffd9e7,transparent 35%),radial-gradient(circle at 90% 90%,#ffd2e2,transparent 35%),var(--bg);min-height:100vh;overflow-x:hidden}
+.bg-hearts{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:0}.heart{position:absolute;bottom:-40px;font-size:24px;animation:float linear infinite;opacity:.55}@keyframes float{to{transform:translateY(-115vh) rotate(360deg);opacity:0}}
+.wrap{position:relative;z-index:1;max-width:980px;margin:auto;padding:32px 18px 60px}.hero{text-align:center;padding:32px 10px 22px}.badge{display:inline-block;background:#fff;border:1px solid #ffd0df;border-radius:999px;padding:8px 14px;font-size:13px;box-shadow:0 8px 25px #ff6f9b20}.hero h1{font-size:clamp(38px,7vw,72px);line-height:.95;margin:18px 0 12px;letter-spacing:-3px}.gradient{background:linear-gradient(90deg,#ff3f7d,#ff8eae,#d84cff);-webkit-background-clip:text;color:transparent}.hero p{max-width:650px;margin:auto;color:#805467;font-size:17px;line-height:1.6}
+.card{background:#ffffffd9;backdrop-filter:blur(18px);border:1px solid #fff;border-radius:28px;padding:24px;box-shadow:0 25px 70px #9b315b18;margin-top:22px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}@media(max-width:720px){.grid{grid-template-columns:1fr}}
+label{font-weight:700;font-size:14px;display:block;margin:4px 0 8px}input,textarea,select{width:100%;border:1px solid #f2c4d4;background:#fffafc;border-radius:14px;padding:13px 14px;font:inherit;color:var(--dark);outline:none}input:focus,textarea:focus,select:focus{border-color:#ff75a0;box-shadow:0 0 0 4px #ff75a01a}textarea{min-height:150px;resize:vertical}.field{margin-bottom:16px}.hint{font-size:12px;color:#956a7a;margin-top:6px}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px}button{border:0;border-radius:14px;padding:13px 17px;font-weight:800;font-size:14px;cursor:pointer;transition:.2s}button:hover{transform:translateY(-2px)}.primary{background:linear-gradient(135deg,#ff3f7d,#ff77a5);color:#fff;box-shadow:0 10px 25px #ff4f8740}.secondary{background:#fff;color:#d6336c;border:1px solid #ffd0df}.danger{background:#fff0f4;color:#c42e62}
+.preview{min-height:330px;display:grid;place-items:center}.letter{width:min(560px,100%);background:linear-gradient(145deg,#fff,#fff4f8);border:1px solid #ffd4e1;border-radius:24px;padding:30px;box-shadow:0 20px 50px #b52c6018;text-align:center;position:relative;overflow:hidden}.letter:before{content:"♥";position:absolute;right:20px;top:-18px;font-size:100px;color:#ffbad0;opacity:.22}.to{font-size:14px;color:#c2486e}.letter h2{font-size:34px;margin:8px 0 18px}.message{white-space:pre-wrap;line-height:1.75;color:#6d4655}.from{margin-top:22px;font-weight:800;color:#d53e70}.linkbox{display:none;margin-top:18px;padding:14px;border-radius:16px;background:#fff4f8;border:1px dashed #ff8bad}.linkbox.show{display:block}.linkrow{display:flex;gap:8px}.linkrow input{font-size:12px}@media(max-width:520px){.linkrow{flex-direction:column}}
+.footer{text-align:center;color:#a37586;font-size:12px;margin-top:25px}
+</style>
+</head>
+<body>
+<div class="bg-hearts" id="hearts"></div>
+<div class="wrap">
+<section class="hero">
+  <span class="badge">💌 LoveConfess • simple, cute, shareable</span>
+  <h1>Make your <span class="gradient">love story</span> a link.</h1>
+  <p>Buat halaman confess romantis dalam beberapa detik. Isi nama, pilih gaya, edit kata-kata, lalu generate link yang bisa langsung dibagikan.</p>
+</section>
+
+<section class="card">
+  <div class="grid">
+    <div>
+      <div class="field"><label>Nama dia 💗</label><input id="to" placeholder="Contoh: Aulia"></div>
+      <div class="field"><label>Nama kamu</label><input id="from" placeholder="Contoh: Raka"></div>
+      <div class="field"><label>Gaya pesan</label>
+        <select id="style">
+          <option value="sweet">Sweet & soft 💕</option>
+          <option value="cute">Cute & playful 🥹</option>
+          <option value="deep">Deep & sincere 💌</option>
+        </select>
+      </div>
+      <div class="field"><label>Kata-kata confess</label><textarea id="msg"></textarea><div class="hint">Tinggal ubah nama atau edit seluruh kalimat sesukamu.</div></div>
+      <div class="actions">
+        <button class="primary" onclick="generate()">✨ Generate Link</button>
+        <button class="secondary" onclick="randomize()">🎀 Buat Kata-kata</button>
+        <button class="secondary" onclick="preview()">👀 Preview</button>
+      </div>
+      <div class="linkbox" id="linkbox">
+        <b>Link confess kamu sudah jadi 💖</b>
+        <div class="linkrow" style="margin-top:9px"><input id="sharelink" readonly><button class="primary" onclick="copyLink()">Copy</button></div>
+        <div class="hint">Catatan: versi ini menyimpan isi pesan di URL, jadi tidak butuh database/server.</div>
+      </div>
+    </div>
+    <div class="preview">
+      <div class="letter" id="letter">
+        <div class="to">Untuk seseorang yang spesial 💗</div>
+        <h2 id="pTo">Nama Dia</h2>
+        <div class="message" id="pMsg">Tulis pesanmu di sebelah kiri, lalu preview akan muncul di sini.</div>
+        <div class="from" id="pFrom">— Nama Kamu</div>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="footer">Made with 💗 • LoveConfess</div>
+</div>
+
+<script>
+const templates={
+ sweet:"Hai {to} 💗\\n\\nAku sebenarnya sudah lama ingin bilang ini. Ada sesuatu tentang kamu yang selalu berhasil bikin hariku terasa lebih hangat.\\n\\nAku suka kamu. Bukan cuma sedikit. 🥹\\n\\nKalau kamu berkenan, aku ingin mengenal kamu lebih dekat dan membuat lebih banyak cerita bersama.\\n\\n— {from}",
+ cute:"Hai {to}! 🫣💗\\n\\nAku punya pengakuan kecil yang sebenarnya nggak kecil-kecil amat...\\n\\nAku suka kamu! Iya, kamu. Yang mungkin sekarang lagi baca pesan ini sambil senyum-senyum sendiri. 😳\\n\\nJadi... boleh nggak aku jadi salah satu alasan kamu tersenyum setiap hari? 💕\\n\\n— {from}",
+ deep:"Untuk {to},\\n\\nAku nggak tahu kapan tepatnya perasaan ini berubah menjadi sesuatu yang lebih. Yang aku tahu, setiap kali memikirkan kamu, ada rasa nyaman yang sulit dijelaskan.\\n\\nAku ingin jujur: aku punya perasaan untukmu. Aku tidak berharap kamu harus menjawab sekarang. Aku hanya ingin kamu tahu, karena perasaan yang tulus pantas disampaikan dengan jujur.\\n\\nSemoga setelah membaca ini, kamu tahu betapa berartinya kamu. 💌\\n\\n— {from}"
+};
+const $=id=>document.getElementById(id);
+function fillTemplate(){let t=templates[$("style").value];$("msg").value=t.replaceAll("{to}",$("to").value||"kamu").replaceAll("{from}",$("from").value||"aku");preview()}
+function preview(){let to=$("to").value||"Nama Dia",from=$("from").value||"Nama Kamu",msg=$("msg").value||"Tulis pesanmu di sebelah kiri...";$("pTo").textContent=to;$("pFrom").textContent="— "+from;$("pMsg").textContent=msg}
+function randomize(){fillTemplate();burst()}
+$("style").addEventListener("change",fillTemplate);$("to").addEventListener("input",preview);$("from").addEventListener("input",preview);
+function generate(){
+ preview();
+ const data={to:$("to").value||"Kamu",from:$("from").value||"Aku",msg:$("msg").value||"Aku suka kamu. 💗",style:$("style").value};
+ const encoded=btoa(unescape(encodeURIComponent(JSON.stringify(data))));
+ const url=location.href.split("#")[0]+"#confess="+encoded;
+ $("sharelink").value=url;$("linkbox").classList.add("show");history.replaceState(null,"",url);burst();
+}
+async function copyLink(){try{await navigator.clipboard.writeText($("sharelink").value);$("sharelink").nextElementSibling.textContent="Copied! 💖";setTimeout(()=>$("sharelink").nextElementSibling.textContent="Copy",1300)}catch(e){$("sharelink").select();document.execCommand("copy")}}
+function loadHash(){if(!location.hash.startsWith("#confess="))return;try{let d=JSON.parse(decodeURIComponent(escape(atob(location.hash.slice(9)))));$("to").value=d.to||"";$("from").value=d.from||"";$("style").value=d.style||"sweet";$("msg").value=d.msg||"";preview();document.querySelector(".hero h1").innerHTML='Someone has a <span class="gradient">message</span> for you 💗';}catch(e){}}
+function burst(){for(let i=0;i<14;i++){let h=document.createElement("div");h.textContent=["💗","💕","💖","💘"][Math.floor(Math.random()*4)];h.style.position="fixed";h.style.left=(50+(Math.random()-.5)*30)+"%";h.style.top=(55+(Math.random()-.5)*10)+"%";h.style.fontSize=(16+Math.random()*25)+"px";h.style.zIndex=20;h.style.pointerEvents="none";document.body.appendChild(h);h.animate([{transform:"translate(-50%,-50%) scale(.4)",opacity:0},{transform:"translate("+(Math.random()*260-130)+"px,"+(Math.random()*-260-80)+"px) scale(1)",opacity:1},{transform:"translate("+(Math.random()*400-200)+"px,"+(Math.random()*-430-120)+"px) scale(.6)",opacity:0}],{duration:1100,easing:"ease-out"}).onfinish=()=>h.remove()}}
+for(let i=0;i<22;i++){let h=document.createElement("div");h.className="heart";h.textContent=["♥","♡","💗","💕"][i%4];h.style.left=Math.random()*100+"%";h.style.animationDuration=(7+Math.random()*9)+"s";h.style.animationDelay=(-Math.random()*12)+"s";h.style.fontSize=(12+Math.random()*25)+"px";$("hearts").appendChild(h)}
+loadHash();if(!$("msg").value)fillTemplate();
+</script>
+</body>
+</html>
